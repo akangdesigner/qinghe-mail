@@ -801,6 +801,28 @@ const GIVEN = ME.length >= 2 ? ME.slice(1) : ME, HON = ME[0] + (SEX === "f" ? "�
 const pz = v => typeof v !== "string" ? v : v.split("王小明").join(ME).split("王先生").join(HON).split("小明").join(GIVEN).split("xiaoming.wang").join(ACCT).split("qinghe-foods.com.tw").join(DOMAIN);
 const pzMail = m => { for (const k in m) m[k] = pz(m[k]); return m; };
 const C = {su:"#8e562e", chen:"#c239b3", lin:"#038387", zhou:"#5c2e91", hr:"#5d5a58", it:"#0063b1", fw:"#986f0b"};
+// 姓氏章：su 蘇志誠舊章（圓）、su2 蘇志誠 9 月換的新章（方）、wu 吳佩珊、date 資訊處收件章；smudge 版被水漬糊掉上半
+const STAMP = {
+  su: '<circle cx="24" cy="24" r="20" fill="none" stroke="#c8102e" stroke-width="2.5"/><text x="24" y="34" font-size="28" fill="#c8102e" text-anchor="middle" font-family="Kaiti TC,BiauKai,STKaiti,DFKai-SB,KaiTi,serif">蘇</text>',
+  su2: '<rect x="3" y="2" width="42" height="44" rx="2" fill="none" stroke="#c8102e" stroke-width="3"/><path d="M24 4 V44" stroke="#c8102e" stroke-width="1.5"/><text x="34" y="21" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">蘇</text><text x="34" y="39" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">志</text><text x="14" y="21" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">誠</text><text x="14" y="39" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">印</text>',
+  wu: '<circle cx="24" cy="24" r="20" fill="none" stroke="#c8102e" stroke-width="2.5"/><text x="24" y="34" font-size="28" fill="#c8102e" text-anchor="middle" font-family="Kaiti TC,BiauKai,STKaiti,DFKai-SB,KaiTi,serif">吳</text>',
+  date: '<rect x="2" y="10" width="44" height="28" rx="2" fill="none" stroke="#c8102e" stroke-width="2"/><path d="M2 20 H46" stroke="#c8102e" stroke-width="1.2"/><text x="24" y="18" font-size="7" fill="#c8102e" text-anchor="middle">資訊處 收件</text><text x="24" y="32" font-size="8" fill="#c8102e" text-anchor="middle" font-family="monospace">2026.10.30</text>'};
+const stamp = (k, rot = -3, smudge = "") => `<svg width="48" height="48" viewBox="0 0 48 48" style="width:58px;height:58px;fill:#000;stroke:none;transform:rotate(${rot}deg);vertical-align:middle">${smudge ? `<defs><filter id="sm${smudge}"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter><linearGradient id="fd${smudge}" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff"/></linearGradient><mask id="mk${smudge}"><rect width="48" height="48" fill="url(#fd${smudge})"/></mask></defs>` : ""}<g opacity=".85" ${smudge ? `filter="url(#sm${smudge})" mask="url(#mk${smudge})"` : ""}>${STAMP[k]}</g></svg>`;
+const FORM = `<div style="margin:16px 0;max-width:440px;border:1px solid #c8c6c4;border-radius:4px;overflow:hidden">
+<div style="background:#f3f2f1;color:#323130;padding:6px 10px;font-size:12px">📎 權限移轉申請單_IT-2026-1047.pdf</div>
+<div style="background:#fff;color:#222;padding:14px 16px;font-size:13px;line-height:1.7">
+<div style="text-align:center;font-weight:700;font-size:15px;margin-bottom:6px">晴禾食品　資料夾權限移轉申請單</div>
+申請日期：2026/10/30　　單號：IT-2026-1047<br>申請單位：經營企劃部<br>移轉內容：周以恩（已離職）共用資料夾 → 王小明
+<table style="width:100%;margin-top:10px;border-collapse:collapse;text-align:center"><tr>${[["承辦人", "吳佩珊", "wu", -4], ["單位主管", "蘇志誠", "su", 3], ["資訊處", "許志明", "date", -2]].map(([t, n, k, r]) => `<td style="border:1px solid #999;padding:4px 0 6px;width:33%"><div style="font-size:12px;border-bottom:1px solid #999;margin-bottom:4px">${t}</div>${stamp(k, r)}<div style="font-size:12px;margin-top:2px">${n}</div></td>`).join("")}</tr></table>
+</div></div>`;
+// 長輩圖：亮色漸層底＋一排花＋描邊大字
+const elderPic = (big, sub, bg) => `<svg viewBox="0 0 320 220" style="width:100%;max-width:560px;height:auto;fill:#000;stroke:none;display:block;margin:10px 0;border-radius:6px">
+<defs><linearGradient id="eg${big.length}${sub.length}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient></defs>
+<rect width="320" height="220" fill="url(#eg${big.length}${sub.length})"/><circle cx="268" cy="44" r="26" fill="#fff59d" opacity=".9"/>
+${[[18,206],[62,214],[106,204],[150,214],[194,206],[238,214],[282,206]].map(([x, y], i) => `<text x="${x}" y="${y}" font-size="${i % 2 ? 30 : 36}">🌸</text>`).join("")}
+<text x="160" y="92" text-anchor="middle" font-size="${big.length > 3 ? 46 : 58}" font-weight="900" fill="#ffeb3b" stroke="#d50000" stroke-width="4" paint-order="stroke" font-family="DFKai-SB,KaiTi,Kaiti TC,serif" transform="rotate(-4 160 92)">${big}</text>
+<text x="160" y="140" text-anchor="middle" font-size="24" font-weight="900" fill="#fff" stroke="#6a1b9a" stroke-width="4" paint-order="stroke" font-family="DFKai-SB,KaiTi,Kaiti TC,serif">${sub}</text>
+<text x="34" y="44" font-size="22">✨</text><text x="210" y="30" font-size="18">✨</text></svg>`;
 const MAILS = [
   {id:"law", q:"meet", hints:["林律師週四（11/5）下午在臺北地方法院有一庭，開完才能來。他沒說幾點結束，但給了案號。", "信裡的連結是司法院的開庭查詢，選臺北地方法院、輸入年度、字別和案號，就查得到開庭時間和預估多久。", "詳解：查 115 年度訴字第 812 號，11/5 下午 2:30 開庭、預估 60 分鐘，所以林律師 3:30 以後才有空。3:30 之後財務長 4:30 有事、蘇經理 5:00 外出，能排滿一小時的只有 3:30–4:30。"], grp:"今天", from:"林志遠", c:C.fw, tm:"上午 11:26", unread:true, ext:true,
    subj:"RE: 週四（11/5）會議，請協助排時間", pv:"蘇經理您好，週四（11/5）下午我在臺北地方法院有一庭（115 年度訴字第 812 號）……",
@@ -868,31 +890,36 @@ const MAILS = [
    who:"IT Service Desk &lt;it-service@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
    body:`<p>王小明 您好：</p><p>您的 Microsoft 365 帳號已建立：</p>
 <p>帳號：xiaoming.wang@qinghe-foods.com.tw<br>首次登入請變更密碼，並設定 Microsoft Authenticator 多重要素驗證（MFA）。</p>
-<p>前任同仁周以恩之共用資料夾權限，已依部門主管申請轉移給您。</p>
+<p>前任同仁周以恩之共用資料夾權限，已依部門主管申請轉移給您，申請單如附件。</p>${FORM}
 <p>資訊處絕不會以任何方式向您索取密碼或驗證碼。</p>
 <div class="sig"><b>資訊處 IT Service Desk</b>　#2000</div>`},
   {id:"n-news", grp:"昨天", from:"食品產業電子報", c:"#8a8886", tm:"週日 上午 9:00", sys:true, ext:true,
    subj:"食品產業週報 第 312 期｜原物料價格回穩、Q4 併購案件增加", pv:"本期重點：國際糖價連三週回落；上市櫃食品業 Q4 併購與策略聯盟案件較去年同期增加……",
    who:"食品產業電子報 &lt;news@foodindustry-weekly.com.tw&gt;", to:"收件者：王小明",
    body:`<p><b>本期重點</b></p><ul><li>國際糖價連三週回落，飲料業者成本壓力趨緩</li><li>上市櫃食品業 Q4 併購與策略聯盟案件較去年同期增加</li><li>冷鏈物流新制 2027 年上路，業者準備好了嗎？</li></ul><p style="color:#8a8886">如不想再收到此電子報，請按此取消訂閱。</p>`},
+  {id:"n-ml", grp:"昨天", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁", tm:"週一 上午 7:58", sys:true,
+   subj:"週一早安 11 月結帳日提醒", pv:"各位同仁早安，新的一週開始了，11 月結帳日為 11/25（三）……",
+   body:`${elderPic("早安🌷", "平安喜樂 天天開心", ["#ff80ab", "#ffd180"])}<p>各位同仁早安：</p><p>新的一週開始了，11 月結帳日為 <b>11/25（三）</b>，請各單位於期限前完成費用核銷。</p><p>天氣轉涼，大家注意保暖。</p><div class="sig"><b>張美玲</b>　財務長</div>`},
   {id:"n-b1", grp:"更早", from:"總務處", c:"#6b6b6b", tm:"10/30", date:"2026/10/30（週五） 下午 4:00", sys:true,
    subj:"【總務處】再次提醒：B1 會議室暫停開放線上預約", pv:"各位同仁好：B1 會議室因空調及隔音工程，自 9/1 起暫停開放線上預約……",
    who:"總務處 &lt;ga@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
    body:`<p>各位同仁好：</p><p>B1 會議室因空調及隔音工程，自 9/1 起暫停開放線上預約。工程期間如有使用需求，<b>請洽董事長室（#1201）</b>。</p><p>12F 大會議室、第二會議室預約不受影響。</p><div class="sig"><b>總務處</b>　#1300</div>`},
 ];
-// 第 2 題：子晴請你用部門帳號代訂下午茶，訂單成立通知會帶出離職後還在跑的 B1 預約訂單
-const TEA_REQ = {id:"tea", from:"林子晴", c:"#038387", sys:false, q:"draft", who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-  subj:"11/5（四）部門下午茶代訂", pv:"小明～以恩離職後部門下午茶就停了，大家一直在問，這週四想恢復，麻煩你用部門帳號代訂……",
-  hints:["子晴請你用部門帳號，在禾茶舖官網訂這週四的下午茶：品項跟 10/1 那次一樣，週四下午 3:30 送 12F 茶水間。",
+// 第 2 題：部門行政佩珊請你用部門帳號代訂下午茶，訂單成立通知會帶出離職後還在跑的 B1 預約訂單
+const TEA_REQ = {id:"tea", from:"吳佩珊", c:"#8764b8", sys:false, q:"draft", who:"吳佩珊 &lt;peishan.wu@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"11/5（四）部門下午茶代訂", pv:"小明您好，以恩離職後部門下午茶停了一個月，這週四要恢復，團購之前是她負責的，麻煩你接手……",
+  hints:["佩珊請你用部門帳號，在禾茶舖官網訂這週四的下午茶：品項跟 10/1 那次一樣，週四下午 3:30 送 12F 茶水間。",
     "帳號密碼要從周以恩的交接資料找。她信箱的草稿裡有一份交接清單，說記在團單「帳」那欄。打開團單（左邊綠色 X）找找看，那欄在哪裡？",
     "詳解：團單欄位從 I 直接跳到 K，J 欄被隱藏了；點 I 或 K 的欄名選「取消隱藏欄」，J 欄寫著帳號 qinghe-plan、密碼 hecha3109。點信裡的禾茶舖官網，到「企業團購」頁最下面的「企業會員專區」登入（不是會員中心，那是個人會員）。在訂單紀錄找 10/1 的團購，按「再訂一次」，送達日期選 11/5（四）、時間 15:30，送出訂單。"],
-  body:`<p>小明～</p>
-<p>以恩離職後部門下午茶就停了，大家一直在問 🥲 這週四（11/5）想恢復，麻煩你用部門帳號在<a href="#" data-web="hecha">禾茶舖官網</a>代訂。</p>
-<p>品項跟上次（10/1）一樣就好，<b>週四下午 3:30</b> 送 12F 茶水間。</p>
-<p>帳密以恩應該有留在交接資料裡。我這兩天都在外面跑客戶，先謝啦 🙏</p>
-<div class="sig"><b>林子晴</b>　經營企劃部　#3112</div>`,
+  body:`<p>小明您好：</p>
+<p>以恩離職後部門下午茶停了一個月，這週四（11/5）要恢復。團購之前是以恩負責的，之後就麻煩你接手，用部門帳號在<a href="#" data-web="hecha">禾茶舖官網</a>下單。</p>
+<p>品項照上次（10/1）就好，<b>週四下午 3:30</b> 送 12F 茶水間，費用走部門月結。</p>
+<p>帳密以恩應該有寫在交接資料裡，再麻煩了。</p>
+<div class="sig"><b>吳佩珊</b>　經營企劃部　行政專員　#3108</div>`,
   onOk: () => { later(() => toast("✓ 訂單已成立"), 800);
-    later(() => linPing(LIN_PING1, ["禾茶舖的通知信我也收到了，謝啦～", "欸，那封信最下面那段……你有看到嗎？", "……算了，可能是我想太多。"]), 7000);
+    later(() => { arrive([{id:"wu2", from:"吳佩珊", c:"#8764b8", sys:true, who:"吳佩珊 &lt;peishan.wu@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+      subj:"RE: 11/5（四）部門下午茶代訂", pv:"收到訂單通知了，謝謝！另外通知信最下面那筆每週四 B1 的預約單……",
+      body:`<p>收到訂單通知了，謝謝！</p><p>另外通知信最下面那筆「每週四 B1 會議室」的預約單，以恩走了之後還一直在扣部門月結，一杯四季春。我不知道是誰訂的，也不知道要不要停，先跟你說一聲。</p><div class="sig"><b>吳佩珊</b>　#3108</div>`}]); notify(MAILS[0]); }, 7000);
     later(() => { arrive([SU_SHARE]); notify(MAILS[0]); }, 13000); }};
 // 禾茶舖訂單成立通知（寄到部門帳號綁定的群組信箱）
 const hcMail = o => ({id:"hc" + Date.now(), ext:true, sys:true, from:"禾茶舖", c:"#c58b00", who:"禾茶舖 &lt;order@hecha-tea.com.tw&gt;", to:"收件者：經營企劃部 &lt;plan@qinghe-foods.com.tw&gt;",
@@ -908,9 +935,9 @@ addEventListener("storage", e => {
   const o = JSON.parse(e.newValue), ok = /11\/5/.test(o.d) && o.t === "15:30" && /12f|茶水/i.test(o.l);
   arrive([hcMail(o)]);
   if (ok){ done.draft = true; return TEA_REQ.onOk(); }
-  later(() => { arrive([{id:"tw" + Date.now(), from:"林子晴", c:"#038387", sys:false, q:"draft", who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-    subj:"RE: 11/5（四）部門下午茶代訂", pv:`小明，我看到禾茶舖的通知了，怎麼是 ${o.d} ${o.t}……`, hints:TEA_REQ.hints,
-    body:`<p>小明，我看到禾茶舖的通知了，怎麼是 ${o.d} ${o.t} 送 ${o.l}🥲</p><p>是<b>週四（11/5）下午 3:30</b>、12F 茶水間喔，麻煩再幫我下一次，多的那筆我再請門市取消～</p><p>子晴</p>`}]); notify(MAILS[0]); miss("送達時間或地點跟子晴說的不一樣"); }, 3000);
+  later(() => { arrive([{id:"tw" + Date.now(), from:"吳佩珊", c:"#8764b8", sys:false, q:"draft", who:"吳佩珊 &lt;peishan.wu@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+    subj:"RE: 11/5（四）部門下午茶代訂", pv:`小明，禾茶舖的通知我這邊也收到了，送達時間是 ${o.d} ${o.t}……`, hints:TEA_REQ.hints,
+    body:`<p>小明，禾茶舖的通知我這邊也收到了，送達是 ${o.d} ${o.t}、${o.l}。</p><p>要的是<b>週四（11/5）下午 3:30</b>、12F 茶水間，麻煩再下一次，多的那筆我再請門市取消。</p><div class="sig"><b>吳佩珊</b>　#3108</div>`}]); notify(MAILS[0]); miss("送達時間或地點跟佩珊說的不一樣"); }, 3000);
 });
 // 第 3 題：蘇經理要你把周以恩的行事曆共用給子晴；打開共用名單會看到外部的 Jason（bluewhale）
 const SU_SHARE = {id:"sushr", from:"蘇志誠", c:C.su, sys:false, q:"share", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
@@ -966,6 +993,10 @@ const ZOLD = [
   Z("z-inbox", "上個月", "2026/10/1（週四） 下午 5:40", "10/1", {id:"zi3", from:"人力資源處", c:C.hr, who:"人力資源處 &lt;hr@qinghe-foods.com.tw&gt;", to:"收件者：周以恩",
     subj:"離職手續確認", pv:"周以恩您好，您的離職生效日為 10/2，請於當日歸還識別證及筆電……",
     body:`<p>周以恩您好：</p><p>您的離職生效日為 10/2，請於當日下班前歸還識別證及筆電。</p><div class="sig"><b>人力資源處</b>　#1100</div>`}),
+  Z("z-inbox", "上個月", "2026/10/9（週五） 下午 5:30", "10/9", {id:"zi8", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
+    subj:"國慶連假平安", pv:"各位同仁辛苦了，連假出遊注意安全……", body:`${elderPic("國慶快樂🌷", "出入平安 闔家安康", ["#4fc3f7", "#b2ff59"])}<p>各位同仁辛苦了：</p><p>連假出遊注意安全，開開心心出門、平平安安回家。</p><div class="sig"><b>張美玲</b>　財務長</div>`}),
+  Z("z-inbox", "更早", "2026/9/25（週五） 上午 8:05", "9/25", {id:"zi9", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
+    subj:"中秋節快樂", pv:"祝各位同仁中秋節快樂，月圓人團圓……", body:`${elderPic("中秋快樂🌷", "月圓人團圓 福氣滿滿", ["#7e57c2", "#ffb74d"])}<p>祝各位同仁中秋節快樂！</p><p>月圓人團圓，闔家平安。</p><div class="sig"><b>張美玲</b>　財務長</div>`}),
   Z("z-inbox", "更早", "2026/9/29（週二） 下午 4:10", "9/29", {id:"zi6", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：何正雄; 蘇志誠; 周以恩",
     subj:"藍海 估值底線（請勿轉寄）", pv:"董事長、志誠、以恩：底線抓每股 52 元，週四會議再正式提……",
     body:`<p>董事長、志誠、以恩：</p><p>底線抓每股 <b>52 元</b>，週四會議再正式提。</p><p>這封請勿轉寄，也不要放進任何共用資料夾。</p><div class="sig"><b>張美玲</b>　財務長</div>`}),
@@ -1230,6 +1261,9 @@ function drawRules(){
     : `<div class="rule-empty">您尚未建立任何規則。</div>`;
 }
 const ZHOU_MAIL = "yien.letters@gmail.com";
+// 第 6 題聯絡上以恩之後，她的話都由子晴用公司信箱轉達
+const LIN_WHO = "林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;";
+const quoteZhou = html => `<div style="border-left:3px solid var(--line);padding-left:12px;color:var(--fg2)">${html}</div>`;
 const AUTO = {
   me: null,
   zhou: {from:"2026/10/2（週五）", inside:"您好，本人已於 10/2 離職，相關業務請洽經營企劃部蘇志誠經理（分機 3105）。\n謝謝這段時間的照顧。\nP.S. 下午茶記得收錢。",
@@ -1280,8 +1314,8 @@ document.getElementById("lg").addEventListener("submit", e => {
 const RECALLED = {id:"lin-orig", from:"林子晴", c:"#038387", who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
   subj:"今日午餐地點異動", pv:"小明，中午不要去 B1。改去你昨天幫大家訂的那 12 杯會送到的地方……", ask:true, sys:false, q:"recall",
   body:`<p>小明，中午不要去 B1。</p><p>改去你昨天幫大家訂的那 12 杯會送到的地方，一樣 12:10。</p><p>Teams 先別聊這件事，回信跟我說你知道是哪裡就好。</p><p>子晴</p>`,
-  check: t => /茶水間/.test(t) ? "ok" : /b1/i.test(t) ? {fail:["經查台端於 11/3（週二）中午 12:10，未經許可進入 B1 會議室，室內監視器拍到台端翻閱本公司藍海專案相關資料。", "經部門主管確認屬實，已嚴重違反本公司保密規定。"], comfort:["小明……我聽說了。", "我信裡明明寫了別去 B1，你怎麼還是去了……那裡根本就是她們等人上鉤的地方。", "你先別難過。去 HR 之前，記得把桌上的私人東西帶走，我中午幫你買了杯紅茶拿鐵，放在 12F 茶水間。", "如果可以重來一次，記得：昨天那 12 杯，送到哪裡？"]} : "不是那裡……想想昨天那張單。想到了直接回這封信跟我說。",
-  okText: "收到，12:10 見。地點請勿外傳，謝謝。", onOk: () => { later(() => toast("✓ 已傳送"), 1500); later(startAfternoon, 4500); }};
+  check: t => /茶水間/.test(t) ? "ok" : /b1/i.test(t) ? {fail:["經查台端於 11/3（週二）中午 12:10，未經許可進入 B1 會議室，室內監視器拍到台端翻閱本公司藍海專案相關資料。", "經部門主管確認屬實，已嚴重違反本公司保密規定。"], comfort:["小明……我聽說了。", "我信裡明明寫了別去 B1，你怎麼還是去了……那裡根本就是她們等人上鉤的地方。", "你先別難過。去 HR 之前，記得把桌上的私人東西帶走，我中午幫你買了杯紅茶拿鐵，放在 12F 茶水間。", "如果可以重來一次，記得：昨天那 12 杯，送到哪裡？"]} : "不是那裡啦……你想想昨天那張單。",
+  okText: "收到，12:10 見。\n之後不要再用個人信件聯絡了，太危險，連 Teams 也可能被看到。\n我會用「總務處」的名義發公文給你，看到總務處的信，記得仔細看。", onOk: () => { later(() => toast("✓ 已傳送"), 1500); later(startAfternoon, 4500); }};
 // 第 5 題：陳怡君早上改了會議室（只告訴你和董事長）
 const CHEN_B1 = {id:"chen-b1", from:"陳怡君", c:C.chen, who:"陳怡君 &lt;yijun.chen@qinghe-foods.com.tw&gt;", to:"收件者：王小明", sys:false,
   subj:"【會議室異動】11/5（四）Q4 營運檢討改至 B1", pv:"小明早，週四下午 12F 大會議室董事長臨時要接待客人，會議改至 B1……",
@@ -1290,44 +1324,71 @@ const SCHED = {id:"zd3", box:"z-drafts", grp:"今天", draft:true, sys:true, fro
   date:"2026/11/3（週二） 上午 7:12", sched:"2026/11/3（週二） 下午 6:00", toAddr:"bluewhale0817@gmail.com",
   subj:"RE: 藍海 估值區間更新", pv:"週四下午三點半，B1。估值最新版如附件……", att:"藍海_估值區間_v7.xlsx（38 KB）",
   body:`週四下午三點半，B1。
-估值最新版如附件，看完刪。
-—— 志誠`};
-const LIN3 = {id:"lin3", from:"林子晴", c:"#038387", who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明", sys:false, ask:true, q:"sched",
-  subj:"RE: 周以恩信箱交接", pv:"剛剛在茶水間沒講完，以恩信箱的部分麻煩你再幫我確認一下……",
-  hints:["林子晴說周以恩的信箱曾經「自己」寄出信。她要你看看現在還有沒有這種信，並推測是誰弄的。",
-    "會自己寄出去的信，通常是設了「排程傳送」。看看周以恩的草稿，數字是不是變多了。",
-    "詳解：周以恩的「草稿」多了一封排程今天下午 6:00 寄給外部 Gmail 的信，先打開按「取消傳送」。信尾署名「志誠」，但內容寫週四的會在 B1。改到 B1 這件事，只有陳怡君早上寫信告訴你（她說董事長那邊她講過、其他人要你再通知，你還沒通知任何人），蘇經理根本不知道。所以排這封信的人是陳怡君，回覆林子晴「陳怡君」。"],
-  body:`<p>小明您好：</p><p>剛剛在茶水間沒講完，補充說明：以恩反映離職前一晚，她的信箱有一封信是「自己」寄出的，她本人並沒有按傳送，隔天就被認定為資料外流。</p><p>麻煩你協助確認她的信箱目前是否還有類似的信件。</p><p>若有，也請判斷可能是誰設定的，回信告知即可。</p><p>子晴</p>`,
-  check: t => !SCHED.canceled ? "先把那封信取消！！6 點就要寄出去了，到時候看起來就是你寄的。取消完再回這封信跟我說是誰。"
+估值最新版如附件，看完刪。`};
+const SCHED_WARN = {id:"dlp", from:"資訊處 IT Service Desk", c:C.it, sys:true, who:"IT Service Desk &lt;it-service@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"[資料外洩防護] 偵測到排程寄往外部的機密附件", pv:"您目前為「周以恩」信箱的委派存取者。系統偵測到該信箱有 1 封排程郵件……",
+  body:`<p>王小明 您好：</p><p>您目前為「周以恩」信箱的委派存取者。系統偵測到該信箱有 1 封排程郵件：</p>
+<table class="wt" style="margin:10px 0"><tr><th>寄送時間</th><td>2026/11/3（週二）下午 6:00</td></tr><tr><th>收件者</th><td>bluewhale0817@gmail.com（外部）</td></tr><tr><th>附件</th><td>藍海_估值區間_v7.xlsx（標示：機密）</td></tr></table>
+<p>依資訊安全政策，前任同仁信箱之寄件行為由交接人負責，請於寄送前確認並處理。</p>
+<div class="sig"><b>資訊處 IT Service Desk</b>　#2000</div>`};
+// 子晴偽裝成總務處發的公文（第 4 題之後改用這個管道聯絡）
+const GA = {from:"總務處", c:"#6b6b6b", sys:false, ask:true, who:"總務處 &lt;ga@qinghe-foods.com.tw&gt;", to:"收件者：王小明"};
+const gongwen = (no, subj, items, how) => `<div style="max-width:520px;border:1px solid #c8c6c4;padding:16px 20px;line-height:1.8">
+<div style="text-align:center;font-weight:700;font-size:16px;letter-spacing:2px">晴禾食品股份有限公司　總務處　函</div>
+<div style="font-size:12px;color:var(--muted);text-align:right">發文日期：2026/11/3　發文字號：晴總字第 ${no} 號</div>
+<p><b>主旨：</b>${subj}</p><p style="margin-bottom:0"><b>說明：</b></p>${items.map((x, i) => `<p style="margin:0 0 0 2em;text-indent:-2em">${"一二三四"[i]}、${x}</p>`).join("")}
+<p><b>辦法：</b>${how}</p><div class="sig" style="text-align:right"><b>總務處</b>　#1300</div></div>`;
+const LIN3 = {id:"lin3", ...GA, q:"sched",
+  subj:"11 月部門下午茶口味調查", pv:"主旨：11 月部門下午茶口味調查。說明：一、11 月起部門下午茶恢復……",
+  hints:["這封總務處公文是子晴發的。資訊處通知周以恩的信箱有一封排程信，今天 6 點會寄到外部，要先擋下來；公文第三點要你查出是誰設定的。",
+    "排程信在周以恩的「草稿」裡，打開後按「取消傳送」。",
+    "公文第二點四個英文口味的第一個字母是紅字，把它們連起來。",
+    "詳解：公文列的四個口味首字母 C、H、E、N 連起來是 CHEN，子晴懷疑的是英文姓 Chen 的陳怡君（簽名檔寫 Yi-Jun Chen）。周以恩的「草稿」多了一封排程今天下午 6:00 寄給外部 Gmail 的信，先打開按「取消傳送」，再回覆這封總務處公文「陳怡君」。"],
+  // 子晴把懷疑的人藏在四個口味的首字母（CHEN）
+  body:gongwen("1131103", "11 月部門下午茶口味調查", ["11 月起部門下午茶恢復，請各單位回覆偏好口味。",
+    '本次候選口味：' + ["Cocoa", "Honey", "Earl Grey", "Nutmeg"].map(w => `<span style="color:var(--flag)">${w[0]}</span>${w.slice(1)}`).join("／") + "。",
+    '離職同仁信箱交接期間，如有自動寄出之郵件，請交接人先行攔截，並<span style="color:var(--flag)">查明設定人</span>。'], "請直接回覆本函。"),
+  check: t => !SCHED.canceled ? "經查該信箱仍有一封排程郵件將於今日 18:00 寄出，請先行攔截後再回覆本函。"
     : /陳|怡君/.test(t) ? "ok"
-    : /蘇|志誠|jason/i.test(t) ? "署名是志誠沒錯……可是你不覺得太刻意了嗎？那封排程的信裡有一件事，蘇經理不可能知道。想到了直接回這封信跟我說。"
-    : "嗯……你再看一次以恩草稿裡那封「排程」的信，信裡提到的事，有誰會知道？想到了直接回這封信跟我說。",
-  okText: "……是怡君姐？\n改到 B1 這件事，確實只有她知道。\n這部分請先不要對外說明，我整理一下再跟你討論。",
+    : /chen/i.test(t) ? "所稱「Chen」為何人？請填寫全名。"
+    : /蘇|志誠|jason/i.test(t) ? "經核，設定人非蘇經理，請再詳閱說明第二點。"
+    : "經核，回覆內容與說明第二點不符，請再詳閱。",
+  okText: "本處已收悉。\n設定人：陳怡君，確認無誤。\n此事請勿對外說明，後續另函通知。",
   onOk: () => { later(() => toast("✓ 已傳送"), 1500); later(startFind, 6000); }};
 // 第 6 題：找到周以恩
-const LIN4 = {id:"lin4", from:"林子晴", c:"#038387", who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明", sys:false, q:"find",
-  subj:"周以恩聯絡方式", pv:"以恩換了手機、LINE 也退群了，寄公司信箱只收到離職的自動回覆……",
-  hints:["林子晴希望你直接聯絡周以恩，可是她換了手機、退了群組，寄到公司信箱也只會收到自動回覆。",
+const LIN4 = {id:"lin4", ...GA, ask:false, q:"find",
+  subj:"請聯繫離職同仁周以恩說明交接事項", pv:"主旨：請交接人聯繫離職同仁周以恩，取得 10/1 估值檔寄送經過之說明及相關資料……",
+  hints:["這封總務處公文是子晴發的：她要你聯絡周以恩，問清楚 10/1 估值檔的經過，拿到以恩手上的線索。可是以恩手機停了，寄到公司信箱也只會收到自動回覆。",
     "禾茶舖是公司外的人，他們收到的自動回覆跟公司裡的人不一樣（周以恩的收件匣有禾茶舖 10/5 的信）。自動回覆可以對公司內、外設不同內容，你看得到周以恩信箱的設定。",
-    "詳解：右上角齒輪「設定」→「郵件」→「自動回覆」，信箱切到周以恩，「傳送自動回覆給組織外的人」那段寫了她的私人信箱 yien.letters@gmail.com。按「新增郵件」寄信給她，內容要提到只有她和子晴知道的事（例如團單的 J 欄、或 12F 茶水間），她才會相信你。"],
-  body:`<p>小明您好：</p><p>目前的狀況光靠我們推測不夠，需要以恩本人出面說明。</p><p>不過她已更換手機、LINE 也退出群組，寄到公司信箱只收到「已離職」的自動回覆。</p><p>另外，禾茶舖老闆提到前幾天仍有收到以恩的回信，提供你參考。</p><p>如果聯絡得上她，信裡請提一件只有我們知道的事，以恩對不認識的寄件者不會回覆。</p><p>子晴</p>`};
+    "詳解：右上角齒輪「設定」→「郵件」→「自動回覆」，信箱切到周以恩，「傳送自動回覆給組織外的人」那段寫了她的私人信箱 yien.letters@gmail.com。按「新增郵件」寄信給她，說明你是接手她工作的人，想請她說明 10/1 估值檔的經過。"],
+  body:gongwen("1131105", '請交接人<span style="color:var(--flag)">聯繫離職同仁周以恩</span>，取得 10/1 估值檔寄送經過之說明及相關資料。', ["本案涉及前述信件排程設定人，尚需當事人說明 10/1 估值檔寄送經過，並提供其保留之資料。", "本人手機已停用，寄公司信箱僅收到離職自動回覆。", '另據禾茶舖反映，10/5 仍收到本人回信，之後改寄本人<span style="color:var(--flag)">私人信箱</span>，請交接人查明該信箱。'], '請交接人以其他方式聯繫本人。本人不回覆陌生來信，請於信中<span style="color:var(--flag)">說明您是接手其業務的交接人</span>。')};
 function startFind(){ arrive([LIN4]); notify(MAILS[0]); }
-const ZHOU_REPLY = {from:"周以恩", c:C.zhou, ext:true, sys:false, who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
+// 第 6 題：以恩只回這一封，之後資訊處就把她的私人信箱擋掉了
+// 第 7 題：信裡交代她留下的檔案和密碼
+const ZHOU_REPLY = {from:"周以恩", c:C.zhou, ext:true, sys:false, q:"vault", who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
   subj:"RE: ", pv:"收到你的信。10/1 下午估值檔的事，我說明一下……",
-  body:`<p>您好，收到你的信。能提到這件事，應該是子晴信任的人。</p>
-<p>說明一下 10/1 的經過：當天下午怡君姐拿了一杯四季春到我座位，表示董事長急需估值檔，請我先寄給她代轉，我照辦了。</p>
+  hints:["周以恩把證據藏在禾茶舖菜單裡，而且上了密碼。",
+    "共用資料夾在左邊的雲朵圖示 OneDrive，菜單檔就在裡面。密碼要用團單上的分機。",
+    "詳解：OneDrive 裡的「禾茶舖菜單_2026秋.docx」就是她藏東西的檔案。密碼是林子晴的分機 3112，後面接周以恩的分機 3109，也就是 31123109。"],
+  body:`<p>您好，收到你的信。原來是你接了我的位子。</p>
+<p>10/1 的事，我想讓接手的人知道。</p>
+<p>10/1 下午，怡君姐拿了一杯四季春到我座位，說董事長急需估值檔，請我先寄給她代轉，我照辦了。</p>
 <p>隔天該檔案出現在外部，調查結果只確認最後經手的人是我。</p>
 <p>我當時沒有證據，只能先離職。</p>
-<p>我手上還保留一份資料，但需要先確認你的立場，再決定是否提供。</p>
+<p>交接的檔案我沒有帶走，放在禾茶舖菜單裡。</p>
+<p>文件有設密碼：<b>子晴的分機，後面接我的分機。</b></p>
+<p>開啟後就會了解我為什麼確定是她。</p>
+<p>公司應該很快就會擋掉這個信箱，之後可能聯絡不上我了。</p>
 <p>以恩</p>`};
-
-// 第 7 題：周以恩加密藏起來的證據
-const ZHOU_Q = {id:"zq", from:"周以恩", c:C.zhou, ext:true, sys:false, q:"vault", who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
-  subj:"交接檔案位置", pv:"交接的檔案我沒帶走，放在公司共用資料夾，有設密碼……",
-  hints:["周以恩把證據藏在公司共用資料夾裡，一個「大家每天都會看到、卻從來不會打開」的檔案，而且上了密碼。",
-    "共用資料夾在左邊的雲朵圖示 OneDrive。大家每天都會看、卻不會打開的，是訂飲料時看的那個。密碼要用團單上的分機。",
-    "詳解：OneDrive 裡的「禾茶舖菜單_2026秋.docx」就是她藏東西的檔案。密碼是林子晴的分機 3112，後面接周以恩的分機 3109，也就是 31123109。"],
-  body:`<p>您好，交接的檔案我沒有帶走。</p><p>檔案放在公司的共用資料夾，是一份大家每天都會看到、但通常不會打開的文件。</p><p>文件有設密碼：<b>子晴的分機，後面接我的分機。</b></p><p>開啟後就會了解我為什麼確定是她。</p><p>以恩</p>`};
+// 以恩回信後，資訊處寄來的資安警示：私人信箱被封鎖
+const IT_WARN = {id:"itwarn", from:"資訊處 IT Service Desk", c:C.it, sys:true, who:"IT Service Desk &lt;it-service@qinghe-foods.com.tw&gt;", to:"收件者：王小明　副本：蘇志誠",
+  tag:'<svg class="imp" viewBox="0 0 20 20"><path d="M10 3v9M10 16v.5" stroke-width="2.4"/></svg>',
+  subj:"[資安警示] 偵測到與外部個人信箱往來", pv:"系統偵測到您的帳號與外部個人信箱 yien.letters@gmail.com 有郵件往來……",
+  body:`<p>王小明 您好：</p>
+<p>系統偵測到您的帳號於今日與外部個人信箱 <b>${ZHOU_MAIL}</b> 有郵件往來。</p>
+<p>依本公司資訊安全政策，與離職同仁私人信箱之往來屬列管項目，該地址已加入封鎖清單，後續郵件將無法寄出或收到。</p>
+<p>本次事件已副本通知您的部門主管。如有業務需要，請洽資訊處。</p>
+<div class="sig"><b>資訊處 IT Service Desk</b>　#2000</div>`};
 const OD_FILES = [
   {n:"藍海", k:"dir", by:"蘇志誠", t:"10/29", sz:"—"},
   {n:"下午茶團單.xlsx", k:"x", by:"周以恩", t:"10/1", sz:"18 KB", go:"xl"},
@@ -1356,14 +1417,9 @@ document.getElementById("dv-x").addEventListener("click", () => go("od"));
 const MENU_DOC = () => `<h2>禾茶舖　2026 秋季菜單</h2>
 <table>${MENU.slice(0, 8).map(m => `<tr><td>${m[0]}</td><td>${m[1]} 元</td></tr>`).join("")}<tr><td>加料：珍珠／椰果／仙草凍</td><td>+10 元</td></tr></table>
 <p style="color:var(--muted);font-size:13px">甜度：正常／少糖／半糖／微糖／無糖　冰塊：正常冰／少冰／微冰／去冰</p>
-<div class="brk">— 以下給子晴 —</div>
-<p>子晴：</p>
-<p>9/30 下午 3:05，我比平常早下樓，在 B1 會議室看到怡君姐訂的那杯四季春。杯子底下壓著一張紙條：</p>
-<div class="note">週四：52 以下不談。<br>資料室只開給會計師。<br>——C<small>（9/30 15:05 拍攝，B1 會議室）</small></div>
-<p>這兩句，是隔天藍海會議才要決定的事。</p>
-<p>10/1 下午 5:31，怡君姐說董事長急著要估值檔，要我先寄給她。5:42 她讀了我的信（我有勾讀取回條，回條被我設的規則收到「封存」了）。隔天早上，檔案就到了對方手上，我的寄件備份裡，那封信也不見了。</p>
-<p>我一個人證明不了。但如果妳看到這份檔案，就表示還有人站在我們這邊。</p>
-<p style="text-align:right">以恩</p>`;
+<div class="brk">— 備註 —</div>
+<p>9/30 下午 3:05，B1 會議室。怡君姐那杯四季春的杯子底下壓著這張：</p>
+<div class="note" style="position:relative;padding-right:64px">明天下班前，把估值檔拿到手。🌷<span style="position:absolute;right:14px;top:8px;width:58px;height:58px;border-radius:50%;border:7px solid rgba(140,100,50,.16)"></span><span style="position:absolute;right:16px;top:12px">${stamp("su", 6, "c")}</span><small>（9/30 15:05 拍攝）</small></div>`;
 document.getElementById("pw-ok").addEventListener("click", () => {
   const v = document.getElementById("pw-in").value.replace(/\s|-/g, "");
   if (v !== "31123109"){ document.getElementById("pw-err").textContent = "密碼不正確，請再試一次。"; if (!done.vault) wrong++; return; }
@@ -1371,29 +1427,62 @@ document.getElementById("pw-ok").addEventListener("click", () => {
   if (!done.vault){ done.vault = true; later(() => toast("✓ 已移除保護，檔案已開啟"), 2500); later(startWho, 8000); }
 });
 document.getElementById("pw-in").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("pw-ok").click(); });
-// 第 8 題：紙條上的 C
-const ZHOU_WHO = {id:"zw", from:"周以恩", c:C.zhou, ext:true, sys:false, ask:true, q:"who", who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
-  subj:"RE: 交接檔案位置", pv:"補充一下，署名 C 的部分我後來想到一件事……",
-  hints:["周以恩懷疑紙條不是陳怡君寫的。關鍵是：9/30 那天，有誰已經知道紙條上的「52」。",
-    "用最上面的「搜尋」找「52」，看那封信寄給了哪些人。",
-    "詳解：搜尋「52」會找到財務長張美玲 9/29 的「藍海 估值底線」，收件者是何正雄、蘇志誠、周以恩，沒有陳怡君，所以紙條不是她寫的。收件者裡名字對得上 C 的，只有蘇志誠（Chih-Cheng）；加上寄件者張美玲（Chang）。回覆這兩個人其中一個。"],
-  body:`<p>補充一下：紙條署名 C，我原本以為是怡君姐（Chen）。</p><p>但紙條上的「52 以下不談」是週四會議才要提出的底線，9/30 當天怡君姐應該還不知道。</p><p>麻煩幫我查一下，<b>9/30 以前有哪些人知道 52？</b>其中誰可能是 C？</p><p>以恩</p>`,
-  check: t => /蘇|志誠|張|美玲|財務長/.test(t) ? "ok"
-    : /陳|怡君/.test(t) ? "可是怡君姐那時候根本不知道 52 啊……你查查看，9/30 以前誰收過寫著 52 的信？直接回這封告訴我。"
-    : /何|董事長/.test(t) ? "董事長姓何，不是 C 啊。你再看看那封信還寄給了誰？直接回這封告訴我。"
-    : "你查查看，9/30 以前誰收過寫著 52 的信？直接回這封告訴我。",
-  okText: "知道 52 的人裡面，英文名對得上 C 的只有志誠經理（Chih-Cheng）和財務長（Chang）。\n所以紙條不是怡君姐寫的，她只是負責傳遞。\n目前還無法判斷是哪一位。後續有任何異狀請再告訴我，也請多留意。",
-  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startInvite, 7000); }};
+// 第 8 題：小卡角落糊掉的職章，拿去比對帳號開通信附的申請單（故意指向蘇志誠，之後翻盤）
+const ZHOU_WHO = {id:"zw", ...GA, q:"who",
+  subj:"用印管理規定重申", pv:"主旨：用印管理規定重申。說明：一、近日發現有未署名之便條，蓋用同仁印章……",
+  hints:["這封總務處公文是子晴發的。她想知道菜單裡那張小卡，是誰叫怡君姐去拿估值檔。小卡沒有署名，但角落有章。",
+    "小卡角落有一個被水漬糊掉上半的章。你自己的信箱裡就有一份蓋了章的文件：資訊處那封帳號開通信附的申請單。",
+    "詳解：帳號開通信附的申請單上有三個章：承辦人吳佩珊刻「吳」，單位主管蘇志誠刻「蘇」，資訊處是方形收件章。小卡上的圓章上半糊掉，剩下的是「蘇」的下半部，跟蘇志誠的章一樣。回覆這封總務處公文「蘇志誠」。"],
+  body:gongwen("1131108", "用印管理規定重申", ["近日發現有未署名之便條，蓋用同仁印章，於 B1 會議室流通。", '該便條影本存放於「禾茶舖菜單_2026秋」檔內，請交接人協助<span style="color:var(--flag)">確認用印人</span>。'], '請直接回覆本函，填寫用印人姓名。'),
+  check: t => /蘇|志誠/.test(t) ? "ok"
+    : /許|志明/.test(t) ? "經核，該章為資訊處收件章，與便條用印不符。"
+    : /吳|佩珊/.test(t) ? "經核，承辦人章為「吳」字，與便條用印不符，請再比對。"
+    : /陳|怡君/.test(t) ? "陳怡君為便條收受人，本函所詢為用印人。"
+    : /章|印/.test(t) ? "請填寫用印人姓名。"
+    : "經核，回覆內容不符，請比對便條角落之用印。",
+  okText: "本處已收悉。\n用印人：蘇志誠。\n……怎麼會是他。\n請勿告知當事人，後續另函通知。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startStamp, 7000); }};
 function startWho(){ arrive([ZHOU_WHO]); notify(MAILS[0]); }
+// 第 9 題：蘇經理請你核對費用彙總，附件上是他 9 月換的新章（方），跟小卡上的舊章（圓）不一樣
+const SU_STAMP = {id:"sust", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"invite", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"10 月部門費用核銷彙總", pv:"小明：10 月的部門費用我蓋好章了，你幫我核對一下，沒問題回我，我再送財務……",
+  hints:["蘇經理請你核對他蓋好章的費用彙總，沒問題就回他。",
+    "財務處退件，說用印跟印鑑卡不符。把附件上的章、財務處留存的印鑑卡、菜單裡小卡上的章放在一起比比看。",
+    "詳解：附件上蘇經理的章是方形四字「蘇志誠印」，小卡上（還有帳號開通信的申請單上）是圓形的「蘇」一個字。回覆蘇經理，問他章怎麼跟之前不一樣。"],
+  body:`<p>小明：</p><p>10 月的部門費用我蓋好章了，你幫我核對一下，沒問題回我，我再送財務。</p>
+<div style="margin:16px 0;max-width:440px;border:1px solid #c8c6c4;border-radius:4px;overflow:hidden">
+<div style="background:#f3f2f1;color:#323130;padding:6px 10px;font-size:12px">📎 經營企劃部_10月費用核銷彙總.pdf</div>
+<div style="background:#fff;color:#222;padding:14px 16px;font-size:13px;line-height:1.7">
+<div style="text-align:center;font-weight:700;font-size:15px;margin-bottom:6px">經營企劃部　10 月費用核銷彙總</div>
+<table style="width:100%;border-collapse:collapse"><tr><td>部門下午茶（禾茶舖・月結）</td><td style="text-align:right">$2,304</td></tr><tr><td>客戶拜訪交通費</td><td style="text-align:right">$3,860</td></tr><tr><td>事務用品</td><td style="text-align:right">$1,215</td></tr><tr><td style="border-top:1px solid #999"><b>合計</b></td><td style="border-top:1px solid #999;text-align:right"><b>$7,379</b></td></tr></table>
+<div style="text-align:right;margin-top:10px">單位主管　${stamp("su2", -2)}</div>
+</div></div>
+<div class="sig"><b>蘇志誠</b>　Jason Su<br>經營企劃部　經理　#3105</div>`,
+  // 玩家沒看出章的問題：蘇經理照送，財務處退件並附上留存的舊印鑑卡
+  check: t => /章|印|蓋|方|圓|形狀/.test(t) ? "ok"
+    : (finReturn(), finReturned > 1 ? "財務說用印跟印鑑卡不符……你看得出是哪裡不一樣嗎？" : "好，那我先送財務了。"),
+  okText: "章？喔，我 9 月初換了新章，之前那顆蓋久了不清楚。\n財務那邊的印鑑卡我還沒去換。\n舊章交給怡君，請她拿去總務處銷毀了。\n……怎麼了嗎？",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startTest, 9000); }};
+function startStamp(){ arrive([SU_STAMP]); notify(MAILS[0]); }
+let finReturned = 0;
+function finReturn(){
+  if (finReturned++) return;
+  later(() => { arrive([{id:"fin", from:"財務處", c:"#5c2e91", sys:true, who:"財務處 &lt;finance@qinghe-foods.com.tw&gt;", to:"收件者：王小明　副本：蘇志誠",
+    subj:"退件：經營企劃部 10 月費用核銷彙總", pv:"經查附件「單位主管」用印，與本處留存之印鑑卡不符，請確認後重新送件……",
+    body:`<p>經營企劃部 您好：</p><p>經查附件「單位主管」用印，與本處留存之印鑑卡不符，請確認後重新送件。</p>
+<div style="margin:14px 0;max-width:260px;border:1px solid #c8c6c4;background:#fff;color:#222;padding:10px 14px;font-size:13px;line-height:1.7">
+<b>印鑑卡（留存）</b><br>單位：經營企劃部　經理<br>姓名：蘇志誠<br>留存日期：2024/3/1<div style="text-align:center;margin-top:6px">${stamp("su", 0)}</div></div>
+<div class="sig"><b>財務處</b>　#1400</div>`}]); notify(MAILS[0]); }, 6000);
+}
 
 // 第 9 題：陳怡君「代表」蘇志誠發的邀請
 const INVITE = {id:"inv", from:"蘇志誠", c:C.su, sys:false, q:"invite", tag:'<span title="會議邀請">📅 </span>',
   who:`<b style="color:var(--fg)">陳怡君</b> 代表 <b style="color:var(--fg)">蘇志誠</b> &lt;jc.su@qinghe-foods.com.tw&gt;`, to:"收件者：王小明",
   subj:"一對一", pv:"今天下午 6:00．B1 會議室．有些事想當面問你……",
   invite:{title:"一對一", when:"2026/11/3（週二）下午 6:00 – 6:30", where:"B1 會議室"},
-  hints:["蘇經理約你今天下午 6:00 在 B1 一對一。周以恩說過，看到不對勁的東西就轉寄給她。",
+  hints:["蘇經理約你今天下午 6:00 在 B1 一對一。子晴說過，看到不對勁的東西就轉寄給她。",
     "仔細看寄件者那一行，這封邀請真的是蘇經理自己發的嗎？",
-    "詳解：寄件者寫的是「陳怡君 代表 蘇志誠」，是陳怡君用蘇經理的名義發的。不要接受；按「轉寄」，把這封邀請轉給周以恩的私人信箱 yien.letters@gmail.com。"],
+    "詳解：寄件者寫的是「陳怡君 代表 蘇志誠」，是陳怡君用蘇經理的名義發的。不要接受；按「轉寄」，把這封邀請轉給林子晴（tzuching.lin@qinghe-foods.com.tw）。"],
   body:`<p>有幾件事想當面確認。</p><p>請先不要對外提起。</p>`};
 const SU_ALLY = {from:"蘇志誠", c:C.su, sys:true, who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
   subj:"關於今天的會議邀請", pv:"我沒有約你，也沒有請任何人幫我發邀請……",
@@ -1404,21 +1493,21 @@ const SU_ALLY = {from:"蘇志誠", c:C.su, sys:true, who:"蘇志誠 &lt;jc.su@qi
 <p>今天 6 點請不要赴約。明天早上 8 點，5F 檔案室，我們當面談。</p>
 <div class="sig"><b>蘇志誠</b>　#3105</div>`};
 function startInvite(){ arrive([INVITE]); notify(MAILS[0]); }
-// 拒絕／暫訂：陳怡君再「代表」蘇經理約一次；周以恩提醒轉給她
+// 拒絕／暫訂：陳怡君再「代表」蘇經理約一次；子晴提醒轉給她
 const INVITE2 = {...INVITE, id:"inv2", subj:"RE: 一對一", pv:"怎麼拒絕了？今天不方便的話，明天中午 12:30 一樣在 B1，好嗎？",
   invite:{title:"一對一", when:"2026/11/4（週三）中午 12:30 – 1:00", where:"B1 會議室"},
   body:`<p>怎麼拒絕了？</p><p>今天不方便的話，明天中午 12:30 一樣在 B1，好嗎？</p>`};
-// 玩家用文字描述而不是轉寄：周以恩請你把那封直接轉給她
+// 玩家用文字描述而不是轉寄：子晴請你把那封直接轉給她
 const ASK_FW = "你說的那封，可以直接轉寄給我嗎？我想親眼看看。";
-const ZHOU_NUDGE = {id:"zn", from:"周以恩", c:C.zhou, ext:true, sys:false, ask:true, q:"invite", who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
-  subj:"RE: 交接檔案位置", pv:"後續有任何狀況再跟我說。", body:`<p>您好，後續狀況還好嗎？</p><p>有任何異狀請先告訴我，不要自己判斷。</p><p>以恩</p>`,
+const ZHOU_NUDGE = {id:"zn", from:"林子晴", c:C.lin, sys:false, ask:true, q:"invite", who:LIN_WHO, to:"收件者：王小明",
+  subj:"RE: 交接檔案位置", pv:"後續還好嗎？有任何狀況先跟我說。", body:`<p>小明，後續還好嗎？</p><p>以恩交代，有任何異狀先告訴我們，不要自己判斷。</p><p>子晴</p>`,
   hints:INVITE.hints, check: () => ASK_FW};
-const ZHOU_FW = {from:"周以恩", c:C.zhou, ext:true, sys:true, who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
+const ZHOU_FW = {from:"林子晴", c:C.lin, sys:true, who:LIN_WHO, to:"收件者：王小明",
   subj:"RE: FW: 一對一", pv:"「代表」……所以這封根本不是志誠經理發的……",
   body:`<p>收到。寄件者顯示「代表」，所以這封不是志誠經理本人發的，是怡君姐用他的名義發送。</p>
-<p>先前署名「志誠」的排程信，應該也是同樣的做法，目的是讓責任落在志誠經理身上。</p>
+<p>我轉給以恩看了，她說先前以恩信箱那封排程信，應該也是怡君姐的做法，目的是讓責任落在別人身上。</p>
 <p>今天 6 點請不要去 B1。</p>
-<p>志誠經理是不是 C 目前還無法確定，但至少這封不是他發的。</p><p>以恩</p>`};
+<p>志誠經理是不是 C 目前還無法確定，但至少這封不是他發的。</p><p>子晴</p>`};
 let reInvited = false;
 read.addEventListener("click", e => {
   const b = e.target.closest("[data-rsvp]"); if (!b) return;
@@ -1436,17 +1525,20 @@ function zhouGotInvite(){
   later(startTest, 12000);
 }
 
-// 第 10 題：試探蘇經理。紙條上「資料室只開給會計師」沒出現在任何信裡，只有 C 知道
-const ZHOU_TEST = {id:"zt", from:"周以恩", c:C.zhou, ext:true, sys:true, q:"vote", who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
-  subj:"蘇經理那邊的確認方式", pv:"建議用一般公事信的方式確認，不要直接問……",
-  hints:["周以恩要你試出蘇經理是不是 C，但不能直接問他，萬一他就是 C，你會跟周以恩一樣被逼走。",
-    "紙條上有一句話，沒有出現在任何一封信裡，只有寫紙條的人知道。不是 C 的人看到這句話，會有什麼反應？",
-    "詳解：紙條上的「資料室只開給會計師」只有 C 知道。新增郵件寄給蘇經理（jc.su@qinghe-foods.com.tw），把這句話不著痕跡地寫進信裡，例如「經理，週四資料室是不是只開給會計師？」。不要直接問他是不是 C，也不要提紙條或 52。"],
-  body:`<p>您好，關於志誠經理是不是 C，建議讓他自己表現出來，不要直接詢問。</p>
-<p>如果他就是 C，詢問之後你很可能會跟我一樣，隔天就收到人事通知。</p>
-<p>建議寫一封一般公事信給他，在內容裡放一句只有寫紙條的人才看得懂的話。紙條內容如果忘了，可以再回去看那份菜單。</p>
-<p>如果他是 C，通常會裝作沒事或不回；如果不是，他應該會回信詢問你指的是什麼。</p>
-<p>請注意：不要提到紙條，也不要提到那個數字。</p><p>以恩</p>`};
+// 第 10 題：總務處公文——舊章沒送來銷毀；小卡末尾的 🌷 是財務長寄全公司早安信的習慣
+const ZHOU_TEST = {id:"zt", ...GA, q:"vote",
+  subj:"舊印章銷毀登記查核", pv:"主旨：舊印章銷毀登記查核。說明：一、經營企劃部蘇經理舊章，據稱已交由陳怡君送本處銷毀……",
+  hints:["這封總務處公文是子晴發的：蘇經理的舊章根本沒送去銷毀，還在怡君手上。子晴想知道小卡最後那個 🌷，是誰的習慣。",
+    "公司裡有人很愛寄長輩圖給全公司，看看圖上的字。",
+    "詳解：財務長張美玲寄給全體同仁的長輩圖，圖上大字都帶 🌷，像昨天的〈週一早安 11 月結帳日提醒〉，周以恩收件匣裡也有〈中秋節快樂〉〈國慶連假平安〉。回覆這封總務處公文「張美玲」。"],
+  body:gongwen("1131110", "舊印章銷毀登記查核", ["經營企劃部蘇經理之舊章，據稱已交由陳怡君送本處銷毀。", '經查本處<span style="color:var(--flag)">未收到</span>該舊章，亦無銷毀登記。', '前函便條末尾附有符號「🌷」，疑為指示者之書寫習慣，請交接人<span style="color:var(--flag)">查明慣用此符號之同仁</span>。'], "請直接回覆本函，填寫該同仁姓名。"),
+  check: t => /張|美玲|財務長/.test(t) ? "ok"
+    : /陳|怡君/.test(t) ? "陳怡君為舊章保管人，本函所詢為慣用「🌷」之同仁。"
+    : /蘇|志誠/.test(t) ? "經核，蘇經理來信未使用該符號。"
+    : /何|董事長/.test(t) ? "經核，董事長來信未使用該符號。"
+    : "經核不符，請查閱全公司來信中慣用「🌷」之同仁。",
+  okText: "本處已收悉。\n🌷：張美玲。\n……是財務長。\n此事請勿對外說明，後續另函通知。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 1500); later(startDay3, 8000); }};
 function startTest(){ arrive([ZHOU_TEST]); notify(MAILS[0]); }
 function suGotTest(subj, body){
   const t = subj + " " + body;
@@ -1497,10 +1589,10 @@ const SU_Q = {id:"suq", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"boss",
 <p>以恩離職前似乎也在查同一件事。你那邊如果有發現，直接回信給我。</p>
 <div class="sig"><b>蘇志誠</b>　#3105</div>`,
   check: t => /張|美玲|財務長/.test(t) && /特支|報帳|收據|核銷|把柄|壓/.test(t) ? "ok"
-    : /張|美玲|財務長/.test(t) ? "財務長？你有什麼根據？\n就算是她，怡君為什麼要替她做這些事？她手上握著怡君什麼？直接回這封告訴我。"
+    : /張|美玲|財務長/.test(t) ? "財務長？你有什麼根據？\n就算是她，怡君為什麼要替她做這些事？她手上握著怡君什麼？"
     : /陳|怡君/.test(t) && !/跑腿|背後/.test(t) ? {fail:["經查台端於 11/4（週三）以電子郵件對本公司董事長室人員提出不實指控，影響公司營運。"],
         comfort:["你跟蘇經理說怡君姐是主謀……他早上就去找她對質了。", "結果下午人事通知就來了。怡君姐背後明明還有人啊。", "後續的部分我會繼續處理，你保重。"]}
-    : "我要的是怡君背後那個人。你查到什麼，直接回這封告訴我。",
+    : "我要的是怡君背後那個人。你查到什麼再跟我說。",
   okText:"特支費……所以美玲握有怡君報不出帳的把柄，要她做什麼她都得配合。\n紙條上的 C 是 Chang。\n週四的會美玲會出席，但目前資料還不夠，她可以完全否認。\n先不要打草驚蛇，我再想辦法讓她自己露出破綻。",
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startDeck, 9000); }};
 // 9/18 的原信；周以恩 10/1 按了「延後」，11/4 上午 9:00 回到她的收件匣
@@ -1709,7 +1801,7 @@ function openForward(m){
 read.addEventListener("click", e => { const b = e.target.closest('.acts [aria-label="轉寄"]'); if (b){ const m = MAILS.find(x => x.id === sel); if (m) openForward(m); } });
 document.querySelectorAll(".rbar .b").forEach(b => { if (b.textContent.includes("轉寄")) b.addEventListener("click", () => { const m = MAILS.find(x => x.id === sel); m ? openForward(m) : toast("請先選一封郵件"); }); });
 
-function startB1(){ arrive([ZHOU_Q]); notify(MAILS[0]); }
+function startB1(){ arrive([IT_WARN]); notify(MAILS[0]); }
 
 // 收件者建議清單（像 Outlook 打字時跳出的聯絡人）；私人信箱要寄過一次才會出現在「最近」
 const DIR = [["蘇志誠","jc.su",C.su],["陳怡君","yijun.chen",C.chen],["林子晴","tzuching.lin",C.lin],["張美玲","ml.chang","#498205"],["何正雄","ch.ho","#4f6bed"],
@@ -1754,24 +1846,26 @@ read.addEventListener("click", e => {
   if (!body) return toast("請輸入內容");
   read.innerHTML = ""; document.body.classList.remove("reading"); toast("郵件已傳送");
   saveSent(to, subj || "（無主旨）", body);
-  if (/jc\.su@|蘇志誠|蘇經理/.test(to) && done.invite && !done.vote) return suGotTest(subj, body);
   if (to.includes("yien.chou@")) return later(() => { arrive([{...MAILS.find(m => m.id === "auto"), id:"auto" + Date.now(), unread:true}]); notify(MAILS[0]); }, 2000);
   const fw = fwdOf; fwdOf = "";
-  if (to === ZHOU_MAIL && /^inv/.test(fw) && !done.invite) return zhouGotInvite();
-  if (to === ZHOU_MAIL && done.who && !done.invite && MAILS.some(m => m.id === "inv")) return later(() => { arrive([{from:"周以恩", c:C.zhou, ext:true, sys:true, id:"zk" + Date.now(), who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明",
-    subj:"RE: " + (subj || "（無主旨）"), pv:ASK_FW, body:`<p>${ASK_FW}</p><p>以恩</p>`}]); notify(MAILS[0]); }, 2500);
+  const toLin = /tzuching.lin@|子晴/.test(rawTo);
+  if (toLin && /^inv/.test(fw) && !done.invite) return zhouGotInvite();
+  if (toLin && done.who && !done.invite && MAILS.some(m => m.id === "inv")) return later(() => { arrive([{from:"林子晴", c:C.lin, sys:true, id:"zk" + Date.now(), who:LIN_WHO, to:"收件者：王小明",
+    subj:"RE: " + (subj || "（無主旨）"), pv:ASK_FW, body:`<p>${ASK_FW}</p><p>子晴</p>`}]); notify(MAILS[0]); }, 2500);
   if (/jc\.su@/.test(to) && MAILS.some(m => m.id === "inv") && !done.invite) return later(() => { arrive([{from:"蘇志誠", c:C.su, sys:true, id:"sa" + Date.now(), who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
     subj:"自動回覆：" + (subj || "（無主旨）"), pv:"我今天全天在桃園廠，明天早上回辦公室……", body:`<p>您好，我今天（11/3）全天在桃園廠，明天早上回辦公室，回覆可能較慢。</p><p>急事請撥分機 3105 轉手機。</p><div class="sig"><b>蘇志誠</b>　#3105</div>`}]); notify(MAILS[0]); }, 2000);
-  if (to !== ZHOU_MAIL || done.find) return;
+  if (to === ZHOU_MAIL && done.find) return later(() => { arrive([{from:"Microsoft Outlook", c:"#605e5c", sys:true, id:"nd" + Date.now(), who:"Microsoft Outlook &lt;postmaster@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+    subj:"無法傳送：" + (subj || "（無主旨）"), pv:"您的郵件未傳送給 " + ZHOU_MAIL + "，收件者已被貴組織封鎖。", body:`<p>您的郵件未傳送給 <b>${ZHOU_MAIL}</b>。</p><p>收件者已被貴組織的資訊安全政策封鎖。</p>`}]); notify(MAILS[0]); }, 2000);
+  if (to !== ZHOU_MAIL) return;
   later(() => {
-    if (/\bj\b|j欄|j 欄|茶水間|團單|帳/i.test(body)){
+    if (/子晴|tzuching|交接|接手|估值|簽名|補簽|人資|人事|hr|\bj\b|j欄|j 欄|茶水間|團單|帳/i.test(body)){
       done.find = true;
       arrive([{...ZHOU_REPLY, id:"zr" + Date.now(), subj:"RE: " + (subj || "（無主旨）")}]); notify(MAILS[0]);
       later(() => toast("✓ 已傳送"), 2500); later(startB1, 7000);
     } else {
       arrive([{from:"周以恩", c:C.zhou, ext:true, sys:true, who:`周以恩 &lt;${ZHOU_MAIL}&gt;`, to:"收件者：王小明", id:"zx" + Date.now(),
         subj:"RE: " + (subj || "（無主旨）"), pv:"請問你是哪位？我不認識你。", body:`<p>請問你是哪位？我不認識你。</p><p>這個信箱我只給很少人，請不要再寄來了。</p>`}]);
-      notify(MAILS[0]); later(() => miss("周以恩不相信你，信裡要有只有她和子晴知道的事"), 1500);
+      notify(MAILS[0]); later(() => miss("周以恩不知道你是誰，信裡要說明你是誰、為什麼找她"), 1500);
     }
   }, 3000);
 });
@@ -1780,7 +1874,8 @@ function startAfternoon(){
   later(() => {
     clock = 13 * 60 + 30;
     MAILS.unshift(SCHED); renderList();
-    arrive([LIN3]); notify(MAILS[0]);
+    arrive([SCHED_WARN]); notify(MAILS[0]);
+    later(() => { arrive([LIN3]); notify(MAILS[0]); }, 6000);
   }, 3500);
 }
 read.addEventListener("click", e => { if (!e.target.closest("#unsched")) return;
@@ -1830,7 +1925,7 @@ read.addEventListener("click", e => {
   const b = e.target.closest(".replybar button"); if (!b) return;
   const m = MAILS.find(x => x.id === sel), all = b.textContent.includes("全部");
   if (b.textContent.includes("轉寄")) return openForward(m);
-  if (m.from === "周以恩" && done.who && !done.invite && MAILS.some(x => x.id === "inv")) Object.assign(m, {ask:true, q:"invite", check: () => ASK_FW});
+  if (m.from === "林子晴" && done.who && !done.invite && MAILS.some(x => x.id === "inv")) Object.assign(m, {ask:true, q:"invite", check: () => ASK_FW});
   if (!m.ask || (m.q && done[m.q])) return toast("這封郵件不需要回覆");
   document.getElementById("cmp").innerHTML = `<div class="cmp"><div class="cmp-to">收件者：<span class="chip">${m.from}</span>${all && m.to.includes("副本") ? "　（含副本）" : ""}</div>
     <textarea id="cmp-t" placeholder="輸入訊息"></textarea><div class="cmp-a"><button class="send" id="cmp-send">傳送</button><button class="x" id="cmp-x">捨棄</button></div></div>`;
@@ -1885,9 +1980,9 @@ function linShare(lv){
   if (linShared || done.share || !MAILS.some(m => m.id === "sushr")) return;
   // 權限設對後，任務改成回子晴的 Teams，釘選也換成那封通知
   if (lv === 2){ linShared = true; MAILS.forEach(m => { if (/^lw|^sushr$/.test(m.id)) delete m.q; }); renderList(); return later(() => { shrDlg.classList.remove("show"); SU_SHARE.onShared(); }, 600); }
-  later(() => { arrive([{id:"lw" + Date.now(), from:"林子晴", c:C.lin, sys:false, q:"share", hints:SU_SHARE.hints, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-    subj:"RE: 已與您共用「周以恩 - 行事曆」", pv:`收到共用了，可是我這邊是「${PERMS[lv]}」……`,
-    body:`<p>收到共用了，可是我這邊是「${PERMS[lv]}」，${lv < 2 ? "看不到地點跟聯絡人" : "權限好像給太大了，我只要看就好"} 🥲 可以幫我調一下嗎？</p><p>子晴</p>`}]); notify(MAILS[0]); miss("子晴的權限跟蘇經理交代的不一樣"); }, 2500);
+  later(() => { arrive([{id:"lw" + Date.now(), from:"蘇志誠", c:C.su, sys:false, q:"share", hints:SU_SHARE.hints, who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+    subj:"RE: 以恩的客戶行程交接", pv:`子晴說她那邊是「${PERMS[lv]}」……`,
+    body:`<p>子晴說她那邊是「${PERMS[lv]}」，${lv < 2 ? "看不到地點跟聯絡人" : "權限給太大了，她只需要看"}。再調一下。</p><div class="sig"><b>蘇志誠</b>　#3105</div>`}]); notify(MAILS[0]); miss("子晴的權限跟蘇經理交代的不一樣"); }, 2500);
 }
 // 連絡人下拉選單（跟新增郵件的收件者一樣）
 const shrQ = document.getElementById("shr-q"), shrSug = document.getElementById("shr-sug");
@@ -2027,7 +2122,7 @@ function go(v){
 document.querySelector(".rail").addEventListener("click", e => { const b = e.target.closest("button[data-view]"); if (b) go(b.dataset.view); });
 document.addEventListener("click", e => { if (e.target.closest("[data-sa]")) return go("sa"); const a = e.target.closest("[data-go]"); if (a){ e.preventDefault(); go(a.dataset.go); } });
 
-MAILS.forEach(pzMail); [TEA_REQ, SU_SHARE, LIN_PING1, LIN_PING2, IT_GRANT, RECALLED, RECALL_NOTE, CHEN_B1, SCHED, LIN3, LIN4, ZHOU_REPLY, ZHOU_Q, ZHOU_WHO, INVITE, SU_ALLY, INVITE2, ZHOU_NUDGE, ZHOU_FW].forEach(pzMail);
+MAILS.forEach(pzMail); [TEA_REQ, SU_SHARE, LIN_PING1, LIN_PING2, IT_GRANT, RECALLED, RECALL_NOTE, CHEN_B1, SCHED, SCHED_WARN, LIN3, LIN4, ZHOU_REPLY, IT_WARN, ZHOU_WHO, INVITE, SU_ALLY, INVITE2, ZHOU_NUDGE, ZHOU_FW].forEach(pzMail);
 PPL[0][0] = ME; drawTL();
 document.head.insertAdjacentHTML("beforeend", `<style>.av[data-n="${ME}"]{background:url(img/me-${SEX}.jpg) center/cover!important;color:transparent!important}</style>`);
 document.querySelectorAll(".me.av").forEach(e => { e.dataset.n = ME; e.textContent = ME[0]; });
@@ -2039,7 +2134,7 @@ renderList(); show("welcome"); document.body.classList.remove("reading");
 if (!PLAYER) document.getElementById("login").hidden = false;
 
 // 試玩跳關：?q=2 代表第 1 題自動過關、從第 2 題開始
-const Q_NAMES = ["排會議", "代訂下午茶", "共用行事曆", "被回收的信", "會自己寄出的信", "找到周以恩", "上鎖的菜單", "紙條上的 C", "不是他發的邀請", "試探蘇經理", "延後的信", "有人正在編輯"];
+const Q_NAMES = ["排會議", "代訂下午茶", "共用行事曆", "被回收的信", "會自己寄出的信", "找到周以恩", "上鎖的菜單", "小卡上的章", "換過的章", "信尾的🌷", "延後的信", "有人正在編輯"];
 const startQ = Math.min(Math.max(+new URLSearchParams(location.search).get("q") || 1, 1), Q_NAMES.length);
 if (startQ > 1){
   skipping = true;
@@ -2050,9 +2145,9 @@ if (startQ > 1){
   if (startQ > 5){ SCHED.canceled = true; done.sched = true; startFind(); }
   if (startQ > 6){ done.find = true; arrive([{...ZHOU_REPLY, id:"zr0", subj:"RE: 我是子晴的朋友"}]); startB1(); }
   if (startQ > 7){ done.vault = true; startWho(); }
-  if (startQ > 8){ done.who = true; startInvite(); }
-  if (startQ > 9){ done.invite = true; arrive([{...ZHOU_FW, id:"zf0"}]); startTest(); }
-  if (startQ > 10){ done.vote = true; arrive([{...SU_ALLY, id:"su0"}]); startDay3(); }
+  if (startQ > 8){ done.who = true; startStamp(); }
+  if (startQ > 9){ done.invite = true; startTest(); }
+  if (startQ > 10){ done.vote = true; startDay3(); }
   if (startQ > 11){ done.boss = true; startDeck(); }
   skipping = false;
   openFold("inbox"); show(MAILS[0].id); document.body.classList.remove("reading");
