@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>載入中…</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 "Segoe UI","Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif;color:#242424;background:#fff}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+:root{--brand:#0f6cbd}
+
+body input,body select{border:1px solid #c8c8c8;border-radius:3px;padding:6px 8px;font:inherit;width:100%;background:#fff}
+body label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#444}
+.wt-w{overflow-x:auto;margin:0 20px 20px}
+.wt{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+.wt th,.wt td{border:1px solid #dcdcdc;padding:7px 10px;text-align:left}
+.wt th{background:#f4f6f9;font-weight:600}
+.ct-h{background:#1d3a6e;color:#fff;padding:14px 20px;font-size:17px;font-weight:700;letter-spacing:1px}
+.ct-h small{display:block;font-size:12px;font-weight:400;opacity:.8;letter-spacing:0}
+.ct-bc{padding:10px 20px;font-size:12px;color:#666;border-bottom:1px solid #e5e5e5}
+.ct-f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:16px 20px;align-items:end}
+.ct-go{background:#1d3a6e;color:#fff;border-radius:3px;padding:8px 18px;font-weight:600}
+.ct-msg{margin:0 20px 16px;color:#a4262c}
+.ct-note{margin:0 20px 20px;font-size:12px;color:#777;line-height:1.7}
+.hc-h{background:#3f5a3a;color:#f6efe0;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hc-h b{font-size:18px;letter-spacing:2px}
+.hc-h b,.hc-h span{cursor:pointer}
+.hc-h span{font-size:13px;opacity:.85}.hc-h span:hover,.hc-h span.on{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.hc-hero{background:linear-gradient(120deg,#efe6d2,#e3d3ae);color:#3f5a3a;padding:34px 24px;display:flex;flex-direction:column;gap:6px}
+.hc-hero small{letter-spacing:3px;font-size:11px}.hc-hero b{font-size:22px}.hc-hero span{font-size:13px;color:#6b5d3e}
+.hc-sec .wt-w{margin:0 0 12px}.hc-sec{padding:6px 20px 10px}.hc-sec h3{font-size:15px;color:#3f5a3a;margin:14px 0 10px}
+.hc-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.hc-card{border:1px solid #e6dcc6;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:2px;position:relative}
+.hc-card i{height:70px;border-radius:4px;background:#f4ecda;margin-bottom:6px}.hc-card span{color:#888;font-size:13px}
+.hc-card em{position:absolute;top:14px;left:14px;background:#3f5a3a;color:#fff;font-style:normal;font-size:11px;padding:1px 6px;border-radius:3px}
+.hc-news{list-style:none;padding:0;margin:0}.hc-news li{padding:8px 0;border-bottom:1px solid #eee;font-size:13px}.hc-news time{color:#888;margin-right:12px}
+.hc-note{color:#666;font-size:13px}.hc-ft{margin-top:24px;padding:14px 20px;background:#f4f1ea;color:#888;font-size:12px}
+.hc-ban{background:#efe6d2;color:#3f5a3a;padding:18px 20px;font-weight:600}
+.hc-box{max-width:360px;margin:20px;display:flex;flex-direction:column;gap:12px}
+.hc-go{background:#3f5a3a;color:#fff;border-radius:3px;padding:8px 18px;font-weight:600;align-self:flex-start}
+.hc-tabs{display:flex;gap:4px;padding:12px 20px 0;border-bottom:1px solid #ddd}
+.hc-tabs button{padding:8px 14px;border-radius:4px 4px 0 0}
+.hc-tabs button.on{background:#3f5a3a;color:#fff}
+.hc-who{padding:14px 20px 4px;color:#444}
+.hc-again{border:1px solid #3f5a3a;color:#3f5a3a;border-radius:3px;padding:2px 8px;font-size:12px}
+.hc-err{color:#a4262c;font-size:13px;min-height:1em}
+body a{color:var(--brand)}
+@media (max-width:700px){.ct-f{grid-template-columns:1fr 1fr}.wt-w{margin:0 12px 16px}}
+</style>
+</head>
+<body>
+<main id="web-pg"></main>
+<script>
+const webPg = document.getElementById("web-pg");
+const COURT_HEAR = [["115/09/24", "10:00", "第 12 法庭", "準備程序", "30 分鐘"], ["115/11/05", "14:30", "第 12 法庭", "言詞辯論", "60 分鐘"]];
+const HC_ORDERS = [
+  ["10/29（四）13:42", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["10/22（四）13:40", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["10/15（四）13:41", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["10/8（四）13:40", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["10/1（四）11:05", "團購 12 杯", 640, "12F 茶水間", "15:30 外送"],
+  ["9/30（三）14:48", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "15:00 前送達"],
+  ["9/24（四）13:40", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["9/24（四）11:02", "團購 11 杯", 585, "12F 茶水間", "15:30 外送"],
+  ["9/17（四）13:41", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
+  ["9/17（四）11:00", "團購 12 杯", 615, "12F 茶水間", "15:30 外送"],
+];
+let web = {site:"", hcIn:false, hcTab:"o", hcPg:"home"};
+const WEB = {
+  court: {url:"https://www.judicial.gov.tw/hearing/query", title:"法院開庭進度查詢 - 司法院", draw: () => `<div class="ct-h">司法院<small>法院開庭進度查詢</small></div>
+<div class="ct-bc">首頁 › 便民服務 › 查詢服務 › 法院開庭進度查詢</div>
+<form class="ct-f" id="ct-f"><label>法院<select id="ct-c"><option value="">請選擇</option><option>臺灣高等法院</option><option value="tp">臺灣臺北地方法院</option><option>臺灣士林地方法院</option><option>臺灣新北地方法院</option></select></label>
+<label>年度<input id="ct-y" inputmode="numeric" placeholder="例：115"></label>
+<label>字別<select id="ct-w"><option>訴</option><option>簡上</option><option>重訴</option><option>易</option><option>聲</option></select></label>
+<label>案號<input id="ct-n" inputmode="numeric" placeholder="例：123"></label>
+<button class="ct-go">查詢</button></form><div id="ct-r"></div>
+<p class="ct-note">※ 開庭時間僅供參考，實際以各法院公告為準。預估時間為法庭排定之開庭時長。</p>`},
+  hecha: {get url(){ return "https://www.hecha-tea.com.tw" + HC_PATH[web.hcPg]; }, title:"禾茶舖 HECHA TEA｜一杯好茶，從產地開始", draw: () => HC_NAV() + HC_PG[web.hcPg]() + `<div class="hc-ft">禾茶舖股份有限公司　客服專線 0800-123-786（週一至週五 9:00–18:00）<br>© 2026 HECHA TEA. All rights reserved.</div>`},
+};
+const HC_PATH = {home:"/", menu:"/menu", store:"/stores", biz:"/business", mem:"/member/login"};
+const HC_NAV = () => `<div class="hc-h"><b data-hcp="home">禾茶舖</b>${[["menu","菜單"],["store","門市據點"],["biz","企業團購"],["mem","會員中心"]].map(([k, t]) => `<span data-hcp="${k}" class="${web.hcPg === k ? "on" : ""}">${t}</span>`).join("")}</div>`;
+const HC_PG = {
+  home: () => `<div class="hc-hero"><small>WINTER SEASON</small><b>冬季限定　桂花烏龍拿鐵</b><span>11/1 起全門市限量供應，會員點購享第二杯半價</span></div>
+<div class="hc-sec"><h3>本季推薦</h3><div class="hc-cards">${[["桂花烏龍拿鐵","$65","冬季限定"],["四季春青茶","$35","人氣第一"],["焙香鐵觀音","$40","店長推薦"],["黑糖珍珠鮮奶","$60",""]].map(c => `<div class="hc-card"><i></i><b>${c[0]}</b><span>${c[1]}</span>${c[2] ? `<em>${c[2]}</em>` : ""}</div>`).join("")}</div></div>
+<div class="hc-sec"><h3>最新消息</h3><ul class="hc-news"><li><time>2026/10/28</time>冬季限定「桂花烏龍拿鐵」11/1 上市</li><li><time>2026/10/15</time>台北南京門市 10/20–10/22 內部整修暫停營業</li><li><time>2026/10/01</time>會員點數制度調整說明</li><li><time>2026/09/10</time>中秋禮盒預購開跑，企業訂購另有優惠</li></ul></div>`,
+  menu: () => `<div class="hc-sec"><h3>菜單</h3><div class="wt-w"><table class="wt"><tr><th>原葉茶</th><th>中杯</th><th>大杯</th></tr><tr><td>四季春青茶</td><td>$30</td><td>$35</td></tr><tr><td>茉莉綠茶</td><td>$30</td><td>$35</td></tr><tr><td>焙香鐵觀音</td><td>$35</td><td>$40</td></tr><tr><td>桂花烏龍拿鐵（冬季限定）</td><td>—</td><td>$65</td></tr><tr><td>黑糖珍珠鮮奶</td><td>—</td><td>$60</td></tr></table></div><p class="hc-note">甜度：正常／少糖／半糖／微糖／無糖　冰塊：正常／少冰／微冰／去冰／溫／熱</p></div>`,
+  store: () => `<div class="hc-sec"><h3>門市據點</h3><ul class="hc-news"><li><b>台北南京門市</b>　台北市中山區南京東路二段 88 號　10:00–21:00</li><li><b>台北信義門市</b>　台北市信義區松仁路 36 號　10:00–21:30</li><li><b>新北板橋門市</b>　新北市板橋區文化路一段 210 號　10:30–21:00</li></ul></div>`,
+  mem: () => `<form class="hc-box" id="hc-mem"><b>會員登入</b><label>手機號碼<input id="hc-m" inputmode="numeric" autocomplete="off" placeholder="09xxxxxxxx"></label><label>密碼<input type="password" autocomplete="off"></label><div class="hc-err" id="hc-m-err"></div><button class="hc-go">登入</button><small style="color:#888">還不是會員？下載禾茶舖 App 立即加入</small></form>`,
+  biz: () => web.hcIn ? HC_DASH() : `<div class="hc-ban">企業團購　滿 10 杯免運外送，大台北地區當日送達</div>
+<div class="hc-sec"><h3>方案說明</h3><div class="wt-w"><table class="wt"><tr><th>方案</th><th>內容</th></tr><tr><td>團購外送</td><td>單筆滿 10 杯免運，30 杯以上 95 折</td></tr><tr><td>月結請款</td><td>開通企業帳號後可月結，每月 5 日寄送對帳單</td></tr><tr><td>特約商店</td><td>合作企業員工憑識別證門市消費 9 折</td></tr></table></div>
+<h3>訂購流程</h3><ol class="hc-note"><li>來電或來信申請企業帳號（business@hecha-tea.com.tw）</li><li>指定團主，由團主登入企業會員專區下單</li><li>訂單成立後，門市依指定時間外送</li></ol></div>
+<form class="hc-box" id="hc-lg"><b>企業會員專區</b><small style="color:#888">已開通企業帳號的團主，請由此登入下單及查詢訂單。</small><label>企業帳號<input id="hc-u" autocapitalize="off" autocomplete="off"></label><label>密碼<input id="hc-p" type="password" autocomplete="off"></label><div class="hc-err" id="hc-err"></div><button class="hc-go">登入</button></form>`,
+};
+const HC_TABS = [["o","訂單紀錄"],["r","預約訂單"],["g","團主設定"]];
+const HC_RSV = `<tr><td>每週四 13:40</td><td>四季春青茶　微糖去冰 ×1</td><td>B1 會議室</td><td>周以恩（2026/9/16）</td><td>啟用中</td><td>11/5（四）</td></tr>`;
+const HC_DASH = () => `<div class="hc-who">晴禾食品股份有限公司　經營企劃部（企業帳號 qinghe-plan）　團主：<b>周以恩</b>　<a href="#" id="hc-out">登出</a></div>
+<div class="hc-tabs">${HC_TABS.map(([k, t]) => `<button data-hc="${k}" class="${web.hcTab === k ? "on" : ""}">${t}</button>`).join("")}</div>` + ({
+  o: () => `<p style="margin:14px 20px 10px;color:#666;font-size:13px">近 60 天訂單</p><div class="wt-w"><table class="wt"><tr><th>訂購時間</th><th>品項</th><th>金額</th><th>送達地點</th><th>備註</th><th></th></tr>${HC_ORDERS.map(o => `<tr><td>${o[0]}</td><td>${o[1]}</td><td>$${o[2]}</td><td>${o[3]}</td><td>${o[4]}</td><td>${/團購/.test(o[1]) ? `<button class="hc-again" data-again="${o[1]}|${o[2]}">再訂一次</button>` : ""}</td></tr>`).join("")}</table></div>`,
+  r: () => `<p style="margin:14px 20px 10px;color:#666;font-size:13px">預約訂單會在指定時間自動成立，並以企業帳號月結。</p><div class="wt-w"><table class="wt"><tr><th>送達時間</th><th>品項</th><th>送達地點</th><th>建立者</th><th>狀態</th><th>下次送達</th></tr>${HC_RSV}</table></div>`,
+  g: () => `<form class="hc-box" id="hc-g"><label>目前團主<input value="周以恩" disabled></label><label>新團主姓名<input id="hc-g-n" autocomplete="off"></label><div class="hc-err" id="hc-g-err"></div><button class="hc-go">送出移交申請</button></form>`,
+  n: () => `<form class="hc-box" id="hc-n" style="max-width:420px"><b>確認訂單</b><label>品項<input value="${web.again[0]}（同 10/1 訂單）" disabled></label>
+<label>送達日期<select id="hc-d"><option value="">請選擇</option>${["11/3（二）","11/4（三）","11/5（四）","11/6（五）"].map(d => `<option>${d}</option>`).join("")}</select></label>
+<label>送達時間<select id="hc-t"><option value="">請選擇</option>${["14:00","14:30","15:00","15:30","16:00"].map(d => `<option>${d}</option>`).join("")}</select></label>
+<label>送達地點<input id="hc-l" value="12F 茶水間" autocomplete="off"></label><div style="font-size:13px;color:#666">金額 $${Math.round(web.again[1] * .9)}（特約 9 折）・月結</div><div class="hc-err" id="hc-n-err"></div><button class="hc-go">送出訂單</button></form>`,
+  ok: () => `<div class="hc-box" style="max-width:520px"><b style="font-size:17px;color:#3f5a3a">✓ 訂單已成立</b><div>訂單編號 ${web.last.no}</div><div>${web.again[0]}　${web.last.d} ${web.last.t} 送達 ${web.last.l}</div><div style="color:#666;font-size:13px">訂單成立通知已寄至帳號綁定信箱 plan@qinghe-foods.com.tw。</div></div>
+<p style="margin:0 20px 8px;font-size:13px;color:#666">本帳號另有以下預約訂單：</p><div class="wt-w"><table class="wt"><tr><th>送達時間</th><th>品項</th><th>送達地點</th><th>建立者</th><th>狀態</th><th>下次送達</th></tr>${HC_RSV}</table></div>`,
+}[web.hcTab])();
+function openWeb(site){
+  web.site = site; const w = WEB[site];
+  webPg.innerHTML = w.draw(); document.title = w.title; scrollTo(0, 0);
+}
+// 網址 #court、#hecha、#hecha/biz；換頁用 hash，瀏覽器的上一頁就能用
+function route(){ const [site, pg] = location.hash.slice(1).split("/"); if (!WEB[site]) return; if (site === "hecha") web.hcPg = HC_PATH[pg] ? pg : "home"; openWeb(site); }
+addEventListener("hashchange", route);
+webPg.addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target;
+  if (f.id === "ct-f"){
+    const c = document.getElementById("ct-c").value, y = document.getElementById("ct-y").value.trim(), w = document.getElementById("ct-w").value, n = document.getElementById("ct-n").value.trim().replace(/^0+/, "");
+    const r = document.getElementById("ct-r");
+    if (!c) return r.innerHTML = `<p class="ct-msg">請選擇法院。</p>`;
+    if (c === "tp" && y === "115" && w === "訴" && n === "812")
+      return r.innerHTML = `<p style="margin:0 20px 10px">臺灣臺北地方法院　115 年度訴字第 812 號　給付貨款事件</p><div class="wt-w"><table class="wt"><tr><th>開庭日期</th><th>開庭時間</th><th>法庭</th><th>庭類</th><th>預估時間</th></tr>${COURT_HEAR.map(h => `<tr>${h.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</table></div>`;
+    return r.innerHTML = `<p class="ct-msg">查無資料，請確認法院、年度、字別及案號是否正確。</p>`;
+  }
+  if (f.id === "hc-lg"){
+    const u = document.getElementById("hc-u").value.trim().toLowerCase(), pw = document.getElementById("hc-p").value.trim();
+    if (u === "qinghe-plan" && pw === "hecha3109"){ web.hcIn = true; web.hcTab = "o"; return openWeb("hecha"); }
+    return document.getElementById("hc-err").textContent = "帳號或密碼錯誤，請再試一次。";
+  }
+  if (f.id === "hc-mem") return document.getElementById("hc-m-err").textContent = /^09\d{8}$/.test(document.getElementById("hc-m").value.trim()) ? "手機號碼或密碼錯誤。" : "請輸入 10 碼手機號碼。";
+  if (f.id === "hc-n"){
+    const d = document.getElementById("hc-d").value, t = document.getElementById("hc-t").value, l = document.getElementById("hc-l").value.trim();
+    if (!d || !t || !l) return document.getElementById("hc-n-err").textContent = "請選擇送達日期、時間並填寫地點。";
+    web.last = {d, t, l, no:"HC1105-0" + (312 + (web.n = (web.n || 0) + 1))}; HC_ORDERS.unshift(["11/2（一）" + new Date().toTimeString().slice(0, 5), web.again[0], Math.round(web.again[1] * .9), l, `${d} ${t} 外送`]);
+    // 通知遊戲分頁（同網域 localStorage 的 storage 事件）
+    try { localStorage.setItem("qinghe-hc-order", JSON.stringify({...web.last, at:Date.now()})); } catch (_) {}
+    web.hcTab = "ok"; return openWeb("hecha");
+  }
+  if (f.id === "hc-g"){
+    const n = document.getElementById("hc-g-n").value.trim();
+    document.getElementById("hc-g-err").textContent = !n ? "請輸入新團主姓名。" : "移交申請須由原團主以簡訊驗證，原團主手機號碼已停用，請洽客服。";
+  }
+});
+webPg.addEventListener("click", e => {
+  const pg = e.target.closest("[data-hcp]"); if (pg){ location.hash = "hecha/" + pg.dataset.hcp; return; }
+  const a = e.target.closest("[data-again]"); if (a){ const [n, p] = a.dataset.again.split("|"); web.again = [n, +p]; web.hcTab = "n"; return openWeb("hecha"); }
+  const t = e.target.closest("[data-hc]"); if (t){ web.hcTab = t.dataset.hc; return openWeb("hecha"); }
+  if (e.target.closest("#hc-out")){ e.preventDefault(); web.hcIn = false; openWeb("hecha"); }
+});
+route();
+</script>
+</body>
+</html>
