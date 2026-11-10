@@ -1781,12 +1781,21 @@ const SU_AUTH = {id:"suauth", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"
 <p>航警說有授權書就不能攔人。董事長在開會，電話打不通。</p><p>你幫我看一下，這張有沒有問題。</p>${AUTH_DOC}<p style="color:var(--muted)">從我的 iPhone 傳送</p>`,
   check: t => /沒問題|沒有問題|看起來正常|放行|讓她走|合法/.test(t) && !/章|開庭|法院|法庭/.test(t)
       ? {fail:["經查台端於 11/5（週四）協助確認之授權文件，經董事長證實係屬偽造，致本公司機密資料當事人得以出境。"], comfort:["小明，她拿著那張授權書過了海關。", "後來董事長說他從沒簽過那種東西，但已經來不及了。", "蘇經理在機場坐了很久才回來。"]}
-    : /舊章|舊的章|圓章|圓的|方章|換章|換了章|換過|章不對|章不一樣|印章|印鑑|蓋的章/.test(t) || /開庭|法院|法庭|不在場|不可能在|在開庭|9\s*\/\s*24/.test(t) ? "ok"
+    : /舊章|舊的章|圓章|圓的|方章|換章|換了章|換過|章不對|章不一樣|印章|印鑑|蓋的章/.test(t) || /開庭|法院|法庭|不在場|不可能在|在開庭|9\s*\/\s*24|見證(時間|日期|的時間)|(時間|日期)(不對|有問題|怪|錯)/.test(t) ? "ok"
     : /董事長|何正雄/.test(t) ? "董事長的章我認不出真假。有沒有更確定的地方？"
     : /律師|林志遠/.test(t) ? "林律師怎麼了？你說清楚一點。" : "她就是靠這張在拖時間。你再看一下。",
-  okText:"對，這是我那顆舊章。\n我剛也打給林律師，他說 9/24 那天上午他在法院開庭，從沒見過這張紙。\n航警已經把她請到旁邊了。董事長剛回電，說他從來沒簽過這種東西。\n謝謝你，小明。",
+  okText:"你說得對。\n我剛打給林律師，他說 9/24 那天上午他在法院開庭，從沒見過這張紙。會辦欄那顆，還是我 9 月初就換掉的舊章。\n航警已經把她請到旁邊了。董事長剛回電，說他從來沒簽過這種東西。\n謝謝你，小明。",
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { clock = 15 * 60 + 25; arrive([{id:"end", from:"林子晴", c:C.lin, sys:true, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-    subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>`}]); notify(MAILS[0]); later(() => toast("全劇終　謝謝遊玩"), 5000); }, 12000); }};
+    subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>`}]); notify(MAILS[0]); later(() => { arrive([THANKS]); notify(MAILS[0]); toast("全劇終　謝謝遊玩"); }, 9000); }, 12000); }};
+// 結局彩蛋：作者的謝幕信，附官網與抖內（抖內可以許願下一款遊戲）
+const DONATE_URL = "";
+const THANKS = {id:"thanks", from:"阿康（遊戲作者）", c:"#0f6cbd", sys:true, ext:true, who:"阿康（Q kangber）", to:"收件者：王小明",
+  subj:"謝謝你玩到最後 🥹", pv:"嗨，我是做這款遊戲的阿康。謝謝你一路把信讀完、把謎解開……",
+  body:`<p>嗨，我是做這款遊戲的阿康。</p><p>謝謝你一路把信讀完、把謎解開，還把財務長攔在 T1 🤣</p>
+<p>平常我在 <a href="https://aiqkangber.com" target="_blank" rel="noopener">Q kangber 官網</a>寫 AI 和自動化的實作文章，有興趣可以來逛逛。</p>
+${DONATE_URL ? `<p>如果你玩得開心，可以抖內請我喝杯飲料，順便許願下一款想玩的遊戲（不一定會做，當作純支持就好 🥰）</p>
+<p><a href="${DONATE_URL}" target="_blank" rel="noopener" style="display:inline-block;background:#c0392b;color:#fff;padding:8px 18px;border-radius:4px;font-weight:600;text-decoration:none">☕ 抖內＋許願下一款遊戲</a></p>` : ""}
+<p>阿康</p>`};
 function startFinal(){ clock = 10 * 60 + 12; arrive([SU_AUTH]); notify(MAILS[0]); }
 function startDay4(){
   MAILS.forEach(m => { if (!m.date && (!m.box || m.box === "sent")) m.date = TODAY + " " + m.tm; if (m.grp === "昨天") m.grp = "更早"; if (m.grp === "今天") m.grp = "昨天"; });
