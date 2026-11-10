@@ -1788,7 +1788,7 @@ const SU_AUTH = {id:"suauth", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { clock = 15 * 60 + 25; arrive([{id:"end", from:"林子晴", c:C.lin, sys:true, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
     subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>`}]); notify(MAILS[0]); later(() => { arrive([THANKS]); notify(MAILS[0]); toast("全劇終　謝謝遊玩"); }, 9000); }, 12000); }};
 // 結局彩蛋：作者的謝幕信，附官網與抖內（抖內可以許願下一款遊戲）
-const DONATE_URL = "https://portaly.cc/qkangber";
+const DONATE_URL = "";  // 抖內平台開好後填網址，按鈕就會出現
 const THANKS = {id:"thanks", from:"阿康（遊戲作者）", c:"#0f6cbd", sys:true, ext:true, who:"阿康（Q kangber）", to:"收件者：王小明",
   subj:"謝謝你玩到最後 🥹", pv:"嗨，我是做這款遊戲的阿康。謝謝你一路把信讀完、把謎解開……",
   body:`<p>嗨，我是做這款遊戲的阿康。</p><p>謝謝你一路把信讀完、把謎解開，還把財務長攔在 T1 🤣</p>
