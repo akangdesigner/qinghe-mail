@@ -357,6 +357,16 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 
 /* 失敗畫面 */
 .retry{background:var(--brand);color:#fff;border-radius:4px;padding:7px 16px;font-weight:600}
+.rs{margin:20px 0 6px;max-width:520px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.rs-h{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#0f6cbd;color:#fff;font-size:13px;letter-spacing:1px}
+.rs-h b{border:2px solid #fff;border-radius:4px;padding:1px 10px;font-size:15px;letter-spacing:4px;transform:rotate(-4deg)}
+.rs-g{display:flex;align-items:center;gap:16px;padding:16px}
+.rs-rank{width:64px;height:64px;flex:none;border-radius:50%;display:grid;place-items:center;font:900 36px/1 Georgia,serif;color:#fff;background:#9aa0a6}
+.rs-S .rs-rank{background:#c99a2e}.rs-A .rs-rank{background:#0f6cbd}.rs-B .rs-rank{background:#498205}.rs-C .rs-rank{background:#9aa0a6}
+.rs-g small{display:block;color:var(--muted);font-size:12px}.rs-g b{font-size:17px}
+.body .rs-t{width:100%;border-collapse:collapse;font-size:14px;margin:0}.body .rs-t th,.body .rs-t td{padding:8px 16px;border:0;border-top:1px solid var(--line);text-align:left}
+.body .rs-t th{color:var(--muted);font-weight:400;width:40%}.rs-ok{color:#188038}
+.body .rs-f{margin:0;padding:8px 16px 12px;color:var(--muted);font-size:12px}
 
 /* OneDrive 與 Word 文件 */
 .od,.dv{display:none;grid-column:2/5;overflow:auto;background:#fff}
@@ -1090,7 +1100,24 @@ function fail(q, lines, comfort){
     notify(MAILS[0]);
   }, 6000);
 }
-document.addEventListener("click", e => { const b = e.target.closest("[data-retry]"); if (b) location.search = "?q=" + b.dataset.retry; });
+document.addEventListener("click", e => { const b = e.target.closest("[data-retry]"); if (b){ try { sessionStorage.setItem("qinghe-retry", "1"); } catch (_) {} location.search = "?q=" + b.dataset.retry; } });
+const RUN = (() => { const g = k => { try { return sessionStorage.getItem(k); } catch (_) { return null; } }, st = (k, v) => { try { sessionStorage.setItem(k, v); } catch (_) {} };
+  const retried = g("qinghe-retry") === "1"; st("qinghe-retry", "0");
+  if (retried) st("qinghe-retries", String(+(g("qinghe-retries") || 0) + 1)); else { st("qinghe-retries", "0"); st("qinghe-start", String(Date.now())); }
+  return {retries: +(g("qinghe-retries") || 0), start: +(g("qinghe-start") || Date.now())}; })();
+// 結局成績單：依看摘要、回錯、重來次數計算
+function resultCard(){
+  const mins = Math.max(1, Math.round((Date.now() - RUN.start) / 60000));
+  const score = 100 - hintsUsed * 3 - wrong * 5 - RUN.retries * 10, rank = score >= 95 ? "S" : score >= 75 ? "A" : score >= 50 ? "B" : "C";
+  const title = {S:"董事長問你要不要調去稽核室", A:"蘇經理說要請你吃飯", B:"有驚無險，總算攔下來了", C:"人是抓到了，但你也被嚇得不輕"}[rank];
+  const row = (k, v, ok) => `<tr><th>${k}</th><td${ok ? " class=rs-ok" : ""}>${v}</td></tr>`;
+  const sq = Math.min(Math.max(+new URLSearchParams(location.search).get("q") || 1, 1), 15);
+  return `<div class="rs"><div class="rs-h"><span>藍海專案　估值檔外流案</span><b>結案</b></div>
+<div class="rs-g rs-${rank}"><div class="rs-rank">${rank}</div><div><small>你的評等</small><b>${title}</b></div></div>
+<table class="rs-t">${row("財務長 張美玲", "T1 報到櫃台當場攔下", 1)}${row("陳怡君", "主動向董事長說明", 1)}${row("周以恩", "洗清嫌疑，回來喝下午茶", 1)}
+${row("花費時間", mins + " 分鐘")}${row("看摘要", hintsUsed + " 次")}${row("回錯信", wrong + " 次")}${row("重新來過", RUN.retries + " 次")}</table>
+<p class="rs-f">評等依「看摘要、回錯信、重新來過」次數計算。${sq > 1 ? `本次從第 ${sq} 題開始，評等僅供參考。` : ""}</p></div>`;
+}
 const later = (fn, ms) => skipping ? fn() : setTimeout(fn, ms);
 function toast(t){ if (skipping) return; const e = document.getElementById("toast"); e.textContent = t; e.classList.add("show"); setTimeout(() => e.classList.remove("show"), 3200); }
 const FOLD_NAME = {inbox:"收件匣", drafts:"草稿", sent:"寄件備份", deleted:"刪除的郵件", archive:"封存", junk:"垃圾郵件", "z-inbox":"收件匣", "z-drafts":"草稿", "z-sent":"寄件備份", "z-archive":"封存", "z-deleted":"刪除的郵件"};
@@ -1786,7 +1813,7 @@ const SU_AUTH = {id:"suauth", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"
     : /律師|林志遠/.test(t) ? "林律師怎麼了？你說清楚一點。" : "她就是靠這張在拖時間。你再看一下。",
   okText:"你說得對。\n我剛打給林律師，他說 9/24 那天上午他在法院開庭，從沒見過這張紙。會辦欄那顆，還是我 9 月初就換掉的舊章。\n航警已經把她請到旁邊了。董事長剛回電，說他從來沒簽過這種東西。\n謝謝你，小明。",
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { clock = 15 * 60 + 25; arrive([{id:"end", from:"林子晴", c:C.lin, sys:true, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-    subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>`}]); notify(MAILS[0]); later(() => { arrive([THANKS]); notify(MAILS[0]); toast("全劇終　謝謝遊玩"); }, 9000); }, 12000); }};
+    subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>${resultCard()}`}]); notify(MAILS[0]); later(() => { arrive([THANKS]); notify(MAILS[0]); toast("全劇終　謝謝遊玩"); }, 9000); }, 12000); }};
 // 結局彩蛋：作者的謝幕信，附官網與抖內（抖內可以許願下一款遊戲）
 const DONATE_URL = "";  // 抖內平台開好後填網址，按鈕就會出現
 const THANKS = {id:"thanks", from:"阿康（遊戲作者）", c:"#0f6cbd", sys:true, ext:true, who:"阿康（Q kangber）", to:"收件者：王小明",
