@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://akangdesigner.github.io/qinghe-mail/">
+<meta property="og:title" content="上班也能玩的信箱解謎遊戲">
+<meta property="og:description" content="接手離職同事的信箱，她留下的不只是交接。把藏在公事裡的真相找出來。">
+<meta property="og:image" content="https://akangdesigner.github.io/qinghe-mail/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <title>郵件 - 王小明 - Outlook</title>
 <style>
 :root{
@@ -180,6 +188,12 @@ svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke
 
 /* 團單（Excel 線上） */
 .xl{display:none;background:var(--card);overflow:auto;grid-column:2/5}
+.xs{display:none;background:var(--card);grid-column:2/5;position:relative}
+.xs-wrap{overflow:auto;height:calc(100% - 118px)}
+.xs-sheet td{min-width:40px;width:40px;height:34px;padding:0 4px;text-align:center}.xs-sheet td.nm{text-align:left;min-width:110px;position:sticky;left:0;background:#fff}
+.xs-sheet td.ok{background:#a9dcb5;color:#006100}
+.xs-st{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:6px 16px;border-top:1px solid var(--line);background:#f3f3f3;font-size:12px;color:var(--fg2)}
+.xs-st .z{margin-left:auto;display:flex;align-items:center;gap:6px}.xs-st .z button{width:22px;height:22px;border-radius:3px;font-size:15px}.xs-st .z button:hover{background:#e1e1e1}.xs-st input{width:110px}
 .xl-top{background:#107c41;color:#fff;padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:600}
 .xl-top small{font-weight:400;opacity:.85}
 .xl-bar{display:flex;align-items:center;gap:8px;padding:6px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--fg2)}
@@ -410,9 +424,10 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 .pp-th{overflow:auto;padding:10px 8px 10px 4px;background:#f3f2f1}
 .pp-t{display:flex;gap:6px;margin-bottom:10px;cursor:pointer;font-size:11px;color:var(--muted)}
 .pp-t>span{width:12px;text-align:right;flex:none}
-.pp-t .mini{flex:1;aspect-ratio:16/9;background:#fff;border:1px solid var(--line);border-radius:2px;padding:6px;font-size:7px;line-height:1.3;color:var(--fg);position:relative;overflow:hidden}
+.pp-t .mini{flex:1;aspect-ratio:16/9;background:#fff;border:1px solid var(--line);border-radius:2px;padding:0;color:var(--fg);position:relative;overflow:hidden}
+.pp-mini{max-width:none!important;box-shadow:none!important;pointer-events:none}
+.pp-mini .cc::after{display:none}
 .pp-t.on .mini{border:2px solid #c43e1c}
-.pp-t .mini b{display:block;font-size:8px;color:#1f3864}
 .pp-t .flag{position:absolute;right:3px;bottom:3px;width:14px;height:14px;border-radius:50%;background:url(img/chang.jpg) center/cover;box-shadow:0 0 0 2px #e3008c}
 .pp-c{overflow:auto;padding:24px;display:flex;flex-direction:column;align-items:center}
 .pp-s{width:100%;max-width:820px;aspect-ratio:16/9;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);padding:4% 6%;position:relative;container-type:inline-size;flex:none}
@@ -420,6 +435,29 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 .pp-s h1{margin:12cqw 0 2cqw;font-size:6cqw;color:#1f3864}
 .pp-s p,.pp-s li{font-size:2.4cqw;line-height:1.7;margin:0}
 .pp-s ul{margin:0;padding-left:3.4cqw}
+.pp-s .cover{height:100%;display:flex;flex-direction:column;justify-content:center;border-left:1.2cqw solid #c43e1c;padding-left:4cqw;margin-left:-2cqw}
+.pp-s .cover h1{margin:2cqw 0 1cqw}
+.pp-s .cv-tag{display:inline-block;align-self:flex-start;border:.3cqw solid #c43e1c;color:#c43e1c;font-size:1.7cqw;font-weight:700;padding:.4cqw 1.2cqw;letter-spacing:.2cqw}
+.pp-s .cv-sub{font-size:3cqw;color:#1f3864}
+.pp-s .cv-meta{font-size:1.9cqw;color:#605e5c;margin-top:3cqw}
+.pp-s .cv-co{position:absolute;right:6%;bottom:6%;font-size:2cqw;font-weight:700;color:#1f3864}
+.pp-s .ag{list-style:none;padding:0;margin:0}
+.pp-s .ag li{display:flex;align-items:center;gap:2cqw;border-bottom:1px solid #d0d7e5;padding:1cqw 0;font-size:2.5cqw}
+.pp-s .ag b{color:#c43e1c;width:6cqw}.pp-s .ag span{margin-left:auto;color:#8a8886;font-size:2cqw}
+.pp-s .ag.rs b{width:7cqw}
+.pp-s .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6cqw;margin-bottom:2.4cqw}
+.pp-s .kpis div{background:#f3f6fb;border-top:.5cqw solid #1f3864;padding:1.2cqw 1.4cqw}
+.pp-s .kpis small{display:block;font-size:1.6cqw;color:#605e5c}.pp-s .kpis b{font-size:4cqw;color:#1f3864}.pp-s .kpis i{font-style:normal;font-size:1.5cqw;color:#605e5c;margin-left:.6cqw}
+.pp-s .bars div{display:flex;align-items:center;gap:1.4cqw;font-size:1.8cqw;margin:.8cqw 0}
+.pp-s .bars span{width:24cqw;color:#323130}.pp-s .bars i{height:2.2cqw;background:#8faadc;display:block}.pp-s .bars i.r{background:#c43e1c}.pp-s .bars em{font-style:normal;font-weight:700;color:#1f3864}
+.pp-s .note2{font-size:1.7cqw;color:#605e5c;margin-top:2cqw}
+.pp-s .pill{display:inline-block;border-radius:2cqw;padding:.2cqw 1.4cqw;font-size:1.7cqw;font-weight:600}
+.pp-s .pill.ok{background:#dff6dd;color:#107c10}.pp-s .pill.wip{background:#fff4ce;color:#8a5a00}.pp-s .pill.no{background:#fde7e9;color:#a4262c}
+.pp-s .tl{display:flex;margin:7cqw 0 2cqw;border:0;border-top:.5cqw solid #d0d7e5;border-radius:0;background:none;padding:0;box-shadow:none;overflow:visible}
+.pp-s .tl div{flex:1;position:relative;padding-top:3cqw;text-align:center}
+.pp-s .tl div::before{content:"";position:absolute;top:-1.6cqw;left:50%;width:2.6cqw;height:2.6cqw;margin-left:-1.3cqw;border-radius:50%;background:#fff;border:.5cqw solid #8faadc}
+.pp-s .tl div.on::before{background:#c43e1c;border-color:#c43e1c}
+.pp-s .tl b{display:block;font-size:2.4cqw;color:#1f3864}.pp-s .tl span{font-size:1.8cqw;color:#605e5c}
 .pp-s .ft{position:absolute;left:6%;bottom:4%;font-size:1.6cqw;color:var(--muted)}
 .pp-s table{width:100%;border-collapse:collapse;font-size:2.4cqw}
 .pp-s th{background:#1f3864;color:#fff;text-align:left;padding:1cqw 1.4cqw;font-weight:600}
@@ -494,6 +532,12 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 .cv-p{flex:1;min-width:0;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cv-t{flex:none;color:var(--muted);font-size:12px}
 .cv-sep{margin:26px 0 4px;font-size:12px;color:var(--muted)}
+.selfie{position:relative;display:block;width:100%;max-width:560px;margin:10px 0;padding:13% 0 11%;border-radius:6px;overflow:hidden;background:linear-gradient(#ff8fb8,#ffd27f);text-decoration:none}
+.selfie .fl{position:absolute;font-size:clamp(18px,5vw,30px)}
+.selfie .big{position:absolute;left:0;right:0;top:2.5%;text-align:center;font:900 clamp(26px,8vw,46px)/1 "DFKai-SB","Kaiti TC",serif;color:#ffeb3b;-webkit-text-stroke:2px #d50000;paint-order:stroke;transform:rotate(-3deg)}
+.selfie .sub{position:absolute;left:0;right:0;bottom:3%;text-align:center;font:900 clamp(15px,4.4vw,24px)/1 "DFKai-SB","Kaiti TC",serif;color:#fff;-webkit-text-stroke:1.5px #6a1b9a;paint-order:stroke}
+.selfie .ph{display:block;width:84%;margin:0 auto;background:#fff;padding:1.4%;box-shadow:0 4px 14px rgba(0,0,0,.3);transform:rotate(-1.5deg)}
+.selfie img{display:block;width:100%;height:auto}
 
 /* 回信 */
 .cmp{margin:16px 0 0 52px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
@@ -689,6 +733,13 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
     <div class="tl-key"><span><i style="background:#5b9bd5"></i>忙碌</span><span><i style="background:repeating-linear-gradient(45deg,#5b9bd5,#5b9bd5 3px,#fff 3px,#fff 6px)"></i>暫訂</span><span><i style="background:#8764b8"></i>外出</span><span><i style="background:repeating-linear-gradient(45deg,#e6e6e6,#e6e6e6 3px,#fff 3px,#fff 6px)"></i>沒有資訊</span></div>
   </section>
 
+  <!-- 第 14 題：董事會資料確認表 -->
+  <section class="xs" id="xs">
+    <div class="xl-top"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 7l6 6M13 7l-6 6"/></svg>11-5_董事會資料確認表.xlsx <small>· 董事長室 · 上次修改：陳怡君 11/5 08:06</small></div>
+    <div class="xl-bar"><b>A1</b><span class="fx">11/5 董事會資料　各頁確認表</span></div>
+    <div class="xs-wrap"><table class="sheet xs-sheet" id="xs-sheet"></table></div>
+    <div class="xs-st"><span>工作表1</span><span>就緒</span><span class="z"><button data-xz="-10">−</button><input type="range" id="xs-z" min="20" max="100" step="10" value="100"><button data-xz="10">＋</button><b id="xs-zv">100%</b></span></div>
+  </section>
   <!-- 團單 -->
   <section class="xl" id="xl">
     <div class="xl-top"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 7l6 6M13 7l-6 6"/></svg>下午茶團單.xlsx <small>· 經營企劃部 › 共用文件 · 上次修改：周以恩 10/1</small></div>
@@ -807,6 +858,7 @@ const STAMP = {
   su2: '<rect x="3" y="2" width="42" height="44" rx="2" fill="none" stroke="#c8102e" stroke-width="3"/><path d="M24 4 V44" stroke="#c8102e" stroke-width="1.5"/><text x="34" y="21" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">蘇</text><text x="34" y="39" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">志</text><text x="14" y="21" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">誠</text><text x="14" y="39" font-size="16" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="serif">印</text>',
   wu: '<circle cx="24" cy="24" r="20" fill="none" stroke="#c8102e" stroke-width="2.5"/><text x="24" y="34" font-size="28" fill="#c8102e" text-anchor="middle" font-family="Kaiti TC,BiauKai,STKaiti,DFKai-SB,KaiTi,serif">吳</text>',
   date: '<rect x="2" y="10" width="44" height="28" rx="2" fill="none" stroke="#c8102e" stroke-width="2"/><path d="M2 20 H46" stroke="#c8102e" stroke-width="1.2"/><text x="24" y="18" font-size="7" fill="#c8102e" text-anchor="middle">資訊處 收件</text><text x="24" y="32" font-size="8" fill="#c8102e" text-anchor="middle" font-family="monospace">2026.10.30</text>'};
+STAMP.ho = '<rect x="3" y="3" width="42" height="42" rx="2" fill="none" stroke="#c8102e" stroke-width="3"/>' + [["何",34,22],["正",34,41],["雄",14,22],["印",14,41]].map(([c, x, y]) => `<text x="${x}" y="${y}" font-size="17" font-weight="700" fill="#c8102e" text-anchor="middle" font-family="Kaiti TC,BiauKai,STKaiti,DFKai-SB,KaiTi,serif">${c}</text>`).join("");
 const stamp = (k, rot = -3, smudge = "") => `<svg width="48" height="48" viewBox="0 0 48 48" style="width:58px;height:58px;fill:#000;stroke:none;transform:rotate(${rot}deg);vertical-align:middle">${smudge ? `<defs><filter id="sm${smudge}"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter><linearGradient id="fd${smudge}" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff"/></linearGradient><mask id="mk${smudge}"><rect width="48" height="48" fill="url(#fd${smudge})"/></mask></defs>` : ""}<g opacity=".85" ${smudge ? `filter="url(#sm${smudge})" mask="url(#mk${smudge})"` : ""}>${STAMP[k]}</g></svg>`;
 const FORM = `<div style="margin:16px 0;max-width:440px;border:1px solid #c8c6c4;border-radius:4px;overflow:hidden">
 <div style="background:#f3f2f1;color:#323130;padding:6px 10px;font-size:12px">📎 權限移轉申請單_IT-2026-1047.pdf</div>
@@ -816,6 +868,9 @@ const FORM = `<div style="margin:16px 0;max-width:440px;border:1px solid #c8c6c4
 <table style="width:100%;margin-top:10px;border-collapse:collapse;text-align:center"><tr>${[["承辦人", "吳佩珊", "wu", -4], ["單位主管", "蘇志誠", "su", 3], ["資訊處", "許志明", "date", -2]].map(([t, n, k, r]) => `<td style="border:1px solid #999;padding:4px 0 6px;width:33%"><div style="font-size:12px;border-bottom:1px solid #999;margin-bottom:4px">${t}</div>${stamp(k, r)}<div style="font-size:12px;margin-top:2px">${n}</div></td>`).join("")}</tr></table>
 </div></div>`;
 // 長輩圖：亮色漸層底＋一排花＋描邊大字
+// 第 12 題：財務長的自拍長輩圖，背後螢幕是寄估值檔給外部的 Gmail
+const SELFIE = `<a href="img/selfie.jpg" target="_blank" class="selfie"><span class="fl" style="left:2%;top:1%">🌸</span><span class="fl" style="right:2%;top:1%">🌸</span><span class="fl" style="left:2%;bottom:1%">🌺</span><span class="fl" style="right:2%;bottom:1%">🌺</span>
+<b class="big">週五快樂🌷</b><span class="ph"><img src="img/selfie.jpg" alt=""></span><b class="sub">認真的女人最美麗</b></a>`;
 const elderPic = (big, sub, bg) => `<svg viewBox="0 0 320 220" style="width:100%;max-width:560px;height:auto;fill:#000;stroke:none;display:block;margin:10px 0;border-radius:6px">
 <defs><linearGradient id="eg${big.length}${sub.length}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient></defs>
 <rect width="320" height="220" fill="url(#eg${big.length}${sub.length})"/><circle cx="268" cy="44" r="26" fill="#fff59d" opacity=".9"/>
@@ -874,10 +929,10 @@ const MAILS = [
    subj:"【福委會】11 月份壽星禮券及員工旅遊報名", pv:"11 月份壽星請於 11/13（五）前至 3F 福委會領取禮券；第二梯次員工旅遊（花蓮二日）即日起開放報名……",
    who:"職工福利委員會 &lt;welfare@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
    body:`<p>各位同仁好：</p><ol><li>11 月份壽星請於 <b>11/13（五）</b>前攜帶識別證至 3F 福委會領取禮券。</li><li>第二梯次員工旅遊（花蓮二日）即日起開放報名，名額 40 人，額滿為止。</li><li>特約商店「禾茶舖」11 月起全品項 9 折。部門團購請使用部門帳號於<a href="#" data-web="hecha">禾茶舖官網</a>下單，勿使用個人帳號。</li></ol><div class="sig"><b>職工福利委員會</b>　#1150</div>`},
-  {id:"n-viva", grp:"今天", from:"Microsoft Viva", c:"#0078d4", tm:"上午 7:00", sys:true,
-   subj:"您的每週摘要：本週有 3 個會議、2 項待辦", pv:"早安！以下是您 11/2–11/6 的工作重點。建議您在週三上午保留 2 小時專注時間……",
-   who:"Microsoft Viva &lt;viva-noreply@microsoft.com&gt;", to:"收件者：王小明",
-   body:`<p>早安！以下是您 11/2–11/6 的工作重點：</p><ul><li>本週有 3 個會議</li><li>2 項待辦等您處理</li></ul><p>建議您在週三上午保留 2 小時專注時間。</p><p style="color:#8a8886">您收到此郵件是因為您的組織已啟用 Microsoft Viva Insights。</p>`},
+  {id:"n-ga", grp:"今天", from:"資訊處", c:"#0063b1", tm:"上午 8:20", sys:true,
+   subj:"【資訊處】員工入口網改版上線", pv:"員工入口網已於 11/2 改版上線，通訊錄及各項行政服務請由新版入口進入……",
+   who:"資訊處 &lt;it@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
+   body:`<p>各位同仁好：</p><p><a href="#" data-web="portal" style="color:#c0392b;font-weight:600">員工入口網</a>已於 11/2 改版上線，通訊錄及各項行政服務請由新版入口進入，舊版網址將於 11/30 停用。</p><p>以公司帳號登入即可使用，無須另行申請。如有問題請洽資訊處 #1500。</p><div class="sig"><b>資訊處</b>　#1500</div>`},
   {id:"hr", hints:["新進同仁要在 11/6 前上傳存摺和身分證影本、上完兩堂線上課、去警衛室領識別證。", "詳解：這封是一般公告，跟現在手上的工作無關。"], grp:"昨天", from:"人力資源處", c:C.hr, tm:"週日 下午 6:00",
    subj:"【公告】新進同仁報到須知及教育訓練時程", pv:"各位新進同仁您好，歡迎加入晴禾食品。報到當週請於 11/6（五）前完成以下事項……",
    who:"人力資源處 &lt;hr@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體新進同仁",
@@ -893,10 +948,6 @@ const MAILS = [
 <p>前任同仁周以恩之共用資料夾權限，已依部門主管申請轉移給您，申請單如附件。</p>${FORM}
 <p>資訊處絕不會以任何方式向您索取密碼或驗證碼。</p>
 <div class="sig"><b>資訊處 IT Service Desk</b>　#2000</div>`},
-  {id:"n-news", grp:"昨天", from:"食品產業電子報", c:"#8a8886", tm:"週日 上午 9:00", sys:true, ext:true,
-   subj:"食品產業週報 第 312 期｜原物料價格回穩、Q4 併購案件增加", pv:"本期重點：國際糖價連三週回落；上市櫃食品業 Q4 併購與策略聯盟案件較去年同期增加……",
-   who:"食品產業電子報 &lt;news@foodindustry-weekly.com.tw&gt;", to:"收件者：王小明",
-   body:`<p><b>本期重點</b></p><ul><li>國際糖價連三週回落，飲料業者成本壓力趨緩</li><li>上市櫃食品業 Q4 併購與策略聯盟案件較去年同期增加</li><li>冷鏈物流新制 2027 年上路，業者準備好了嗎？</li></ul><p style="color:#8a8886">如不想再收到此電子報，請按此取消訂閱。</p>`},
   {id:"n-ml", grp:"昨天", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁", tm:"週一 上午 7:58", sys:true,
    subj:"週一早安 11 月結帳日提醒", pv:"各位同仁早安，新的一週開始了，11 月結帳日為 11/25（三）……",
    body:`${elderPic("早安🌷", "平安喜樂 天天開心", ["#ff80ab", "#ffd180"])}<p>各位同仁早安：</p><p>新的一週開始了，11 月結帳日為 <b>11/25（三）</b>，請各單位於期限前完成費用核銷。</p><p>天氣轉涼，大家注意保暖。</p><div class="sig"><b>張美玲</b>　財務長</div>`},
@@ -990,6 +1041,8 @@ const ZOLD = [
   Z("z-inbox", "上個月", "2026/10/5（週一） 上午 10:20", "10/5", {id:"zi5", ext:true, from:"禾茶舖", c:"#c58b00", who:"禾茶舖 &lt;order@hecha-tea.com.tw&gt;", to:"收件者：周以恩",
     subj:"RE: 本週團購優惠", pv:"以恩小姐您好，收到您的自動回覆了！之後團購優惠會改寄到您的私人信箱……",
     body:`<p>以恩小姐您好：</p><p>收到您的<b style="color:#c0392b">自動回覆</b>了！之後團購優惠會改寄到您的私人信箱，謝謝您這段時間的照顧 🧋</p><p>禾茶舖　敬上</p>`}),
+  Z("z-inbox", "上個月", "2026/10/2（週五） 上午 8:12", "10/2", {id:"zi10", from:"張美玲", c:"#498205", who:"張美玲 &lt;ml.chang@qinghe-foods.com.tw&gt;", to:"收件者：晴禾全體同仁",
+    subj:"週五快樂", pv:"各位同仁早安，週五了，今天也一起加油……", body:`${SELFIE}<p>各位同仁早安：</p><p>週五了，今天也一起加油！</p><div class="sig"><b>張美玲</b>　財務長</div>`}),
   Z("z-inbox", "上個月", "2026/10/1（週四） 下午 5:40", "10/1", {id:"zi3", from:"人力資源處", c:C.hr, who:"人力資源處 &lt;hr@qinghe-foods.com.tw&gt;", to:"收件者：周以恩",
     subj:"離職手續確認", pv:"周以恩您好，您的離職生效日為 10/2，請於當日歸還識別證及筆電……",
     body:`<p>周以恩您好：</p><p>您的離職生效日為 10/2，請於當日下班前歸還識別證及筆電。</p><div class="sig"><b>人力資源處</b>　#1100</div>`}),
@@ -1017,7 +1070,7 @@ let sel = "welcome", fold = "inbox", query = "", clock = 11 * 60 + 41;
 const now = () => { const h = Math.floor(clock / 60), m = clock % 60; clock += 3; return `${h < 12 ? "上午" : "下午"} ${(h - 1) % 12 + 1}:${String(m).padStart(2, "0")}`; };
 const done = {};
 let skipping = false, wrong = 0;
-const QNUM = {meet:1, draft:2, share:3, recall:4, sched:5, find:6, vault:7, who:8, invite:9, vote:10, boss:11, deck:12};
+const QNUM = {meet:1, draft:2, share:3, recall:4, sched:5, find:6, vault:7, who:8, invite:9, vote:10, boss:11, deck:12, parcel:13, flight:14, auth:15};
 function miss(t){ wrong++; toast("⚠ " + (t || "未完成，請再確認內容")); }
 // 失敗：寄一封解僱通知到收件匣（不跳視窗，上班玩也不顯眼），信裡有重來的按鈕
 function fail(q, lines, comfort){
@@ -1132,7 +1185,7 @@ function saveSent(toName, subj, text){
   MAILS.unshift(m); renderList();
 }
 function openFold(f){ fold = f; query = ""; document.getElementById("srch-q").value = ""; document.body.classList.remove("fopen", "reading"); go("mail"); renderList(); }
-document.getElementById("notif").addEventListener("click", e => { const n = e.currentTarget; n.classList.remove("show"); openFold("inbox"); show(n.dataset.id); });
+document.getElementById("notif").addEventListener("click", e => { const n = e.currentTarget; n.classList.remove("show"); const m = MAILS.find(x => x.id === n.dataset.id); openFold(m && m.box || "inbox"); show(n.dataset.id); });
 document.getElementById("folders").addEventListener("click", e => { const f = e.target.closest(".f[data-fold]"); if (f) openFold(f.dataset.fold); });
 document.getElementById("ham").addEventListener("click", () => document.body.classList.toggle("fopen"));
 document.getElementById("srch").addEventListener("submit", e => { e.preventDefault(); query = document.getElementById("srch-q").value.trim(); go("mail"); renderList(); });
@@ -1414,12 +1467,18 @@ document.getElementById("od-list").addEventListener("click", e => {
 });
 document.getElementById("pw-x").addEventListener("click", () => pwDlg.classList.remove("show"));
 document.getElementById("dv-x").addEventListener("click", () => go("od"));
+const CARD_BACK = `<div class="note" style="position:relative;height:110px;padding:0;overflow:hidden;transform:rotate(1.5deg);background:#fffbe6">
+<div style="position:absolute;left:-70px;top:-6px;width:420px;height:140px;background:linear-gradient(#7e57c2,#ffb74d);opacity:.55;font-family:DFKai-SB,KaiTi,'Kaiti TC',serif;font-weight:900;text-align:center">
+<div style="font-size:44px;color:#ffeb3b;-webkit-text-stroke:2px #d50000;transform:rotate(-4deg);margin-top:8px;letter-spacing:2px">中秋快樂🌷</div>
+<div style="font-size:22px;color:#fff;-webkit-text-stroke:1.5px #6a1b9a;margin-left:-120px">月圓人團圓</div></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,#fffbe6 0 22%,transparent 22% 78%,#fffbe6 78%)"></div>
+<small style="position:absolute;right:10px;bottom:4px;margin:0">（背面）</small></div>`;
 const MENU_DOC = () => `<h2>禾茶舖　2026 秋季菜單</h2>
 <table>${MENU.slice(0, 8).map(m => `<tr><td>${m[0]}</td><td>${m[1]} 元</td></tr>`).join("")}<tr><td>加料：珍珠／椰果／仙草凍</td><td>+10 元</td></tr></table>
 <p style="color:var(--muted);font-size:13px">甜度：正常／少糖／半糖／微糖／無糖　冰塊：正常冰／少冰／微冰／去冰</p>
 <div class="brk">— 備註 —</div>
 <p>9/30 下午 3:05，B1 會議室。怡君姐那杯四季春的杯子底下壓著這張：</p>
-<div class="note" style="position:relative;padding-right:64px">明天下班前，把估值檔拿到手。🌷<span style="position:absolute;right:14px;top:8px;width:58px;height:58px;border-radius:50%;border:7px solid rgba(140,100,50,.16)"></span><span style="position:absolute;right:16px;top:12px">${stamp("su", 6, "c")}</span><small>（9/30 15:05 拍攝）</small></div>`;
+<div class="note" style="position:relative;padding-right:64px">明天下班前，把估值檔拿到手。<span style="position:absolute;right:14px;top:8px;width:58px;height:58px;border-radius:50%;border:7px solid rgba(140,100,50,.16)"></span><span style="position:absolute;right:16px;top:12px">${stamp("su", 6, "c")}</span><small>（9/30 15:05 拍攝）</small></div>`;
 document.getElementById("pw-ok").addEventListener("click", () => {
   const v = document.getElementById("pw-in").value.replace(/\s|-/g, "");
   if (v !== "31123109"){ document.getElementById("pw-err").textContent = "密碼不正確，請再試一次。"; if (!done.vault) wrong++; return; }
@@ -1525,19 +1584,26 @@ function zhouGotInvite(){
   later(startTest, 12000);
 }
 
-// 第 10 題：總務處公文——舊章沒送來銷毀；小卡末尾的 🌷 是財務長寄全公司早安信的習慣
-const ZHOU_TEST = {id:"zt", ...GA, q:"vote",
-  subj:"舊印章銷毀登記查核", pv:"主旨：舊印章銷毀登記查核。說明：一、經營企劃部蘇經理舊章，據稱已交由陳怡君送本處銷毀……",
-  hints:["這封總務處公文是子晴發的：蘇經理的舊章根本沒送去銷毀，還在怡君手上。子晴想知道小卡最後那個 🌷，是誰的習慣。",
-    "公司裡有人很愛寄長輩圖給全公司，看看圖上的字。",
-    "詳解：財務長張美玲寄給全體同仁的長輩圖，圖上大字都帶 🌷，像昨天的〈週一早安 11 月結帳日提醒〉，周以恩收件匣裡也有〈中秋節快樂〉〈國慶連假平安〉。回覆這封總務處公文「張美玲」。"],
-  body:gongwen("1131110", "舊印章銷毀登記查核", ["經營企劃部蘇經理之舊章，據稱已交由陳怡君送本處銷毀。", '經查本處<span style="color:var(--flag)">未收到</span>該舊章，亦無銷毀登記。', '前函便條末尾附有符號「🌷」，疑為指示者之書寫習慣，請交接人<span style="color:var(--flag)">查明慣用此符號之同仁</span>。'], "請直接回覆本函，填寫該同仁姓名。"),
+// 第 10 題：資安組接獲通報，請你調查——舊章沒送去銷毀；小卡是用財務長中秋長輩圖的列印稿剪的
+const SEC = {from:"資訊處 資訊安全組", c:C.it, sys:false, ask:true, who:"資訊安全組 &lt;security@qinghe-foods.com.tw&gt;", to:"收件者：王小明"};
+const ZHOU_TEST = {id:"zt", ...SEC, q:"vote",
+  subj:"[資安通報 #2611-07] 舊印章銷毀登記查核", pv:"王小明 您好：本組接獲通報，經營企劃部蘇經理之舊章據稱已交由陳怡君送總務處銷毀，經查並無銷毀登記……",
+  hints:["資安組接獲通報：蘇經理的舊章根本沒送去銷毀，還在怡君手上。他們想知道寫小卡的那張紙，原本是誰印的。",
+    "信裡附的便條背面，印著半截的「秋快樂🌷」。公司裡誰會寄這種圖給全公司？",
+    "詳解：小卡背面是財務長張美玲 9/25 寄給全公司的〈中秋節快樂〉長輩圖（在周以恩的收件匣），有人拿她印出來的紙剪下來寫小卡。回覆資安組「張美玲」。"],
+  body:`<p>王小明 您好：</p>
+<p>本組接獲通報：經營企劃部蘇經理之舊章，據稱已交由陳怡君送總務處銷毀，經總務處查證，<span style="color:var(--flag)">並無銷毀登記</span>，該章目前下落不明。</p>
+<p>通報人另提供一張蓋有該舊章之便條，正反面影本如下：</p>
+<div class="note" style="position:relative;padding-right:64px">明天下班前，把估值檔拿到手。<span style="position:absolute;right:14px;top:8px;width:58px;height:58px;border-radius:50%;border:7px solid rgba(140,100,50,.16)"></span><span style="position:absolute;right:16px;top:12px">${stamp("su", 6, "c")}</span><small>（正面，9/30 15:05 拍攝）</small></div>
+${CARD_BACK}
+<p>該便條係以列印過之紙張剪裁，背面殘留部分圖文。請協助<span style="color:var(--flag)">查明該紙原為何人之文件</span>，直接回覆本信即可。</p>
+<div class="sig"><b>資訊處 資訊安全組</b>　#2010</div>`,
   check: t => /張|美玲|財務長/.test(t) ? "ok"
-    : /陳|怡君/.test(t) ? "陳怡君為舊章保管人，本函所詢為慣用「🌷」之同仁。"
-    : /蘇|志誠/.test(t) ? "經核，蘇經理來信未使用該符號。"
-    : /何|董事長/.test(t) ? "經核，董事長來信未使用該符號。"
-    : "經核不符，請查閱全公司來信中慣用「🌷」之同仁。",
-  okText: "本處已收悉。\n🌷：張美玲。\n……是財務長。\n此事請勿對外說明，後續另函通知。",
+    : /陳|怡君/.test(t) ? "陳怡君為舊章保管人，本組所詢為便條用紙原屬何人。"
+    : /蘇|志誠/.test(t) ? "經比對，蘇經理未曾寄發類似圖文。"
+    : /何|董事長/.test(t) ? "經比對，董事長未曾寄發類似圖文。"
+    : "經比對不符，請參照便條背面之圖文。",
+  okText: "收到，感謝協助。\n經比對，便條用紙為財務長張美玲 9/25 寄發之中秋賀圖列印稿。\n本案已列入調查，請勿對外說明。",
   onOk: () => { later(() => toast("✓ 已傳送"), 1500); later(startDay3, 8000); }};
 function startTest(){ arrive([ZHOU_TEST]); notify(MAILS[0]); }
 function suGotTest(subj, body){
@@ -1576,24 +1642,25 @@ function suGotTest(subj, body){
   }, 3500);
 }
 
-// 第 11 題：周以恩離職前「延後」到 11/4 早上的信回到她的收件匣，揭曉 C＝張美玲與陳怡君的把柄
-const SU_Q = {id:"suq", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"boss", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
-  subj:"RE: 今早會議", pv:"早上謝謝你過來。怡君的部分我想了一晚……",
-  hints:["蘇經理認為陳怡君只是跑腿的，背後還有人。他想知道兩件事：C 是誰，還有陳怡君為什麼要聽 C 的。",
-    "周以恩的信箱還在你手上。她一個月前就離職了，今天早上她的收件匣卻多了一封未讀信。",
-    "詳解：打開「周以恩 › 收件匣」，最上面那封是 9/18 的〈RE: 九月特支費核銷〉，是周以恩離職前按了「延後」，設定今天早上 9:00 才回到收件匣。財務長張美玲回信給陳怡君時多按了「全部回覆」，連周以恩也收到：「那筆我先幫你壓下來，以後我說什麼，你照做就好。」回覆蘇經理：C 是張美玲，她握著陳怡君特支費報不出帳的把柄。"],
+// 第 11 題：調查逼近，陳怡君在公事信尾用表情符號求救（🌷🫵👩💸🆘＝財務長拿錢的事逼我、救命）。回她「是不是被威脅、我可以幫你」，她就自白特支費；以恩延後的舊信只是佐證
+const CHEN_FAIL = {fail:["經查台端於 11/4（週三）以電子郵件恐嚇本公司董事長室人員，並散布不實指控。"],
+  comfort:["小明……怡君姐下午去人資，說你拿以恩的事威脅她。", "她明明是想找你說些什麼的，可是你一開口就把她逼到牆角了。", "她怕的不是你，是另一個人。", "後續的部分我會繼續處理，你保重。"]};
+const SU_Q = {id:"suq", from:"陳怡君", c:C.chen, sys:false, ask:true, q:"boss", who:"陳怡君 &lt;yijun.chen@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"【董事長室】11/5 董事會資料用印確認", pv:"小明您好：週四董事會資料需各單位主管用印，當日人員較多，請各單位依序等候……",
+  hints:["怡君姐的公事信內容很正常，只有信尾不太一樣。她平常都寫「謝謝 😊」。",
+    "🌷 你在上一題才見過，是誰的習慣？🫵👩💸🆘 連起來是什麼意思？",
+    "詳解：信尾「🌷🫵👩💸🆘」＝財務長、指著、我、錢飛走、救命：財務長拿錢的事逼她，她在求救。回覆怡君姐，讓她知道你看懂了（例如「你還好嗎？需要幫忙嗎？」）。不要直接指控她。"],
   body:`<p>小明：</p>
-<p>早上謝謝你過來。</p>
-<p>我想了一晚，怡君應該只是執行的人。送紙條、用我的名義發邀請，背後一定有人指示。</p>
-<p>目前不清楚的是：她為什麼要配合那個人？C 到底是誰？我手上沒有任何資料。</p>
-<p>以恩離職前似乎也在查同一件事。你那邊如果有發現，直接回信給我。</p>
-<div class="sig"><b>蘇志誠</b>　#3105</div>`,
-  check: t => /張|美玲|財務長/.test(t) && /特支|報帳|收據|核銷|把柄|壓/.test(t) ? "ok"
-    : /張|美玲|財務長/.test(t) ? "財務長？你有什麼根據？\n就算是她，怡君為什麼要替她做這些事？她手上握著怡君什麼？"
-    : /陳|怡君/.test(t) && !/跑腿|背後/.test(t) ? {fail:["經查台端於 11/4（週三）以電子郵件對本公司董事長室人員提出不實指控，影響公司營運。"],
-        comfort:["你跟蘇經理說怡君姐是主謀……他早上就去找她對質了。", "結果下午人事通知就來了。怡君姐背後明明還有人啊。", "後續的部分我會繼續處理，你保重。"]}
-    : "我要的是怡君背後那個人。你查到什麼再跟我說。",
-  okText:"特支費……所以美玲握有怡君報不出帳的把柄，要她做什麼她都得配合。\n紙條上的 C 是 Chang。\n週四的會美玲會出席，但目前資料還不夠，她可以完全否認。\n先不要打草驚蛇，我再想辦法讓她自己露出破綻。",
+<p>週四董事會資料需各單位主管用印，當日人員較多，請各單位依序等候，勿於會議室外聚集。</p>
+<p>用印完成之後，請將資料送回董事長室彙整。</p>
+<p>若您對上述事項有任何疑問，請直接回覆本信。</p>
+<p>謝謝 🌷🫵👩💸🆘</p>
+<div class="sig"><b>陳怡君</b>　董事長室　#1201</div>`,
+  // 只要看得出是求救信就過關；指控她才會失敗
+  check: t => /偷|洩|外流|栽贓|陷害|檢舉|舉報|告發|主謀|兇手|自首/.test(t) ? CHEN_FAIL
+    : /救|幫|求|sos|🆘|🫵|💸|錢|🌷|威脅|脅迫|逼|綁|鎖|控制|把柄|保護|不得已|擔心|還好嗎|沒事吧|怎麼了|發生什麼|需要|安全|財務長|美玲|張|特支/i.test(t) ? "ok"
+    : "收到，用印事宜請依正常程序辦理，謝謝。",
+  okText:"收到。\n九月特支費核銷一案，收據確實未能補齊，係由財務長核准暫緩送稽核。\n此後財務長交辦事項，本人均無法拒絕，包括舊章之保管及 9/30 之便條。\n周以恩一事，本人深感抱歉。\n本人將另行向蘇經理說明。週四會議如需協助，請告知。",
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startDeck, 9000); }};
 // 9/18 的原信；周以恩 10/1 按了「延後」，11/4 上午 9:00 回到她的收件匣
 const SNOOZED = {id:"zsn", box:"z-inbox", grp:"今天", tm:"上午 9:00", date:"2026/9/18（週五） 下午 6:12", sys:true, unread:true,
@@ -1607,6 +1674,7 @@ function startDay3(){
   TODAY = "2026/11/4（週三）"; clock = 8 * 60 + 41;
   days.forEach((d, i) => d[2] = i === 2 ? 1 : 0); drawCal();
   toast("隔天　11 月 4 日（週三）早上");
+  arrive([{...PARCEL, tm:"上午 8:35"}]);
   later(() => { arrive([SU_Q]); notify(MAILS[0]); }, 3000);
   later(() => { clock = 9 * 60; MAILS.unshift(pzMail({...SNOOZED})); renderList(); }, 12000);
 }
@@ -1614,15 +1682,14 @@ function startDay3(){
 // 第 12 題：張美玲正在共同編輯董事會簡報，一列一列刪掉第 7 頁的估值檔存取紀錄。
 // 改不動她正在編輯的地方，但在她那一列加註解 @蘇志誠，Office 會寄提及通知信給蘇經理，信裡留著原文
 const SHARE = {id:"shr", from:"蘇志誠", c:C.su, sys:true, q:"deck", who:"蘇志誠 &lt;no-reply@sharepointonline.com&gt;", to:"收件者：王小明",
-  subj:"蘇志誠 已與您共用「藍海_董事會簡報.pptx」", pv:"明天要用的，你先熟悉一下。第 7 頁是資訊室的阿凱私下幫我調的……",
-  hints:["蘇經理把明天要用的簡報分享給你。第 7 頁的估值檔存取紀錄，是全公司僅存的一份。打開簡報，看看檔案裡除了你還有誰。",
-    "張美玲根本沒去銀行，她正在刪第 7 頁。蘇經理交代過：有不對勁就在那頁留註解 @他。她先刪的那一列，大家早就知道了；真正要保住的，是哪一列？",
+  subj:"蘇志誠 已與您共用「藍海_董事會簡報.pptx」", pv:"怡君剛剛來找過我了，事情我大概知道。明天董事會的簡報先分享給你……",
+  hints:["蘇經理把明天要用的簡報分享給你。打開簡報，看看檔案裡除了你還有誰。",
+    "張美玲正在線上刪第 7 頁。蘇經理交代過：有不對勁就在那頁留註解 @他。她先刪的那一列，大家早就知道了；真正要保住的，是哪一列？",
     "詳解：在第 7 頁點一下「10/1 18:05 張美玲 下載」那一列，按右上角的「註解」或「校閱 › 新增註解」，在註解裡輸入 @蘇志誠 再按「張貼」。被提及的人會收到附上原文的通知信，她刪掉也來不及了。不要提及董事長、陳怡君或張美玲本人，也要在她把那一列刪完之前做完。"],
   body:`<div class="shr-card"><p><b>蘇志誠</b> 已與您共用檔案</p>
-<div class="sm"><p>明天要用的，你先熟悉一下。</p>
-<p>第 7 頁是資訊室的阿凱私下幫我調的估值檔存取紀錄。系統裡的原始紀錄昨晚被人清掉了，現在只剩這一份。</p>
-<p>我挑美玲去銀行的時間才放上來。2:30 我跟董事長開會，手機關機。</p>
-<p>簡報有任何不對勁，直接在那頁留註解 @我，我出來第一個看到。</p></div>
+<div class="sm"><p>怡君剛剛來找過我了，事情我大概知道。</p>
+<p>明天董事會的簡報先分享給你，第 7 頁是我們手上的證據。</p>
+<p>我 2:30 要進董事長室，手機會關，有什麼狀況就在那頁註解 @我。</p></div>
 <div class="f"><span class="ofc">P</span><div><b>藍海_董事會簡報.pptx</b><small>藍海 · 經營企劃部</small></div></div>
 <button class="open" data-go="pp">開啟</button></div>`};
 // 蘇經理在第 7 頁留的註解：先讓玩家收到一次「提及了您」的通知信，知道 @ 會把原文寄給對方
@@ -1631,23 +1698,134 @@ const MENTION = {id:"mnt", from:"蘇志誠", c:C.su, sys:true, who:"蘇志誠（
   body:`<div class="shr-card"><p><b>蘇志誠</b> 在註解中提及了您</p><div class="f"><span class="ofc">P</span><div><b>藍海_董事會簡報.pptx</b><small>投影片 7</small></div></div>
 <div class="sm">「估值檔存取紀錄」</div><p><span style="color:var(--brand);font-weight:600">@王小明</span> 明天第 7 頁你負責報告</p>
 <button class="open" data-go="pp" data-ppcmt>移至註解</button></div>`};
+// 第 12 題：下載紀錄被刪了；證據在她 10/2 寄給全公司的自拍長輩圖裡（背後螢幕正把估值檔寄給收購方的財務顧問）
+const SU_LOG = {id:"sulog", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"deck", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"RE: 估值檔下載紀錄", pv:"怡君剛剛來找過我了，事情我大概知道……",
+  hints:["蘇經理需要怡君以外的證據。財務長常寄信給全體同仁，周以恩的信箱也收得到。",
+    "10/2 早上，也就是下載紀錄的隔天，財務長寄了一張自拍長輩圖。點開照片放大，看她背後的螢幕。",
+    "詳解：周以恩收件匣 10/2「週五快樂」那封，自拍背後的螢幕是 Gmail 新郵件，附件「藍海_估值區間.xlsx」，收件者是外部的 kevin.lau@harborline-cap.com。回覆蘇經理：財務長的自拍拍到她把估值檔寄出去。"],
+  body:`<p>小明：</p><p>怡君剛剛來找過我了，事情我大概知道。</p>
+<p>10/1 晚上那筆下載紀錄，資訊處說已經被刪了。現在只有怡君的說法。</p>
+<p>你那邊如果有找到什麼，直接回我。</p>
+<div class="sig"><b>蘇志誠</b>　Jason Su<br>經營企劃部　經理　#3105</div>`,
+  check: t => /照片|相片|自拍|長輩圖|週五快樂|10\/2|螢幕|背景|後面|背後|拍到|gmail|harborline|kevin|lau|收件者|附件|寄出|寄給|外部/i.test(t) ? "ok"
+    : /美玲|財務長|張/.test(t) ? "我知道是她，問題是拿什麼證明。" : "這個應該證明不了檔案在她那裡。",
+  okText:"……harborline 是對方的財務顧問。\n她自己寄給全公司的。\n我先存下來了，明天帶進董事長室。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startParcel, 12000); }};
+// 第 13 題：財務長明早請假，10 點直接進董事會；包裹清單上 12F「M.L.C.」有件香港 DHL → 到員工入口網查包裹明細（Harborline、預約 11/5 07:30 本人領取、員編 F0003）→ 通訊錄查 F0003 是張美玲
+const PARCEL = {id:"parcel", from:"瑞光大樓管理中心", c:"#6b6b6b", who:"瑞光大樓管理中心 &lt;service@ruiguang-tower.com.tw&gt;", to:"收件者：瑞光大樓住戶",
+  subj:"【管理中心】11/4 代收包裹暫存清單", pv:"各位住戶好，以下為今日代收包裹，請攜帶識別證至 1F 管理中心領取……",
+  body:`<p>各位住戶好：</p><p>以下為今日代收包裹，請攜帶識別證至 1F 管理中心領取。</p>
+<div style="overflow-x:auto"><table class="wt" style="margin:10px 0"><tr><th>樓層</th><th>收件人</th><th>寄件</th><th>件數</th><th>備註</th></tr>
+<tr><td>5F 宏達科技</td><td>陳先生</td><td>momo 購物</td><td>1</td><td></td></tr>
+<tr><td>8F 永信會計</td><td>李小姐</td><td>中華郵政（掛號）</td><td>1</td><td>須本人簽收・逾期退回：11/9（一）</td></tr>
+<tr><td>12F 晴禾食品</td><td>王小明</td><td>蝦皮購物</td><td>1</td><td></td></tr>
+<tr><td>12F 晴禾食品</td><td>林子晴</td><td>博客來</td><td>2</td><td></td></tr>
+<tr><td>12F 晴禾食品</td><td>M.L.C.</td><td>DHL（香港）</td><td>1</td><td>國際文件・須本人簽收・逾期退回：11/5（四）08:00</td></tr>
+<tr><td>15F 康和診所</td><td>黃小姐</td><td>黑貓宅急便（冷藏）</td><td>1</td><td>逾期退回：11/6（五）</td></tr></table></div>
+<p>領取時間：平日 07:00–21:00。國際快遞及掛號須本人持證件簽收，恕不代領。</p><p>晴禾食品同仁：包裹明細及預約領取時段，已同步至<b style="color:#c0392b">貴公司員工入口網</b>。</p><div class="sig"><b>瑞光大樓管理中心</b>　(02) 2657-0000</div>`};
+const SU_WHERE = {id:"suwh", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"parcel", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"RE: 估值檔下載紀錄", pv:"財務長剛跟董事長請了明天上午的假，說 10 點直接進會議室……",
+  hints:["她明天上午不進辦公室，但有件事非得她本人到場不可。今天早上有一封寄給整棟大樓的信。",
+    "大樓管理中心的包裹清單裡，12F 有一件收件人只寫了縮寫、從香港寄來。信末說明細在員工入口網。第一天資訊處那封「員工入口網改版上線」裡有連結，去查那件的明細，再到通訊錄查是誰。",
+    "詳解：員工入口網「包裹代收」裡，M.L.C.（F0003）那件是 Harborline Capital 寄的，預約 11/5（四）07:30 本人到 1F 管理中心領取。通訊錄查 F0003 是財務長張美玲。回覆蘇經理：明早 7:30 在 1F 管理中心。"],
+  body:`<p>財務長剛跟董事長請了明天上午的假，說 10 點直接進會議室。</p><p>會前我得先見到她。她明天的行程，你那邊有沒有什麼消息？</p>
+<div class="sig"><b>蘇志誠</b>　Jason Su<br>經營企劃部　經理　#3105</div>`,
+  check: t => /1\s*f|1\s*樓|一樓|樓下|管理(中心|室|處)|大廳|櫃台|櫃檯|包裹|快遞|dhl|簽收|[78]\s*[:：點]|[七八]點/i.test(t) ? "ok"
+    : /機場|香港|出國/.test(t) ? "董事會她一定得來，明天上午她還不會走。"
+    : /12\s*f|辦公室|座位/i.test(t) ? "她明天上午不會上 12 樓。"
+    : /會議室|董事長室/.test(t) ? "那是 10 點以後的事，我要的是在那之前。" : "我想不到她會去那裡。",
+  okText:"Harborline……\n好，我明天 7 點在 1F 等她。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startDay4, 9000); }};
+// 第 14 題：財務長在董事長室盯著怡君發信。怡君寄出董事會延期通知，附上確認表；打勾的格子縮小看是 T1 和飛機（她要去桃園機場第一航廈）；蘇經理隨後來信問她會搭什麼、從哪走
+const CHEN_SHEET = {id:"chsh", from:"陳怡君", c:C.chen, sys:false, ask:true, q:"flight", who:"陳怡君 &lt;yijun.chen@qinghe-foods.com.tw&gt;", to:"收件者：晴禾一級主管; 經營企劃部",
+  subj:"【董事長室】11/5 董事會時間異動", pv:"各位主管好：今日董事會改至下午 2:00 召開，上午董事會議室設備檢修，請勿進入……",
+  body:`<p>各位主管好：</p><p>今日董事會改至<b>下午 2:00</b> 召開，上午董事會議室設備檢修，請勿進入。</p><p>附件為董事會資料各頁確認表，請各位撥冗開啟確認。</p>
+<div class="att" data-go="xs" style="cursor:pointer">📗 11-5_董事會資料確認表.xlsx　<small style="color:var(--muted)">18 KB</small></div>
+<div class="sig"><b>陳怡君</b>　董事長室　#1201</div>`,
+  check: t => SU_MORN.check(t) === "ok" ? "ok" : "收到，謝謝確認。",
+  okText:"收到，謝謝確認。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { arrive([{id:"sumn2", from:"蘇志誠", c:C.su, sys:true, who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+    subj:"RE: 估值檔下載紀錄", pv:"怡君剛剛把你的回信拿給我看了……", body:`<p>怡君剛剛把你的回信拿給我看了。</p><p>……T1。她的位子已經空了。我現在去機場，董事長那邊你幫我說一聲。</p><p style="color:var(--muted)">從我的 iPhone 傳送</p>`}]); notify(MAILS[0]); later(startFinal, 9000); }, 6000); }};
+const SU_MORN = {id:"sumn", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"flight", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"RE: 估值檔下載紀錄", pv:"她 7:30 下來簽收了。我說會前想先跟她談，她說 9:30 到董事長室……",
+  hints:["蘇經理在等她。怡君剛寄來的通知特地附了一份確認表，而財務長這時候人就在董事長室。",
+    "打開確認表，別一格一格看，把整張表縮小來看。右下角可以調縮放。",
+    "詳解：確認表右下角把縮放調到 30% 左右，打勾的格子排成「T1」和一架飛機。怡君被盯著，只能這樣說：財務長要搭飛機，從桃園機場第一航廈走。回覆蘇經理：飛機，第一航廈（T1）。"],
+  body:`<p>她 7:30 下來簽收了。我說會前想先跟她談，她說 9:30 到董事長室。</p><p>我先回座位，有什麼狀況直接回我。</p>
+<p style="color:var(--muted)">從我的 iPhone 傳送</p>`,
+  check: t => /機場|飛機|班機|航班|航廈|t\s*1|✈|香港|出國|出境|桃園|跑|逃|閃/i.test(t) ? "ok"
+    : /包裹|1\s*f|管理/i.test(t) ? "包裹她剛剛已經拿走了。" : /下午|2\s*點|延期|延後/.test(t) ? "延到下午？董事長沒跟我說啊。" : "好，我在這裡等她。",
+  okText:"……T1。\n我現在去機場，董事長那邊你幫我說一聲。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(startFinal, 9000); }};
+CHEN_SHEET.hints = SU_MORN.hints;
+// 怡君的通知寄出後，蘇經理發現她不見了，直接問她會怎麼走
+const SU_ASK = {...SU_MORN, id:"suask", pv:"她 7:30 下來簽收完包裹，說 9:30 會到董事長室。結果現在位子上沒人……",
+  body:`<p>她 7:30 下來簽收完包裹，說 9:30 會到董事長室。結果現在位子上沒人，包包也不見了。</p><p>怡君那封我也收到了，董事長根本不知道要延期。</p><p>財務處的人說她最近一直在講要出國，但沒人知道她從哪裡走。怡君特地附了一份表，你那邊有看出什麼嗎？</p><p style="color:var(--muted)">從我的 iPhone 傳送</p>`};
+// 第 15 題：蘇經理在 T1 攔到她，她拿出「董事長授權、林律師見證」的授權書。
+// 破綻：會辦欄是蘇經理 9 月初就換掉的舊圓章（第 9 題）；9/24 上午 10:00 林律師在臺北地院第 12 法庭開庭（第 1 題），不可能 10:15 在事務所見證
+const AUTH_DOC = `<div style="margin:16px 0;max-width:460px;border:1px solid #c8c6c4;border-radius:4px;overflow:hidden">
+<div style="background:#f3f2f1;color:#323130;padding:6px 10px;font-size:12px">📎 IMG_4471.pdf（掃描）</div>
+<div style="background:#fffdf8;color:#222;padding:16px 18px;font-size:13px;line-height:1.8">
+<div style="text-align:center;font-weight:700;font-size:16px;letter-spacing:4px;margin-bottom:8px">授　權　書</div>
+茲授權本公司財務長<b>張美玲</b>，代表本公司就「藍海專案」與 <b>Harborline Capital Ltd.</b> 進行估值資訊之交換及議價事宜，相關資料之提供視為本公司授權範圍。<br>
+<table style="width:100%;margin-top:12px;border-collapse:collapse;text-align:center"><tr>${[["授權人", "董事長　何正雄", "ho", 2], ["會辦", "經營企劃部　蘇志誠", "su", -3]].map(([t, n, k, r]) => `<td style="border:1px solid #999;padding:4px 0 6px;width:50%"><div style="font-size:12px;color:#555">${t}</div><div style="font-size:12px">${n}</div>${stamp(k, r)}</td>`).join("")}</tr></table>
+<div style="margin-top:10px;border-top:1px dashed #bbb;padding-top:8px">見證人：恆信法律事務所　<span style="font:italic 20px 'Snell Roundhand','Brush Script MT',cursive;color:#1a3a8a">林志遠</span><br>見證時間：中華民國 115 年 9 月 24 日 上午 10 時 15 分<br>見證地點：恆信法律事務所（台北市中正區）</div>
+</div></div>`;
+const SU_AUTH = {id:"suauth", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"auth", who:"蘇志誠 &lt;jc.su@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+  subj:"RE: 估值檔下載紀錄", pv:"在 T1 報到櫃台攔到她了。她拿出這張……",
+  hints:["蘇經理需要你找出授權書的破綻。看看上面每一個章、每一個名字、每一個時間。",
+    "會辦欄的章，你在核對費用單那題看過兩種。見證的林律師，你在第一天排會議時查過他那陣子的行程。",
+    "詳解：會辦欄蓋的是蘇經理的舊圓章，他 9 月初就換成方章了，舊章本來該交給怡君銷毀；另外 9/24 上午 10:00 林律師在臺北地院第 12 法庭開庭（司法院開庭進度查詢，115 年度訴字第 812 號），不可能 10:15 在事務所見證。回覆任一個破綻都可以。"],
+  body:`<p>在 T1 報到櫃台攔到她了。她拿出這張，說董事長授權過、林律師也見證過，寄估值檔給 Harborline 是公司授權的。</p>
+<p>航警說有授權書就不能攔人。董事長在開會，電話打不通。</p><p>你幫我看一下，這張有沒有問題。</p>${AUTH_DOC}<p style="color:var(--muted)">從我的 iPhone 傳送</p>`,
+  check: t => /沒問題|沒有問題|看起來正常|放行|讓她走|合法/.test(t) && !/章|開庭|法院|法庭/.test(t)
+      ? {fail:["經查台端於 11/5（週四）協助確認之授權文件，經董事長證實係屬偽造，致本公司機密資料當事人得以出境。"], comfort:["小明，她拿著那張授權書過了海關。", "後來董事長說他從沒簽過那種東西，但已經來不及了。", "蘇經理在機場坐了很久才回來。"]}
+    : /舊章|舊的章|圓章|圓的|方章|換章|換了章|換過|章不對|章不一樣|印章|印鑑|蓋的章/.test(t) || /開庭|法院|法庭|不在場|不可能在|在開庭|9\s*\/\s*24/.test(t) ? "ok"
+    : /董事長|何正雄/.test(t) ? "董事長的章我認不出真假。有沒有更確定的地方？"
+    : /律師|林志遠/.test(t) ? "林律師怎麼了？你說清楚一點。" : "她就是靠這張在拖時間。你再看一下。",
+  okText:"對，這是我那顆舊章。\n我剛也打給林律師，他說 9/24 那天上午他在法院開庭，從沒見過這張紙。\n航警已經把她請到旁邊了。董事長剛回電，說他從來沒簽過這種東西。\n謝謝你，小明。",
+  onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { clock = 15 * 60 + 25; arrive([{id:"end", from:"林子晴", c:C.lin, sys:true, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
+    subj:"下午茶", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>`}]); notify(MAILS[0]); later(() => toast("全劇終　謝謝遊玩"), 5000); }, 12000); }};
+function startFinal(){ clock = 10 * 60 + 12; arrive([SU_AUTH]); notify(MAILS[0]); }
+function startDay4(){
+  MAILS.forEach(m => { if (!m.date && (!m.box || m.box === "sent")) m.date = TODAY + " " + m.tm; if (m.grp === "昨天") m.grp = "更早"; if (m.grp === "今天") m.grp = "昨天"; });
+  TODAY = "2026/11/5（週四）"; clock = 8 * 60 + 10;
+  days.forEach((d, i) => d[2] = i === 3 ? 1 : 0); drawCal();
+  toast("隔天　11 月 5 日（週四）早上");
+  // 怡君的通知和蘇經理的追問同時在收件匣
+  arrive([CHEN_SHEET]); clock = 8 * 60 + 16; arrive([SU_ASK]); notify(MAILS[0]);
+}
+function startParcel(){ arrive([SU_WHERE]); notify(MAILS[0]); }
 function startDeck(){
   clock = 14 * 60 + 20;
-  OD_IC.p = ["#c43e1c", "P"]; OD_FILES.unshift({n:"藍海_董事會簡報.pptx", k:"p", by:"蘇志誠", t:"11/4", sz:"2.1 MB", go:"pp"}); drawOD();
-  cmts.push({r:"", quote:"估值檔存取紀錄", text:"@" + ME + " 明天第 7 頁你負責報告", by:"蘇志誠"});
-  arrive([SHARE]); notify(MAILS[0]);
-  later(() => { arrive([MENTION]); notify(MAILS[0]); }, 2500);
+  arrive([SU_LOG]); notify(MAILS[0]);
 }
 const DECK = [
-  {t:"藍海專案", mini:"董事會簡報", h:`<h1>藍海專案</h1><p>董事會簡報</p><p style="color:var(--muted)">2026/11/5（週四）　經營企劃部</p>`},
-  {t:"議程", mini:"交易架構／估值區間…", h:`<h2>議程</h2><ul><li>交易架構</li><li>估值區間</li><li>盡職調查進度</li><li>時程</li><li>估值檔存取紀錄</li><li>風險與下一步</li></ul>`},
-  {t:"交易架構", mini:"現金收購 100% 股權", h:`<h2>交易架構</h2><ul><li>收購方：藍海（代號）</li><li>標的：晴禾食品 100% 股權</li><li>形式：現金收購，原經營團隊留任兩年</li></ul>`},
-  {t:"估值區間", mini:"每股 52～58 元", h:`<h2>估值區間</h2><ul><li>對方初步報價：每股 58 元</li><li>本公司底線：每股 52 元（財務長 9/29）</li><li>52 元以下不進入下一階段</li></ul>`},
-  {t:"盡職調查進度", mini:"會計師／律師", h:`<h2>盡職調查進度</h2><ul><li>財務查核：會計師 10/20 完成</li><li>法律查核：恆信法律 林志遠律師，預計 11/10 完成</li><li>資料室：僅開放給會計師與律師</li></ul>`},
-  {t:"時程", mini:"11/5 董事會…", h:`<h2>時程</h2><ul><li>11/5　董事會決議</li><li>11/20　簽署意向書</li><li>12 月　重大訊息公告</li></ul>`},
+  {t:"藍海專案", mini:"董事會簡報", h:`<div class="cover"><div class="cv-tag">極機密　限董事會成員閱覽</div><h1>藍海專案</h1><p class="cv-sub">股權收購案　董事會決議報告</p><p class="cv-meta">2026 年 11 月 5 日（週四）　第 14 屆第 9 次董事會<br>報告單位：經營企劃部　協辦：財務處、董事長室</p><div class="cv-co">晴禾食品股份有限公司</div></div>`},
+  {t:"議程", mini:"交易架構／估值區間…", h:`<h2>議程</h2><ol class="ag"><li><b>01</b>交易架構<span>3</span></li><li><b>02</b>估值區間<span>4</span></li><li><b>03</b>盡職調查進度<span>5</span></li><li><b>04</b>時程規劃<span>6</span></li><li><b>05</b>估值檔存取紀錄<span>7</span></li><li><b>06</b>風險評估<span>8</span></li><li><b>07</b>決議事項<span>9</span></li></ol><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜2</div>`},
+  {t:"交易架構", mini:"現金收購 100% 股權", h:`<h2>交易架構</h2><table><tr><th style="width:28%">項目</th><th>內容</th></tr>
+<tr><td>收購方</td><td>藍海（代號）／亞洲區消費品集團</td></tr><tr><td>標的</td><td>晴禾食品股份有限公司 100% 已發行股份</td></tr>
+<tr><td>交易形式</td><td>全額現金收購，公開收購後下市</td></tr><tr><td>經營團隊</td><td>原經營團隊留任兩年，品牌與員工權益維持不變</td></tr>
+<tr><td>財務顧問</td><td>本公司：財務處自行評估　收購方：外部投顧</td></tr></table><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜3</div>`},
+  {t:"估值區間", mini:"每股 52～58 元", h:`<h2>估值區間</h2><div class="kpis"><div><small>對方初步報價</small><b>58.0</b><i>元／股</i></div><div><small>本公司底線</small><b style="color:#c43e1c">52.0</b><i>元／股</i></div><div><small>近三月均價</small><b>44.6</b><i>元／股</i></div><div><small>溢價（以報價計）</small><b>30.0%</b><i>較均價</i></div></div>
+<div class="bars"><div><span>近三月均價</span><i style="width:58%"></i><em>44.6</em></div><div><span>同業 EV/EBITDA 中位數</span><i style="width:66%"></i><em>50.8</em></div><div><span>本公司底線</span><i class="r" style="width:68%"></i><em>52.0</em></div><div><span>對方初步報價</span><i style="width:75%"></i><em>58.0</em></div></div>
+<p class="note2">※ 底線由財務長於 9/29 訂定；52 元以下不進入意向書階段。</p><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜4</div>`},
+  {t:"盡職調查進度", mini:"會計師／律師", h:`<h2>盡職調查進度</h2><table><tr><th>項目</th><th>執行單位</th><th>預計完成</th><th>狀態</th></tr>
+<tr><td>財務查核</td><td>誠信聯合會計師事務所</td><td>10/20</td><td><span class="pill ok">已完成</span></td></tr>
+<tr><td>法律查核</td><td>恆信法律事務所　林志遠律師</td><td>11/10</td><td><span class="pill wip">進行中</span></td></tr>
+<tr><td>稅務查核</td><td>誠信聯合會計師事務所</td><td>11/12</td><td><span class="pill wip">進行中</span></td></tr>
+<tr><td>商標與食安</td><td>經營企劃部</td><td>11/15</td><td><span class="pill no">未開始</span></td></tr></table>
+<p class="note2">※ 虛擬資料室僅開放會計師與律師，存取紀錄由資訊處保存。</p><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜5</div>`},
+  {t:"時程規劃", mini:"11/5 董事會…", h:`<h2>時程規劃</h2><div class="tl"><div class="on"><b>11/5</b><span>董事會決議</span></div><div><b>11/20</b><span>簽署意向書</span></div><div><b>12/10</b><span>重大訊息公告</span></div><div><b>2027 Q1</b><span>公開收購</span></div><div><b>2027 Q2</b><span>交割完成</span></div></div>
+<p class="note2">※ 重大訊息公告前，所有知情人員列入內線交易防制名單。</p><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜6</div>`},
   {t:"估值檔存取紀錄", mini:"10/1 17:42…", log:true},
-  {t:"風險", mini:"消息提前外流", h:`<h2>風險</h2><ul><li>消息提前外流，股價異常波動</li><li>對方藉外流資訊壓價</li><li>主管機關調查內線交易</li></ul>`},
-  {t:"下一步", mini:"董事會決議事項", h:`<h2>下一步</h2><ul><li>董事會決議是否進入意向書階段</li><li>釐清 10/1 估值檔外流經過</li></ul>`},
+  {t:"風險評估", mini:"消息提前外流", h:`<h2>風險評估</h2><table><tr><th>風險</th><th>影響</th><th>可能性</th><th>因應</th></tr>
+<tr><td>消息提前外流</td><td><span class="pill no">高</span></td><td><span class="pill no">高</span></td><td>限縮知情名單、調查 10/1 外流經過</td></tr>
+<tr><td>對方藉外流資訊壓價</td><td><span class="pill no">高</span></td><td><span class="pill wip">中</span></td><td>堅守底線，不提前揭露估值</td></tr>
+<tr><td>主管機關調查內線交易</td><td><span class="pill no">高</span></td><td><span class="pill wip">中</span></td><td>保存存取紀錄，配合調查</td></tr>
+<tr><td>員工流失</td><td><span class="pill wip">中</span></td><td><span class="pill ok">低</span></td><td>宣布留任與獎酬方案</td></tr></table><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜8</div>`},
+  {t:"決議事項", mini:"董事會決議事項", h:`<h2>決議事項</h2><ol class="ag rs"><li><b>案一</b>是否同意進入意向書階段（底線每股 52 元）</li><li><b>案二</b>授權董事長與收購方議定意向書條款</li><li><b>案三</b>成立專案小組，釐清 10/1 估值檔外流經過</li></ol><p class="note2">報告人：經營企劃部　蘇志誠</p><div class="ft">晴禾食品｜藍海專案｜<b style="color:#c43e1c">極機密</b>｜9</div>`},
 ];
 const LOG = [{id:"c", cells:["10/1　17:42", "陳怡君", "開啟"]}, {id:"z", cells:["10/1　18:05", "張美玲", "下載"]}, {id:"y", cells:["10/2　09:10", "周以恩", "開啟"]}];
 const PP_TABS = ["檔案", "常用", "插入", "繪圖", "設計", "轉場", "動畫", "投影片放映", "校閱", "檢視", "說明"];
@@ -1667,13 +1845,16 @@ function drawDeck(){
     (ppPop && !ppGone ? `<div class="pp-pop"><b>張美玲</b><small>正在編輯 · 投影片 7</small><button id="pp-goher">移至位置</button></div>` : "");
   document.getElementById("pp-tabs").innerHTML = PP_TABS.map(t => `<span class="${t === ppTab ? "on" : ""}">${t}</span>`).join("");
   document.getElementById("pp-rib").innerHTML = PP_RIB[ppTab].map(b => b === "|" ? `<span class="sep"></span>` : `<button${b[0] === "*" ? ` data-pp="${b.slice(1)}"` : ""}>${b.replace(/^\*/, "")}</button>`).join("");
-  document.getElementById("pp-th").innerHTML = DECK.map((d, i) => `<div class="pp-t${i === ppCur ? " on" : ""}" data-s="${i}"><span>${i + 1}</span><div class="mini"><b>${d.t}</b>${d.mini}${i === 6 && !ppGone ? `<i class="flag"></i>` : ""}</div></div>`).join("");
-  const d = DECK[ppCur];
-  document.getElementById("pp-s").innerHTML = d.log ? `<h2>估值檔存取紀錄</h2><p style="margin-bottom:2cqw">檔案：藍海 估值區間（給董事長）.xlsx</p>
+  document.getElementById("pp-th").innerHTML = DECK.map((d, i) => `<div class="pp-t${i === ppCur ? " on" : ""}" data-s="${i}"><span>${i + 1}</span><div class="mini"><div class="pp-s pp-mini">${slideHTML(i)}</div>${i === 6 && !ppGone ? `<i class="flag"></i>` : ""}</div></div>`).join("");
+  document.getElementById("pp-s").innerHTML = slideHTML(ppCur);
+  document.getElementById("pp-st").innerHTML = `<span>投影片 ${ppCur + 1} / ${DECK.length}</span><span>${ppGone ? "" : ppCur === 6 ? "張美玲 也在這張投影片上" : "張美玲 正在編輯投影片 7"}</span>`;
+}
+function slideHTML(n){
+  const d = DECK[n];
+  return d.log ? `<h2>估值檔存取紀錄</h2><p style="margin-bottom:2cqw">檔案：藍海 估值區間（給董事長）.xlsx</p>
     <table><tr><th>時間</th><th>人員</th><th>動作</th></tr>${LOG.map(r => { const last = Math.max(0, r.cells.map(Boolean).lastIndexOf(true));
       return `<tr data-r="${r.id}" class="${ppSel === r.id ? "sel" : ""}${cmts.some(c => c.r === r.id && !c.gone) ? " cmt" : ""}">${r.cells.map((c, i) => `<td>${ppEsc(c)}${ppEdit === r.id && i === last ? `<i class="cc"></i>` : ""}</td>`).join("")}</tr>`; }).join("")}</table>
     <div class="ft">資料來源：資訊服務台　檔案稽核紀錄（11/3 匯出）</div>` : d.h;
-  document.getElementById("pp-st").innerHTML = `<span>投影片 ${ppCur + 1} / ${DECK.length}</span><span>${ppGone ? "" : ppCur === 6 ? "張美玲 也在這張投影片上" : "張美玲 正在編輯投影片 7"}</span>`;
 }
 function drawCm(){
   const pane = document.getElementById("pp-cm"), by = n => `<div class="by"><span class="av" data-n="${n}" style="background:#c19c00">${n[0]}</span><b>${n}</b></div>`;
@@ -1704,7 +1885,7 @@ const HER_SCRIPT = () => [
   ...slow(15, 1100, () => bs("z")),
   wait(600, () => { dropRow("z"); ppGone = true; drawDeck(); if (!done.deck) later(() => fail("deck",
     ["經查本公司藍海專案估值檔之存取紀錄，於 11/4（週三）下午遭人刪除；系統顯示，當時開啟該簡報者僅剩台端一人。"],
-    ["小明，第 7 頁被刪光的時候，檔案裡只剩你一個人。", "財務長跟董事長說，是你把紀錄刪掉的。", "她下午根本沒去銀行……", "後續的部分我會繼續處理，你保重。"]), 2500); }),
+    ["小明，第 7 頁被刪光的時候，檔案裡只剩你一個人。", "財務長跟董事長說，是你把紀錄刪掉的。", "後續的部分我會繼續處理，你保重。"]), 2500); }),
 ];
 function deckOpened(){
   if (!deckOn && !done.deck && MAILS.some(m => m.id === "shr")){ deckOn = true; herRun(HER_SCRIPT()); }
@@ -2110,19 +2291,34 @@ document.getElementById("xl-sheet").addEventListener("click", e => { const c = e
 // 外部網站：司法院開庭查詢、禾茶舖
 // 外部網站開在新分頁（web.html），玩家才能邊看團單邊貼帳密
 document.addEventListener("click", e => { const a = e.target.closest("[data-web]"); if (a){ e.preventDefault(); window.open("web.html#" + a.dataset.web, "_blank"); } });
-const views = {mail:[".list",".read",".folders"], cal:[".cal"], xl:[".xl"], sa:[".sa"], tms:[".tms"], od:[".od"], dv:[".dv"], pp:[".pp"]};
+const views = {mail:[".list",".read",".folders"], cal:[".cal"], xl:[".xl"], xs:[".xs"], sa:[".sa"], tms:[".tms"], od:[".od"], dv:[".dv"], pp:[".pp"]};
+// 第 14 題：怡君的確認表，打勾的格子縮小看是「T1」和一架飛機
+const XS_PIX = [".......................................#####......................", "........................................#####.....................", ".##########.....###.......................######..................", ".##########.....###........................######.................", ".##########...#####........####..............######...............", "....####......#####.........####...............######.............", "....####........###..........####...............######............", "....####........###...........####................######..........", "....####........###........######################################.", "....####........###........######################################.", "....####........###...........####................######..........", "....####........###..........####...............######............", "....####........###.........####...............######.............", "....####......#######......####..............######...............", "....####......#######......................######.................", "..........................................######..................", "........................................#####.....................", ".......................................#####......................"];
+const XS_PPL = [["何正雄","董事長"],["何俊廷","董事"],["李文彬","董事"],["王淑芬","董事"],["黃志明","董事"],["劉國華","獨立董事"],["吳建宏","獨立董事"],["鄭雅文","獨立董事"],["許清源","監察人"],["周宏達","監察人"],["張美玲","財務長"],["吳佩珊","會計主任"],["蘇志誠","經營企劃部"],["林志遠","法律顧問"],["高明哲","簽證會計師"],["賴俊宇","稽核室"],["梁美琪","人力資源處"],["陳怡君","董事長室"]];
+function drawXS(){
+  const n = XS_PIX[0].length, L = i => { const c = i + 1; return c < 26 ? String.fromCharCode(65 + c) : String.fromCharCode(64 + Math.floor(c / 26)) + String.fromCharCode(65 + c % 26); };
+  document.getElementById("xs-sheet").innerHTML = `<thead><tr><th class="corner"></th><th>A</th>${XS_PIX[0].split("").map((_, i) => `<th>${L(i)}</th>`).join("")}</tr></thead><tbody>
+<tr><td class="rn">1</td><td colspan="${n + 1}" class="ttl" style="text-align:left">11/5（四）董事會資料　各頁確認表　※ 已確認之頁次請打 ✓</td></tr>
+<tr class="hd"><td class="rn">2</td><td class="nm">姓名／頁次</td>${XS_PIX[0].split("").map((_, i) => `<td>P${i + 1}</td>`).join("")}</tr>` +
+    XS_PIX.map((r, k) => `<tr><td class="rn">${k + 3}</td><td class="nm">${XS_PPL[k][0]}　<small style="color:var(--muted)">${XS_PPL[k][1]}</small></td>${r.split("").map(c => c === "#" ? `<td class="ok">✓</td>` : `<td></td>`).join("")}</tr>`).join("") +
+    `<tr><td class="rn">${XS_PIX.length + 3}</td><td colspan="${n + 1}" style="text-align:left;color:var(--muted)">確認完成後請回覆董事長室，謝謝。</td></tr></tbody>`;
+}
+function xsZoom(z){ z = Math.max(20, Math.min(100, z)); document.getElementById("xs-z").value = z; document.getElementById("xs-zv").textContent = z + "%"; document.getElementById("xs-sheet").style.zoom = z / 100; }
+drawXS();
+document.getElementById("xs-z").addEventListener("input", e => xsZoom(+e.target.value));
+document.querySelector(".xs-st").addEventListener("click", e => { const b = e.target.closest("[data-xz]"); if (b) xsZoom(+document.getElementById("xs-z").value + +b.dataset.xz); });
 function go(v){
   document.querySelectorAll(".rail button").forEach(b => b.classList.toggle("on", b.dataset.view === (v === "sa" ? "cal" : ["dv", "pp"].includes(v) ? "od" : v)));
   document.querySelector(".ribbon").style.display = v === "mail" ? "" : "none";
   Object.entries(views).forEach(([k, sels]) => sels.forEach(s => { const e = document.querySelector(s); e.style.display = k === v ? (["tms", "pp"].includes(k) ? "flex" : k === "mail" ? "" : "block") : "none"; }));
   document.body.classList.remove("reading");
   if (v === "pp") deckOpened();
-  document.title = ({sa:document.getElementById("sa-ttl").value.trim() || "新增事件", cal:"行事曆", od:"OneDrive", dv:document.getElementById("dv-name").textContent, xl:"下午茶團單.xlsx", pp:"藍海_董事會簡報.pptx", tms:"聊天 | Microsoft Teams"}[v] || "郵件") + (["tms","xl","pp"].includes(v) ? "" : ` - ${ME} - Outlook`);
+  document.title = ({sa:document.getElementById("sa-ttl").value.trim() || "新增事件", cal:"行事曆", od:"OneDrive", dv:document.getElementById("dv-name").textContent, xl:"下午茶團單.xlsx", xs:"11-5_董事會資料確認表.xlsx", pp:"藍海_董事會簡報.pptx", tms:"聊天 | Microsoft Teams"}[v] || "郵件") + (["tms","xl","xs","pp"].includes(v) ? "" : ` - ${ME} - Outlook`);
 }
 document.querySelector(".rail").addEventListener("click", e => { const b = e.target.closest("button[data-view]"); if (b) go(b.dataset.view); });
 document.addEventListener("click", e => { if (e.target.closest("[data-sa]")) return go("sa"); const a = e.target.closest("[data-go]"); if (a){ e.preventDefault(); go(a.dataset.go); } });
 
-MAILS.forEach(pzMail); [TEA_REQ, SU_SHARE, LIN_PING1, LIN_PING2, IT_GRANT, RECALLED, RECALL_NOTE, CHEN_B1, SCHED, SCHED_WARN, LIN3, LIN4, ZHOU_REPLY, IT_WARN, ZHOU_WHO, INVITE, SU_ALLY, INVITE2, ZHOU_NUDGE, ZHOU_FW].forEach(pzMail);
+MAILS.forEach(pzMail); [TEA_REQ, SU_SHARE, LIN_PING1, LIN_PING2, IT_GRANT, RECALLED, RECALL_NOTE, CHEN_B1, SCHED, SCHED_WARN, LIN3, LIN4, ZHOU_REPLY, IT_WARN, ZHOU_WHO, INVITE, SU_ALLY, INVITE2, ZHOU_NUDGE, ZHOU_FW, SU_LOG, SU_WHERE, SU_MORN, CHEN_SHEET, SU_ASK, SU_AUTH].forEach(pzMail);
 PPL[0][0] = ME; drawTL();
 document.head.insertAdjacentHTML("beforeend", `<style>.av[data-n="${ME}"]{background:url(img/me-${SEX}.jpg) center/cover!important;color:transparent!important}</style>`);
 document.querySelectorAll(".me.av").forEach(e => { e.dataset.n = ME; e.textContent = ME[0]; });
@@ -2134,7 +2330,7 @@ renderList(); show("welcome"); document.body.classList.remove("reading");
 if (!PLAYER) document.getElementById("login").hidden = false;
 
 // 試玩跳關：?q=2 代表第 1 題自動過關、從第 2 題開始
-const Q_NAMES = ["排會議", "代訂下午茶", "共用行事曆", "被回收的信", "會自己寄出的信", "找到周以恩", "上鎖的菜單", "小卡上的章", "換過的章", "信尾的🌷", "延後的信", "有人正在編輯"];
+const Q_NAMES = ["排會議", "代訂下午茶", "共用行事曆", "被回收的信", "會自己寄出的信", "找到周以恩", "上鎖的菜單", "小卡上的章", "換過的章", "小卡的背面", "延後的信", "週五快樂", "包裹", "確認表", "授權書"];
 const startQ = Math.min(Math.max(+new URLSearchParams(location.search).get("q") || 1, 1), Q_NAMES.length);
 if (startQ > 1){
   skipping = true;
@@ -2149,6 +2345,9 @@ if (startQ > 1){
   if (startQ > 9){ done.invite = true; startTest(); }
   if (startQ > 10){ done.vote = true; startDay3(); }
   if (startQ > 11){ done.boss = true; startDeck(); }
+  if (startQ > 12){ done.deck = true; startParcel(); }
+  if (startQ > 13){ done.parcel = true; startDay4(); }
+  if (startQ > 14){ done.flight = true; startFinal(); }
   skipping = false;
   openFold("inbox"); show(MAILS[0].id); document.body.classList.remove("reading");
 }

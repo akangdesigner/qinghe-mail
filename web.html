@@ -46,6 +46,22 @@ body label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#444}
 .hc-who{padding:14px 20px 4px;color:#444}
 .hc-again{border:1px solid #3f5a3a;color:#3f5a3a;border-radius:3px;padding:2px 8px;font-size:12px}
 .hc-err{color:#a4262c;font-size:13px;min-height:1em}
+.pt-h{background:#1b5e3b;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.pt-h b{font-size:17px;letter-spacing:1px;cursor:pointer}.pt-h span{font-size:13px;opacity:.85;cursor:pointer}.pt-h span.on,.pt-h span:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.pt-h i{margin-left:auto;font-style:normal;font-size:12px;opacity:.85}
+.pt-sec{padding:6px 20px 10px}.pt-sec h3{font-size:15px;color:#1b5e3b;margin:14px 0 10px}
+.pt-sec .wt-w{margin:0 0 12px}.pt-q{display:flex;gap:8px;max-width:460px;margin-bottom:12px}.pt-q input{flex:1}
+.pt-go{background:#1b5e3b;color:#fff;border-radius:3px;padding:6px 16px;font-weight:600;white-space:nowrap}
+.pt-row{cursor:pointer}.pt-row:hover td{background:#f3f8f5}.pt-dt{border:1px solid #cfe3d7;background:#f6fbf8;border-radius:4px;padding:12px 16px;margin:0 0 14px;font-size:13px;line-height:1.9;max-width:560px}
+.ms-bg{min-height:100vh;background:#f2f2f2;display:flex;align-items:center;justify-content:center;padding:20px}
+.ms-box{background:#fff;width:440px;max-width:100%;padding:40px 44px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.ms-logo{display:flex;align-items:center;gap:8px;font-size:15px;color:#5e5e5e;margin-bottom:18px}.ms-logo i{display:grid;grid-template-columns:9px 9px;gap:1px}.ms-logo i b{width:9px;height:9px}
+.ms-box h1{font-size:24px;font-weight:600;margin:0 0 6px}.ms-box p{margin:0 0 18px;font-size:13px;color:#555}
+.ms-acc{display:flex;align-items:center;gap:12px;width:100%;padding:12px 8px;text-align:left;border-top:1px solid #e5e5e5}.ms-acc:hover{background:#f2f2f2}
+.ms-acc span{width:40px;height:40px;border-radius:50%;background:#1b5e3b;color:#fff;display:grid;place-items:center;font-weight:600;flex:none}
+.ms-acc small{display:block;color:#666}.ms-err{color:#a4262c;font-size:13px;margin-top:10px;min-height:1em}
+.pt-land{min-height:100vh;background:linear-gradient(135deg,#1b5e3b,#2f7d55);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center}
+.pt-land b{font-size:26px;letter-spacing:2px}.pt-land small{opacity:.85}.pt-land button{background:#fff;color:#1b5e3b;border-radius:4px;padding:10px 26px;font-weight:600;margin-top:10px}
 body a{color:var(--brand)}
 @media (max-width:700px){.ct-f{grid-template-columns:1fr 1fr}.wt-w{margin:0 12px 16px}}
 </style>
@@ -67,7 +83,34 @@ const HC_ORDERS = [
   ["9/17（四）13:41", "四季春青茶　微糖去冰 ×1", 35, "B1 會議室", "14:00 前送達"],
   ["9/17（四）11:00", "團購 12 杯", 615, "12F 茶水間", "15:30 外送"],
 ];
-let web = {site:"", hcIn:false, hcTab:"o", hcPg:"home"};
+let web = {site:"", hcIn:false, hcTab:"o", hcPg:"home", ptPg:"home", ptQ:"", ptOpen:-1, ptAuth:0};
+// 入口網登入狀態跨分頁保留（同網域 localStorage）
+const ptIn = () => { try { return localStorage.getItem("qinghe-portal-in") === "1"; } catch (_) { return false; } };
+// 員工入口網：玩家的姓名與網域跟遊戲分頁一致
+const PLAYER = (() => { try { return JSON.parse(localStorage.getItem("qinghe-player")) || {}; } catch (_) { return {}; } })();
+const PT_ME = PLAYER.name || "王小明", PT_DOM = (PLAYER.acct || "@qinghe-foods.com.tw").split("@")[1];
+// 通訊錄：[姓名, 英文名, 員編, 部門, 職稱, 分機, 帳號]
+const PT_DIR = [
+  ["何正雄", "Cheng-Hsiung Ho", "A0001", "董事長室", "董事長", "1200", "ch.ho"],
+  ["陳怡君", "Yi-Chun Chen", "A0012", "董事長室", "秘書", "1201", "yijun.chen"],
+  ["張美玲", "Mei-Ling Chang", "F0003", "財務處", "財務長", "2201", "ml.chang"],
+  ["吳佩珊", "Pei-Shan Wu", "F0021", "財務處", "會計主任", "2210", "ps.wu"],
+  ["張明倫", "Ming-Lun Chang", "F0047", "財務處", "出納", "2215", "minglun.chang"],
+  ["蘇志誠", "Jason Su", "P0105", "經營企劃部", "經理", "3105", "jc.su"],
+  ["林子晴", "Tzu-Ching Lin", "P0131", "經營企劃部", "專員", "3112", "tzuching.lin"],
+  [PT_ME, "", "P0140", "經營企劃部", "專員", "3118", (PLAYER.acct || "xiaoming.wang").split("@")[0]],
+  ["梁美琪", "Mei-Chi Liang", "H0008", "人力資源處", "專員", "1103", "mc.liang"],
+  ["黃立成", "Li-Cheng Huang", "I0015", "資訊處", "工程師", "1502", "lc.huang"],
+];
+// 包裹代收（總務處登錄）：[到件, 收件人, 寄件, 件數, 領取方式, 狀態, 明細]
+const PT_PKG = [
+  ["11/4 10:12", `${PT_ME}（P0140）`, "蝦皮購物", 1, "1F 管理中心自取", "待領取", "一般包裹。"],
+  ["11/4 11:40", "林子晴（P0131）", "博客來", 2, "1F 管理中心自取", "待領取", "一般包裹。"],
+  ["11/4 16:55", "M.L.C.（F0003）", "DHL Express（香港）", 1, "預約本人領取", "已預約", "寄件人：Harborline Capital Ltd.（Central, Hong Kong）<br>品名：Documents（文件）<br>簽收條件：須收件人本人持證件簽收，不得代領<br>預約領取：<b>11/5（四）07:30</b>　1F 管理中心<br>預約人帳號：F0003"],
+  ["11/3 09:20", "吳佩珊（F0021）", "中華郵政（掛號）", 1, "1F 管理中心自取", "已領取", "11/3 12:05 本人領取。"],
+  ["11/2 14:08", "蘇志誠（P0105）", "黑貓宅急便", 1, "1F 管理中心自取", "已領取", "11/2 17:40 本人領取。"],
+];
+const PT_PATH = {home:"/", dir:"/directory", att:"/attendance", room:"/rooms", pkg:"/services/parcels"};
 const WEB = {
   court: {url:"https://www.judicial.gov.tw/hearing/query", title:"法院開庭進度查詢 - 司法院", draw: () => `<div class="ct-h">司法院<small>法院開庭進度查詢</small></div>
 <div class="ct-bc">首頁 › 便民服務 › 查詢服務 › 法院開庭進度查詢</div>
@@ -77,7 +120,31 @@ const WEB = {
 <label>案號<input id="ct-n" inputmode="numeric" placeholder="例：123"></label>
 <button class="ct-go">查詢</button></form><div id="ct-r"></div>
 <p class="ct-note">※ 開庭時間僅供參考，實際以各法院公告為準。預估時間為法庭排定之開庭時長。</p>`},
+  portal: {get url(){ return "https://portal." + PT_DOM + PT_PATH[web.ptPg]; }, title:"晴禾食品 員工入口網", draw: () => ptIn() ? PT_NAV() + PT_PG[web.ptPg]() : PT_LOGIN()},
   hecha: {get url(){ return "https://www.hecha-tea.com.tw" + HC_PATH[web.hcPg]; }, title:"禾茶舖 HECHA TEA｜一杯好茶，從產地開始", draw: () => HC_NAV() + HC_PG[web.hcPg]() + `<div class="hc-ft">禾茶舖股份有限公司　客服專線 0800-123-786（週一至週五 9:00–18:00）<br>© 2026 HECHA TEA. All rights reserved.</div>`},
+};
+const MS_LOGO = `<div class="ms-logo"><i><b style="background:#f25022"></b><b style="background:#7fba00"></b><b style="background:#00a4ef"></b><b style="background:#ffb900"></b></i>Microsoft</div>`;
+const PT_ACCT = PLAYER.acct || "xiaoming.wang@qinghe-foods.com.tw";
+const PT_LOGIN = () => web.ptAuth === 0
+  ? `<div class="pt-land"><b>晴禾食品　員工入口網</b><small>QINGHE FOODS EMPLOYEE PORTAL</small><small>請使用公司帳號登入</small><button data-pta="1">以公司帳號登入</button></div>`
+  : `<div class="ms-bg"><div class="ms-box">${MS_LOGO}<h1>挑選帳戶</h1><p>以繼續前往「晴禾食品 員工入口網」</p>
+<button class="ms-acc" data-pta="in"><span>${PT_ME[0]}</span><div>${PT_ME}<small>${PT_ACCT}</small><small>已登入</small></div></button>
+<button class="ms-acc" data-pta="other"><span style="background:#e1e1e1;color:#555">＋</span><div>使用其他帳戶</div></button><div class="ms-err" id="ms-err"></div></div></div>`;
+const PT_NAV = () => `<div class="pt-h"><b data-ptp="home">晴禾食品　員工入口網</b>${[["dir","通訊錄"],["att","差勤"],["room","會議室"],["pkg","包裹代收"]].map(([k, t]) => `<span data-ptp="${k}" class="${web.ptPg === k ? "on" : ""}">${t}</span>`).join("")}<i>${PT_ME}　<a href="#" id="pt-out" style="color:#fff">登出</a></i></div>`;
+const PT_PG = {
+  home: () => `<div class="pt-sec"><h3>公告</h3><ul class="hc-news"><li><time>2026/11/02</time>11 月份壽星請於 11/13 前至 3F 福委會領取禮券</li><li><time>2026/10/28</time>第二梯次員工旅遊（花蓮二日）開放報名</li><li><time>2026/11/02</time>包裹代收改由總務處統一登錄，請至「包裹代收」查詢</li></ul>
+<h3>常用服務</h3><ul class="hc-news"><li><a href="#portal/dir">通訊錄</a>　查詢同仁分機、員編與信箱</li><li><a href="#portal/pkg">包裹代收</a>　查詢大樓管理中心代收之包裹</li></ul></div>`,
+  dir: () => { const q = web.ptQ.trim().toLowerCase(), r = q ? PT_DIR.filter(d => d.join(" ").toLowerCase().includes(q)) : PT_DIR;
+    return `<div class="pt-sec"><h3>通訊錄</h3><form class="pt-q" id="pt-q"><input id="pt-in" value="${web.ptQ.replace(/"/g, "&quot;")}" placeholder="姓名、英文名、員編、部門或分機" autocomplete="off"><button class="pt-go">搜尋</button></form>
+${r.length ? `<div class="wt-w"><table class="wt"><tr><th>姓名</th><th>英文名</th><th>員編</th><th>部門</th><th>職稱</th><th>分機</th><th>信箱</th></tr>${r.map(d => `<tr><td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td><td>#${d[5]}</td><td>${d[6]}@${PT_DOM}</td></tr>`).join("")}</table></div>` : `<p class="hc-note">查無符合「${web.ptQ.replace(/</g, "&lt;")}」的同仁。</p>`}</div>`; },
+  att: () => `<div class="pt-sec"><h3>我的差勤　2026 年 11 月</h3><div class="wt-w"><table class="wt"><tr><th>日期</th><th>上班</th><th>下班</th><th>狀態</th></tr>
+<tr><td>11/2（一）</td><td>08:52</td><td>—</td><td>正常（新進報到）</td></tr><tr><td>11/3（二）</td><td>—</td><td>—</td><td>—</td></tr><tr><td>11/4（三）</td><td>—</td><td>—</td><td>—</td></tr></table></div>
+<p class="hc-note">特休：0 天（到職滿六個月後核給）　補休：0 小時</p><p class="hc-note">請假、加班申請請洽部門行政，系統線上申請功能將於 12 月開放。</p></div>`,
+  room: () => `<div class="pt-sec"><h3>會議室</h3><div class="wt-w"><table class="wt"><tr><th>會議室</th><th>樓層</th><th>容納</th><th>設備</th><th>預約</th></tr>
+<tr><td>大會議室</td><td>12F</td><td>20 人</td><td>投影機、視訊</td><td>Outlook 行事曆預約</td></tr><tr><td>第二會議室</td><td>12F</td><td>8 人</td><td>電視</td><td>Outlook 行事曆預約</td></tr>
+<tr><td>董事會議室</td><td>15F</td><td>16 人</td><td>投影機、錄音</td><td>限董事長室</td></tr><tr><td>B1 會議室</td><td>B1</td><td>6 人</td><td>—</td><td>工程中，暫停線上預約</td></tr></table></div></div>`,
+  pkg: () => `<div class="pt-sec"><h3>包裹代收</h3><p class="hc-note">大樓管理中心代收之包裹，由總務處每日登錄。點選列可查看明細。</p>
+<div class="wt-w"><table class="wt"><tr><th>到件</th><th>收件人</th><th>寄件</th><th>件數</th><th>領取方式</th><th>狀態</th></tr>${PT_PKG.map((k, i) => `<tr class="pt-row" data-pk="${i}"><td>${k[0]}</td><td>${k[1]}</td><td>${k[2]}</td><td>${k[3]}</td><td>${k[4]}</td><td>${k[5]}</td></tr>${web.ptOpen === i ? `<tr><td colspan="6" style="white-space:normal"><div class="pt-dt">${k[6]}</div></td></tr>` : ""}`).join("")}</table></div></div>`,
 };
 const HC_PATH = {home:"/", menu:"/menu", store:"/stores", biz:"/business", mem:"/member/login"};
 const HC_NAV = () => `<div class="hc-h"><b data-hcp="home">禾茶舖</b>${[["menu","菜單"],["store","門市據點"],["biz","企業團購"],["mem","會員中心"]].map(([k, t]) => `<span data-hcp="${k}" class="${web.hcPg === k ? "on" : ""}">${t}</span>`).join("")}</div>`;
@@ -112,7 +179,7 @@ function openWeb(site){
   webPg.innerHTML = w.draw(); document.title = w.title; scrollTo(0, 0);
 }
 // 網址 #court、#hecha、#hecha/biz；換頁用 hash，瀏覽器的上一頁就能用
-function route(){ const [site, pg] = location.hash.slice(1).split("/"); if (!WEB[site]) return; if (site === "hecha") web.hcPg = HC_PATH[pg] ? pg : "home"; openWeb(site); }
+function route(){ const [site, pg] = location.hash.slice(1).split("/"); if (!WEB[site]) return; if (site === "hecha") web.hcPg = HC_PATH[pg] ? pg : "home"; if (site === "portal") web.ptPg = PT_PATH[pg] ? pg : "home"; openWeb(site); }
 addEventListener("hashchange", route);
 webPg.addEventListener("submit", e => {
   e.preventDefault(); const f = e.target;
@@ -124,6 +191,7 @@ webPg.addEventListener("submit", e => {
       return r.innerHTML = `<p style="margin:0 20px 10px">臺灣臺北地方法院　115 年度訴字第 812 號　給付貨款事件</p><div class="wt-w"><table class="wt"><tr><th>開庭日期</th><th>開庭時間</th><th>法庭</th><th>庭類</th><th>預估時間</th></tr>${COURT_HEAR.map(h => `<tr>${h.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</table></div>`;
     return r.innerHTML = `<p class="ct-msg">查無資料，請確認法院、年度、字別及案號是否正確。</p>`;
   }
+  if (f.id === "pt-q"){ web.ptQ = document.getElementById("pt-in").value; return openWeb("portal"); }
   if (f.id === "hc-lg"){
     const u = document.getElementById("hc-u").value.trim().toLowerCase(), pw = document.getElementById("hc-p").value.trim();
     if (u === "qinghe-plan" && pw === "hecha3109"){ web.hcIn = true; web.hcTab = "o"; return openWeb("hecha"); }
@@ -145,8 +213,15 @@ webPg.addEventListener("submit", e => {
 });
 webPg.addEventListener("click", e => {
   const pg = e.target.closest("[data-hcp]"); if (pg){ location.hash = "hecha/" + pg.dataset.hcp; return; }
+  const pp = e.target.closest("[data-ptp]"); if (pp){ location.hash = "portal/" + pp.dataset.ptp; return; }
+  const pa = e.target.closest("[data-pta]"); if (pa){ const v = pa.dataset.pta;
+    if (v === "1"){ web.ptAuth = 1; return openWeb("portal"); }
+    if (v === "other") return document.getElementById("ms-err").textContent = "此應用程式僅限晴禾食品網域帳戶登入。";
+    try { localStorage.setItem("qinghe-portal-in", "1"); } catch (_) {} web.ptAuth = 0; return openWeb("portal"); }
+  const pk = e.target.closest("[data-pk]"); if (pk){ web.ptOpen = web.ptOpen === +pk.dataset.pk ? -1 : +pk.dataset.pk; return openWeb("portal"); }
   const a = e.target.closest("[data-again]"); if (a){ const [n, p] = a.dataset.again.split("|"); web.again = [n, +p]; web.hcTab = "n"; return openWeb("hecha"); }
   const t = e.target.closest("[data-hc]"); if (t){ web.hcTab = t.dataset.hc; return openWeb("hecha"); }
+  if (e.target.closest("#pt-out")){ e.preventDefault(); try { localStorage.removeItem("qinghe-portal-in"); } catch (_) {} return openWeb("portal"); }
   if (e.target.closest("#hc-out")){ e.preventDefault(); web.hcIn = false; openWeb("hecha"); }
 });
 route();
