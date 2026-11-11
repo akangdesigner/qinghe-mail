@@ -1122,7 +1122,9 @@ function resultCard(bad){
 ${row("花費時間", mins + " 分鐘")}${row("看摘要", hintsUsed + " 次")}${row("回錯信", wrong + " 次")}${row("重新來過", RUN.retries + " 次")}</table>
 <p class="rs-f">評等依「看摘要、回錯信、重新來過」次數計算。${sq > 1 ? `本次從第 ${sq} 題開始，評等僅供參考。` : ""}</p></div>`;
 }
-const later = (fn, ms) => skipping ? fn() : setTimeout(fn, ms);
+// 長延遲壓短：3 秒內照舊，超過的部分只算 15%（6 秒→約 2.5 秒、15 秒→約 3.8 秒），先後順序不變
+const pace = ms => ms <= 3000 ? ms : 3000 + (ms - 3000) * 0.15;
+const later = (fn, ms) => skipping ? fn() : setTimeout(fn, pace(ms));
 function toast(t){ if (skipping) return; const e = document.getElementById("toast"); e.textContent = t; e.classList.add("show"); setTimeout(() => e.classList.remove("show"), 3200); }
 const FOLD_NAME = {inbox:"收件匣", drafts:"草稿", sent:"寄件備份", deleted:"刪除的郵件", archive:"封存", junk:"垃圾郵件", "z-inbox":"收件匣", "z-drafts":"草稿", "z-sent":"寄件備份", "z-archive":"封存", "z-deleted":"刪除的郵件"};
 const boxOf = m => m.box || "inbox";
@@ -1824,12 +1826,11 @@ const SU_AUTH = {id:"suauth", from:"蘇志誠", c:C.su, sys:false, ask:true, q:"
   onOk: () => { later(() => toast("✓ 已傳送"), 2000); later(() => { clock = 15 * 60 + 25; arrive([{id:"end", from:"林子晴", c:C.lin, sys:true, who:"林子晴 &lt;tzuching.lin@qinghe-foods.com.tw&gt;", to:"收件者：王小明",
     subj:"今天 3:30，茶水間見", pv:"聽說了……", body:`<p>聽說了。財務長在機場被攔下來，怡君姐下午自己去找了董事長。</p><p>以恩說，她想回來喝一杯下午茶。</p><p>3:30 茶水間，你週一訂的那 12 杯，剛好今天送到 🧋</p><p>子晴</p>${resultCard()}`}]); notify(MAILS[0]); later(() => { arrive([THANKS]); notify(MAILS[0]); toast("全劇終　謝謝遊玩"); }, 9000); }, 12000); }};
 // 結局彩蛋：作者的謝幕信，附官網與抖內（抖內可以許願下一款遊戲）
-const DONATE_URL = "";  // 抖內平台開好後填網址，按鈕就會出現
 const THANKS_TAIL = `<p>還沒玩過前作的話，可以玩玩第一代<a href="https://akangdesigner.github.io/hesen-mail/" target="_blank" rel="noopener">《冒牌信箱》</a>：有人盜用你的帳號栽贓你，你得把真正的人抓出來 👾</p>
 <p>平常我在 <a href="https://aiqkangber.com" target="_blank" rel="noopener">Q kangber 官網</a>寫 AI 和自動化的實作文章，有興趣可以來逛逛。</p>
-${DONATE_URL ? `<p>如果你玩得開心，可以抖內請我喝杯飲料，順便許願下一款想玩的遊戲（不一定會做，當作純支持就好 🥰）</p>
-<p><a href="${DONATE_URL}" target="_blank" rel="noopener" style="display:inline-block;background:#c0392b;color:#fff;padding:8px 18px;border-radius:4px;font-weight:600;text-decoration:none">☕ 抖內＋許願下一款遊戲</a></p>` : ""}
-<p>阿康</p>`;
+<p>如果你玩得開心，可以掃下面的碼請我喝杯飲料 ☕ 轉帳時在備註寫下你想玩的下一款遊戲，就算許願了（不一定會做，當作純支持就好 🥰）</p>
+<div style="display:inline-block;text-align:center;border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:4px 0 12px"><img src="img/donate-qr.png" alt="街口支付收款碼" width="180" height="180" style="display:block"><small style="color:var(--muted)">街口或任何銀行 App 都能掃（TWQR）</small></div>
+<p>qkangber</p>`;
 const THANKS = {id:"thanks", from:"阿康（遊戲作者）", c:"#0f6cbd", sys:true, ext:true, who:"阿康（Q kangber）", to:"收件者：王小明",
   subj:"謝謝你玩到最後 🥹", pv:"嗨，我是做這款遊戲的阿康。謝謝你一路把信讀完、把謎解開……",
   body:`<p>嗨，我是做這款遊戲的阿康。</p><p>謝謝你一路把信讀完、把謎解開，還把財務長攔在 T1 🤣</p>` + THANKS_TAIL};
