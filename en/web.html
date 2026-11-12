@@ -87,7 +87,7 @@ let web = {site:"", hcIn:false, hcTab:"o", hcPg:"home", ptPg:"home", ptQ:"", ptO
 // portal sign-in state is shared across tabs (same-origin localStorage)
 const ptIn = () => { try { return localStorage.getItem("qinghe-portal-in") === "1"; } catch (_) { return false; } };
 // employee portal: player's name and domain match the game tab
-const PLAYER = (() => { try { return JSON.parse(localStorage.getItem("qinghe-en-player")) || {}; } catch (_) { return {}; } })();
+const PLAYER = (() => { try { const q = new URLSearchParams(location.search).get("p"); if (q) return JSON.parse(q); } catch (_) {} try { return JSON.parse(localStorage.getItem("qinghe-en-player")) || {}; } catch (_) { return {}; } })();
 const PT_ME = PLAYER.name || "Xiao-Ming Wang", PT_DOM = (PLAYER.acct || "@qinghe-foods.com.tw").split("@")[1];
 // directory: [name, English name, employee ID, department, title, ext., account]
 const PT_DIR = [
@@ -203,7 +203,9 @@ webPg.addEventListener("submit", e => {
     if (!d || !t || !l) return document.getElementById("hc-n-err").textContent = "Please choose a delivery date and time and enter a location.";
     web.last = {d, t, l, no:"HC1105-0" + (312 + (web.n = (web.n || 0) + 1))}; HC_ORDERS.unshift(["11/2 (Mon) " + new Date().toTimeString().slice(0, 5), web.again[0], Math.round(web.again[1] * .9), l, `Delivery ${d} ${t}`]);
     // notify the game tab (storage event on same-origin localStorage)
-    try { localStorage.setItem("qinghe-hc-order", JSON.stringify({...web.last, at:Date.now()})); } catch (_) {}
+    const order = {...web.last, at:Date.now()};
+    try { localStorage.setItem("qinghe-hc-order", JSON.stringify(order)); } catch (_) {}
+    try { window.opener && window.opener.postMessage({type:"qinghe-hc-order", order}, location.origin); } catch (_) {}
     web.hcTab = "ok"; return openWeb("hecha");
   }
   if (f.id === "hc-g"){

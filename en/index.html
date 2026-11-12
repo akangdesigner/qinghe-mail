@@ -990,15 +990,21 @@ const hcMail = o => ({id:"hc" + Date.now(), ext:true, sys:true, from:"Hecha Tea"
 <table class="wt" style="margin:6px 0 10px"><tr><th>Delivery time</th><th>Item</th><th>Location</th><th>Next delivery</th></tr><tr><td>Every Thu 13:40</td><td>Four Seasons Oolong, light sugar, no ice ×1</td><td>B1 Meeting Room</td><td>11/5 (Thu)</td></tr></table>
 <p style="color:var(--muted);font-size:12px">This email was sent automatically. Please do not reply.</p><p>Hecha Tea</p>`});
 try { localStorage.removeItem("qinghe-hc-order"); } catch (_) {}
-addEventListener("storage", e => {
-  if (e.key !== "qinghe-hc-order" || !e.newValue || done.draft || !MAILS.some(m => m.id === "tea")) return;
-  const o = JSON.parse(e.newValue), ok = /11\/5/.test(o.d) && o.t === "15:30" && /12f|pantry/i.test(o.l);
+// the Hecha tab reports orders two ways: shared localStorage (same site) and postMessage to its opener
+// (itch.io embeds the game in an iframe, whose storage is partitioned from the new tab)
+let hcLastAt = 0;
+addEventListener("storage", e => { if (e.key === "qinghe-hc-order" && e.newValue) onHcOrder(e.newValue); });
+addEventListener("message", e => { if (e.origin === location.origin && e.data && e.data.type === "qinghe-hc-order") onHcOrder(JSON.stringify(e.data.order)); });
+function onHcOrder(raw){
+  if (done.draft || !MAILS.some(m => m.id === "tea")) return;
+  const o = JSON.parse(raw); if (o.at && o.at === hcLastAt) return; hcLastAt = o.at;
+  const ok = /11\/5/.test(o.d) && o.t === "15:30" && /12f|pantry/i.test(o.l);
   arrive([hcMail(o)]);
   if (ok){ done.draft = true; return TEA_REQ.onOk(); }
   later(() => { arrive([{id:"tw" + Date.now(), from:"Pei-Shan Wu", c:"#8764b8", sys:false, q:"draft", who:"Pei-Shan Wu &lt;peishan.wu@qinghe-foods.com.tw&gt;", to:"To: Xiao-Ming Wang",
     subj:"RE: Team afternoon tea order for 11/5 (Thu)", pv:`Xiao-Ming, I got the Hecha notification too — the delivery is ${o.d} ${o.t}…`, hints:TEA_REQ.hints,
     body:`<p>Xiao-Ming, I got the Hecha notification too — it says delivery ${o.d} ${o.t}, ${o.l}.</p><p>We need it on <b>Thursday (11/5) at 3:30 PM</b> in the 12F pantry. Could you place it again? I'll ask the shop to cancel the extra one.</p><div class="sig"><b>Pei-Shan Wu</b>　ext. 3108</div>`}]); notify(MAILS[0]); miss("The delivery time or place doesn't match what Pei-Shan asked for"); }, 3000);
-});
+}
 // Puzzle 3: Manager Su asks you to share Yi-En's calendar with Tzu-Ching; the sharing list shows an external Jason (bluewhale)
 const SU_SHARE = {id:"sushr", from:"Chih-Cheng Su", c:C.su, sys:false, q:"share", who:"Chih-Cheng Su &lt;jc.su@qinghe-foods.com.tw&gt;", to:"To: Xiao-Ming Wang",
   subj:"Handover of Yi-En's client schedule", pv:"Xiao-Ming: Tzu-Ching will take over the client visits Yi-En had booked. Please share Yi-En's calendar with Tzu-Ching…",
@@ -2311,7 +2317,7 @@ document.getElementById("xl-sheet").addEventListener("click", e => { const c = e
 // Switch views
 // External sites: Judicial Yuan court lookup, Hecha Tea
 // External sites open in a new tab (web.html) so players can read the sheet while pasting the login
-document.addEventListener("click", e => { const a = e.target.closest("[data-web]"); if (a){ e.preventDefault(); window.open("web.html#" + a.dataset.web, "_blank"); } });
+document.addEventListener("click", e => { const a = e.target.closest("[data-web]"); if (a){ e.preventDefault(); window.open("web.html?p=" + encodeURIComponent(JSON.stringify({name:ME, sex:SEX, acct:MYADDR})) + "#" + a.dataset.web, "_blank"); } });
 const views = {mail:[".list",".read",".folders"], cal:[".cal"], xl:[".xl"], xs:[".xs"], sa:[".sa"], tms:[".tms"], od:[".od"], dv:[".dv"], pp:[".pp"]};
 // Q14: Yi-Jun's checklist — zoomed out, the ticked cells spell "T1" and an airplane
 const XS_PIX = [".......................................#####......................", "........................................#####.....................", ".##########.....###.......................######..................", ".##########.....###........................######.................", ".##########...#####........####..............######...............", "....####......#####.........####...............######.............", "....####........###..........####...............######............", "....####........###...........####................######..........", "....####........###........######################################.", "....####........###........######################################.", "....####........###...........####................######..........", "....####........###..........####...............######............", "....####........###.........####...............######.............", "....####......#######......####..............######...............", "....####......#######......................######.................", "..........................................######..................", "........................................#####.....................", ".......................................#####......................"];
