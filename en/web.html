@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Loading…</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 "Segoe UI","Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif;color:#242424;background:#fff}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+:root{--brand:#0f6cbd}
+
+body input,body select{border:1px solid #c8c8c8;border-radius:3px;padding:6px 8px;font:inherit;width:100%;background:#fff}
+body label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#444}
+.wt-w{overflow-x:auto;margin:0 20px 20px}
+.wt{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+.wt th,.wt td{border:1px solid #dcdcdc;padding:7px 10px;text-align:left}
+.wt th{background:#f4f6f9;font-weight:600}
+.ct-h{background:#1d3a6e;color:#fff;padding:14px 20px;font-size:17px;font-weight:700;letter-spacing:1px}
+.ct-h small{display:block;font-size:12px;font-weight:400;opacity:.8;letter-spacing:0}
+.ct-bc{padding:10px 20px;font-size:12px;color:#666;border-bottom:1px solid #e5e5e5}
+.ct-f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:16px 20px;align-items:end}
+.ct-go{background:#1d3a6e;color:#fff;border-radius:3px;padding:8px 18px;font-weight:600}
+.ct-msg{margin:0 20px 16px;color:#a4262c}
+.ct-note{margin:0 20px 20px;font-size:12px;color:#777;line-height:1.7}
+.hc-h{background:#3f5a3a;color:#f6efe0;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hc-h b{font-size:18px;letter-spacing:2px}
+.hc-h b,.hc-h span{cursor:pointer}
+.hc-h span{font-size:13px;opacity:.85}.hc-h span:hover,.hc-h span.on{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.hc-hero{background:linear-gradient(120deg,#efe6d2,#e3d3ae);color:#3f5a3a;padding:34px 24px;display:flex;flex-direction:column;gap:6px}
+.hc-hero small{letter-spacing:3px;font-size:11px}.hc-hero b{font-size:22px}.hc-hero span{font-size:13px;color:#6b5d3e}
+.hc-sec .wt-w{margin:0 0 12px}.hc-sec{padding:6px 20px 10px}.hc-sec h3{font-size:15px;color:#3f5a3a;margin:14px 0 10px}
+.hc-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.hc-card{border:1px solid #e6dcc6;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:2px;position:relative}
+.hc-card i{height:70px;border-radius:4px;background:#f4ecda;margin-bottom:6px}.hc-card span{color:#888;font-size:13px}
+.hc-card em{position:absolute;top:14px;left:14px;background:#3f5a3a;color:#fff;font-style:normal;font-size:11px;padding:1px 6px;border-radius:3px}
+.hc-news{list-style:none;padding:0;margin:0}.hc-news li{padding:8px 0;border-bottom:1px solid #eee;font-size:13px}.hc-news time{color:#888;margin-right:12px}
+.hc-note{color:#666;font-size:13px}.hc-ft{margin-top:24px;padding:14px 20px;background:#f4f1ea;color:#888;font-size:12px}
+.hc-ban{background:#efe6d2;color:#3f5a3a;padding:18px 20px;font-weight:600}
+.hc-box{max-width:360px;margin:20px;display:flex;flex-direction:column;gap:12px}
+.hc-go{background:#3f5a3a;color:#fff;border-radius:3px;padding:8px 18px;font-weight:600;align-self:flex-start}
+.hc-tabs{display:flex;gap:4px;padding:12px 20px 0;border-bottom:1px solid #ddd}
+.hc-tabs button{padding:8px 14px;border-radius:4px 4px 0 0}
+.hc-tabs button.on{background:#3f5a3a;color:#fff}
+.hc-who{padding:14px 20px 4px;color:#444}
+.hc-again{border:1px solid #3f5a3a;color:#3f5a3a;border-radius:3px;padding:2px 8px;font-size:12px}
+.hc-err{color:#a4262c;font-size:13px;min-height:1em}
+.pt-h{background:#1b5e3b;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.pt-h b{font-size:17px;letter-spacing:1px;cursor:pointer}.pt-h span{font-size:13px;opacity:.85;cursor:pointer}.pt-h span.on,.pt-h span:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.pt-h i{margin-left:auto;font-style:normal;font-size:12px;opacity:.85}
+.pt-sec{padding:6px 20px 10px}.pt-sec h3{font-size:15px;color:#1b5e3b;margin:14px 0 10px}
+.pt-sec .wt-w{margin:0 0 12px}.pt-q{display:flex;gap:8px;max-width:460px;margin-bottom:12px}.pt-q input{flex:1}
+.pt-go{background:#1b5e3b;color:#fff;border-radius:3px;padding:6px 16px;font-weight:600;white-space:nowrap}
+.pt-row{cursor:pointer}.pt-row:hover td{background:#f3f8f5}.pt-dt{border:1px solid #cfe3d7;background:#f6fbf8;border-radius:4px;padding:12px 16px;margin:0 0 14px;font-size:13px;line-height:1.9;max-width:560px}
+.ms-bg{min-height:100vh;background:#f2f2f2;display:flex;align-items:center;justify-content:center;padding:20px}
+.ms-box{background:#fff;width:440px;max-width:100%;padding:40px 44px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.ms-logo{display:flex;align-items:center;gap:8px;font-size:15px;color:#5e5e5e;margin-bottom:18px}.ms-logo i{display:grid;grid-template-columns:9px 9px;gap:1px}.ms-logo i b{width:9px;height:9px}
+.ms-box h1{font-size:24px;font-weight:600;margin:0 0 6px}.ms-box p{margin:0 0 18px;font-size:13px;color:#555}
+.ms-acc{display:flex;align-items:center;gap:12px;width:100%;padding:12px 8px;text-align:left;border-top:1px solid #e5e5e5}.ms-acc:hover{background:#f2f2f2}
+.ms-acc span{width:40px;height:40px;border-radius:50%;background:#1b5e3b;color:#fff;display:grid;place-items:center;font-weight:600;flex:none}
+.ms-acc small{display:block;color:#666}.ms-err{color:#a4262c;font-size:13px;margin-top:10px;min-height:1em}
+.pt-land{min-height:100vh;background:linear-gradient(135deg,#1b5e3b,#2f7d55);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center}
+.pt-land b{font-size:26px;letter-spacing:2px}.pt-land small{opacity:.85}.pt-land button{background:#fff;color:#1b5e3b;border-radius:4px;padding:10px 26px;font-weight:600;margin-top:10px}
+body a{color:var(--brand)}
+@media (max-width:700px){.ct-f{grid-template-columns:1fr 1fr}.wt-w{margin:0 12px 16px}}
+</style>
+</head>
+<body>
+<main id="web-pg"></main>
+<script>
+const webPg = document.getElementById("web-pg");
+const COURT_HEAR = [["2026/09/24", "10:00", "Courtroom 12", "Preparatory hearing", "30 min"], ["2026/11/05", "14:30", "Courtroom 12", "Oral argument", "60 min"]];
+const HC_ORDERS = [
+  ["10/29 (Thu) 13:42", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["10/22 (Thu) 13:40", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["10/15 (Thu) 13:41", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["10/8 (Thu) 13:40", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["10/1 (Thu) 11:05", "Group order · 12 drinks", 640, "12F pantry", "Delivery 15:30"],
+  ["9/30 (Wed) 14:48", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 15:00"],
+  ["9/24 (Thu) 13:40", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["9/24 (Thu) 11:02", "Group order · 11 drinks", 585, "12F pantry", "Delivery 15:30"],
+  ["9/17 (Thu) 13:41", "Four Seasons Oolong · light sugar, no ice ×1", 35, "B1 Meeting Room", "Deliver by 14:00"],
+  ["9/17 (Thu) 11:00", "Group order · 12 drinks", 615, "12F pantry", "Delivery 15:30"],
+];
+let web = {site:"", hcIn:false, hcTab:"o", hcPg:"home", ptPg:"home", ptQ:"", ptOpen:-1, ptAuth:0};
+// portal sign-in state is shared across tabs (same-origin localStorage)
+const ptIn = () => { try { return localStorage.getItem("qinghe-portal-in") === "1"; } catch (_) { return false; } };
+// employee portal: player's name and domain match the game tab
+const PLAYER = (() => { try { return JSON.parse(localStorage.getItem("qinghe-en-player")) || {}; } catch (_) { return {}; } })();
+const PT_ME = PLAYER.name || "Xiao-Ming Wang", PT_DOM = (PLAYER.acct || "@qinghe-foods.com.tw").split("@")[1];
+// directory: [name, English name, employee ID, department, title, ext., account]
+const PT_DIR = [
+  ["Cheng-Hsiung Ho", "—", "A0001", "Chairman's Office", "Chairman", "1200", "ch.ho"],
+  ["Yi-Jun Chen", "—", "A0012", "Chairman's Office", "Secretary", "1201", "yijun.chen"],
+  ["Mei-Ling Chang", "—", "F0003", "Finance", "CFO", "2201", "ml.chang"],
+  ["Pei-Shan Wu", "—", "F0021", "Finance", "Chief Accountant", "2210", "ps.wu"],
+  ["Ming-Lun Chang", "—", "F0047", "Finance", "Cashier", "2215", "minglun.chang"],
+  ["Chih-Cheng Su", "Jason Su", "P0105", "Corporate Planning", "Manager", "3105", "jc.su"],
+  ["Tzu-Ching Lin", "—", "P0131", "Corporate Planning", "Specialist", "3112", "tzuching.lin"],
+  [PT_ME, "—", "P0140", "Corporate Planning", "Specialist", "3118", (PLAYER.acct || "xiaoming.wang").split("@")[0]],
+  ["Mei-Chi Liang", "—", "H0008", "Human Resources", "Specialist", "1103", "mc.liang"],
+  ["Li-Cheng Huang", "—", "I0015", "IT Department", "Engineer", "1502", "lc.huang"],
+];
+// parcels (logged by General Affairs): [arrived, recipient, sender, qty, pickup, status, details]
+const PT_PKG = [
+  ["11/4 10:12", `${PT_ME} (P0140)`, "Shopee", 1, "Self pickup at 1F management office", "Waiting", "Standard parcel."],
+  ["11/4 11:40", "Tzu-Ching Lin (P0131)", "Books.com.tw", 2, "Self pickup at 1F management office", "Waiting", "Standard parcel."],
+  ["11/4 16:55", "M.L.C. (F0003)", "DHL Express (Hong Kong)", 1, "Booked pickup by recipient", "Booked", "Sender: Harborline Capital Ltd. (Central, Hong Kong)<br>Contents: Documents<br>Signature: recipient must sign in person with ID; no proxy pickup<br>Booked pickup: <b>11/5 (Thu) 07:30</b> · 1F management office<br>Booked by account: F0003"],
+  ["11/3 09:20", "Pei-Shan Wu (F0021)", "Chunghwa Post (registered)", 1, "Self pickup at 1F management office", "Collected", "Collected in person 11/3 12:05."],
+  ["11/2 14:08", "Chih-Cheng Su (P0105)", "T-Cat", 1, "Self pickup at 1F management office", "Collected", "Collected in person 11/2 17:40."],
+];
+const PT_PATH = {home:"/", dir:"/directory", att:"/attendance", room:"/rooms", pkg:"/services/parcels"};
+const WEB = {
+  court: {url:"https://www.judicial.gov.tw/hearing/query", title:"Court Hearing Schedule Lookup - Judicial Yuan", draw: () => `<div class="ct-h">Judicial Yuan<small>Court Hearing Schedule Lookup</small></div>
+<div class="ct-bc">Home › Public Services › Lookups › Court Hearing Schedule</div>
+<form class="ct-f" id="ct-f"><label>Court<select id="ct-c"><option value="">Select</option><option>Taiwan High Court</option><option value="tp">Taiwan Taipei District Court</option><option>Taiwan Shilin District Court</option><option>Taiwan New Taipei District Court</option></select></label>
+<label>Year (ROC)<input id="ct-y" inputmode="numeric" placeholder="e.g. 115"></label>
+<label>Case type<select id="ct-w"><option value="su">Su (civil)</option><option value="cs">Chien-Shang</option><option value="zs">Chung-Su</option><option value="yi">Yi</option><option value="sh">Sheng</option></select></label>
+<label>Case no.<input id="ct-n" inputmode="numeric" placeholder="e.g. 123"></label>
+<button class="ct-go">Search</button></form><div id="ct-r"></div>
+<p class="ct-note">※ Hearing times are for reference only; each court's official notice prevails. The estimated duration is the time slot the court has scheduled. ROC year 115 = 2026.</p>`},
+  portal: {get url(){ return "https://portal." + PT_DOM + PT_PATH[web.ptPg]; }, title:"Qinghe Foods Employee Portal", draw: () => ptIn() ? PT_NAV() + PT_PG[web.ptPg]() : PT_LOGIN()},
+  hecha: {get url(){ return "https://www.hecha-tea.com.tw" + HC_PATH[web.hcPg]; }, title:"HECHA TEA | Great tea starts at the farm", draw: () => HC_NAV() + HC_PG[web.hcPg]() + `<div class="hc-ft">Hecha Tea Co., Ltd. · Customer service 0800-123-786 (Mon–Fri 9:00–18:00)<br>© 2026 HECHA TEA. All rights reserved.</div>`},
+};
+const MS_LOGO = `<div class="ms-logo"><i><b style="background:#f25022"></b><b style="background:#7fba00"></b><b style="background:#00a4ef"></b><b style="background:#ffb900"></b></i>Microsoft</div>`;
+const PT_ACCT = PLAYER.acct || "xiaoming.wang@qinghe-foods.com.tw";
+const PT_LOGIN = () => web.ptAuth === 0
+  ? `<div class="pt-land"><b>Qinghe Foods Employee Portal</b><small>QINGHE FOODS EMPLOYEE PORTAL</small><small>Please sign in with your company account</small><button data-pta="1">Sign in with company account</button></div>`
+  : `<div class="ms-bg"><div class="ms-box">${MS_LOGO}<h1>Pick an account</h1><p>to continue to "Qinghe Foods Employee Portal"</p>
+<button class="ms-acc" data-pta="in"><span>${PT_ME[0]}</span><div>${PT_ME}<small>${PT_ACCT}</small><small>Signed in</small></div></button>
+<button class="ms-acc" data-pta="other"><span style="background:#e1e1e1;color:#555">+</span><div>Use another account</div></button><div class="ms-err" id="ms-err"></div></div></div>`;
+const PT_NAV = () => `<div class="pt-h"><b data-ptp="home">Qinghe Foods Employee Portal</b>${[["dir","Directory"],["att","Attendance"],["room","Meeting rooms"],["pkg","Parcels"]].map(([k, t]) => `<span data-ptp="${k}" class="${web.ptPg === k ? "on" : ""}">${t}</span>`).join("")}<i>${PT_ME} · <a href="#" id="pt-out" style="color:#fff">Sign out</a></i></div>`;
+const PT_PG = {
+  home: () => `<div class="pt-sec"><h3>Announcements</h3><ul class="hc-news"><li><time>2026/11/02</time>November birthdays: please collect your gift voucher at the 3F Welfare Committee by 11/13</li><li><time>2026/10/28</time>Registration open for the second company trip (2 days in Hualien)</li><li><time>2026/11/02</time>Parcels are now logged centrally by General Affairs — check "Parcels"</li></ul>
+<h3>Quick links</h3><ul class="hc-news"><li><a href="#portal/dir">Directory</a> · Look up colleagues' extensions, employee IDs and email</li><li><a href="#portal/pkg">Parcels</a> · Parcels received by the building management office</li></ul></div>`,
+  dir: () => { const q = web.ptQ.trim().toLowerCase(), r = q ? PT_DIR.filter(d => d.join(" ").toLowerCase().includes(q)) : PT_DIR;
+    return `<div class="pt-sec"><h3>Directory</h3><form class="pt-q" id="pt-q"><input id="pt-in" value="${web.ptQ.replace(/"/g, "&quot;")}" placeholder="Name, English name, employee ID, department or ext." autocomplete="off"><button class="pt-go">Search</button></form>
+${r.length ? `<div class="wt-w"><table class="wt"><tr><th>Name</th><th>English name</th><th>Employee ID</th><th>Department</th><th>Title</th><th>Ext.</th><th>Email</th></tr>${r.map(d => `<tr><td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td><td>#${d[5]}</td><td>${d[6]}@${PT_DOM}</td></tr>`).join("")}</table></div>` : `<p class="hc-note">No colleagues match "${web.ptQ.replace(/</g, "&lt;")}".</p>`}</div>`; },
+  att: () => `<div class="pt-sec"><h3>My attendance · November 2026</h3><div class="wt-w"><table class="wt"><tr><th>Date</th><th>Clock in</th><th>Clock out</th><th>Status</th></tr>
+<tr><td>11/2 (Mon)</td><td>08:52</td><td>—</td><td>Normal (first day)</td></tr><tr><td>11/3 (Tue)</td><td>—</td><td>—</td><td>—</td></tr><tr><td>11/4 (Wed)</td><td>—</td><td>—</td><td>—</td></tr></table></div>
+<p class="hc-note">Annual leave: 0 days (granted after six months) · Comp time: 0 hours</p><p class="hc-note">For leave or overtime requests, contact your department admin. Online requests open in December.</p></div>`,
+  room: () => `<div class="pt-sec"><h3>Meeting rooms</h3><div class="wt-w"><table class="wt"><tr><th>Room</th><th>Floor</th><th>Capacity</th><th>Equipment</th><th>Booking</th></tr>
+<tr><td>Main Conference Room</td><td>12F</td><td>20</td><td>Projector, video</td><td>Book via Outlook calendar</td></tr><tr><td>Conference Room 2</td><td>12F</td><td>8</td><td>TV</td><td>Book via Outlook calendar</td></tr>
+<tr><td>Boardroom</td><td>15F</td><td>16</td><td>Projector, recording</td><td>Chairman's Office only</td></tr><tr><td>B1 Meeting Room</td><td>B1</td><td>6</td><td>—</td><td>Under renovation, online booking suspended</td></tr></table></div></div>`,
+  pkg: () => `<div class="pt-sec"><h3>Parcels</h3><p class="hc-note">Parcels received by the building management office are logged daily by General Affairs. Click a row for details.</p>
+<div class="wt-w"><table class="wt"><tr><th>Arrived</th><th>Recipient</th><th>Sender</th><th>Qty</th><th>Pickup</th><th>Status</th></tr>${PT_PKG.map((k, i) => `<tr class="pt-row" data-pk="${i}"><td>${k[0]}</td><td>${k[1]}</td><td>${k[2]}</td><td>${k[3]}</td><td>${k[4]}</td><td>${k[5]}</td></tr>${web.ptOpen === i ? `<tr><td colspan="6" style="white-space:normal"><div class="pt-dt">${k[6]}</div></td></tr>` : ""}`).join("")}</table></div></div>`,
+};
+const HC_PATH = {home:"/", menu:"/menu", store:"/stores", biz:"/business", mem:"/member/login"};
+const HC_NAV = () => `<div class="hc-h"><b data-hcp="home">Hecha Tea</b>${[["menu","Menu"],["store","Stores"],["biz","Corporate Orders"],["mem","Member Center"]].map(([k, t]) => `<span data-hcp="${k}" class="${web.hcPg === k ? "on" : ""}">${t}</span>`).join("")}</div>`;
+const HC_PG = {
+  home: () => `<div class="hc-hero"><small>WINTER SEASON</small><b>Winter special · Osmanthus Oolong Latte</b><span>Limited quantities at all stores from 11/1 — members get the second cup half price</span></div>
+<div class="hc-sec"><h3>This season's picks</h3><div class="hc-cards">${[["Osmanthus Oolong Latte","$65","Winter only"],["Four Seasons Oolong","$35","#1 seller"],["Roasted Tieguanyin","$40","Staff pick"],["Brown Sugar Boba Milk","$60",""]].map(c => `<div class="hc-card"><i></i><b>${c[0]}</b><span>${c[1]}</span>${c[2] ? `<em>${c[2]}</em>` : ""}</div>`).join("")}</div></div>
+<div class="hc-sec"><h3>Latest news</h3><ul class="hc-news"><li><time>2026/10/28</time>Winter special "Osmanthus Oolong Latte" launches 11/1</li><li><time>2026/10/15</time>Taipei Nanjing store closed 10/20–10/22 for renovation</li><li><time>2026/10/01</time>Changes to the member points program</li><li><time>2026/09/10</time>Holiday gift box pre-orders open — special rates for corporate orders</li></ul></div>`,
+  menu: () => `<div class="hc-sec"><h3>Menu</h3><div class="wt-w"><table class="wt"><tr><th>Pure leaf tea</th><th>Medium</th><th>Large</th></tr><tr><td>Four Seasons Oolong</td><td>$30</td><td>$35</td></tr><tr><td>Jasmine Green Tea</td><td>$30</td><td>$35</td></tr><tr><td>Roasted Tieguanyin</td><td>$35</td><td>$40</td></tr><tr><td>Osmanthus Oolong Latte (winter only)</td><td>—</td><td>$65</td></tr><tr><td>Brown Sugar Boba Milk</td><td>—</td><td>$60</td></tr></table></div><p class="hc-note">Sugar: regular / less / half / light / none · Ice: regular / less / light / none / warm / hot</p></div>`,
+  store: () => `<div class="hc-sec"><h3>Stores</h3><ul class="hc-news"><li><b>Taipei Nanjing</b> · No. 88, Sec. 2, Nanjing E. Rd., Zhongshan Dist., Taipei · 10:00–21:00</li><li><b>Taipei Xinyi</b> · No. 36, Songren Rd., Xinyi Dist., Taipei · 10:00–21:30</li><li><b>New Taipei Banqiao</b> · No. 210, Sec. 1, Wenhua Rd., Banqiao Dist., New Taipei · 10:30–21:00</li></ul></div>`,
+  mem: () => `<form class="hc-box" id="hc-mem"><b>Member sign-in</b><label>Mobile number<input id="hc-m" inputmode="numeric" autocomplete="off" placeholder="09xxxxxxxx"></label><label>Password<input type="password" autocomplete="off"></label><div class="hc-err" id="hc-m-err"></div><button class="hc-go">Sign in</button><small style="color:#888">Not a member yet? Download the Hecha Tea app to join.</small></form>`,
+  biz: () => web.hcIn ? HC_DASH() : `<div class="hc-ban">Business orders · Free delivery on 10+ drinks, same-day across Greater Taipei</div>
+<div class="hc-sec"><h3>Plans</h3><div class="wt-w"><table class="wt"><tr><th>Plan</th><th>Details</th></tr><tr><td>Group delivery</td><td>Free delivery on 10+ drinks per order; 5% off 30+ drinks</td></tr><tr><td>Monthly billing</td><td>Business accounts are billed monthly; statements sent on the 5th</td></tr><tr><td>Partner stores</td><td>Employees of partner companies get 10% off in store with their staff ID</td></tr></table></div>
+<h3>How to order</h3><ol class="hc-note"><li>Call or email us to open a business account (business@hecha-tea.com.tw)</li><li>Appoint an organizer, who signs in to the Corporate Member Login to order</li><li>Once confirmed, the store delivers at the time you choose</li></ol></div>
+<form class="hc-box" id="hc-lg"><b>Corporate Member Login</b><small style="color:#888">Organizers with an active business account can sign in here to order and view orders.</small><label>Business account<input id="hc-u" autocapitalize="off" autocomplete="off"></label><label>Password<input id="hc-p" type="password" autocomplete="off"></label><div class="hc-err" id="hc-err"></div><button class="hc-go">Sign in</button></form>`,
+};
+const HC_TABS = [["o","Order History"],["r","Scheduled orders"],["g","Organizer settings"]];
+const HC_RSV = `<tr><td>Every Thu 13:40</td><td>Four Seasons Oolong · light sugar, no ice ×1</td><td>B1 Meeting Room</td><td>Yi-En Chou (2026/9/16)</td><td>Active</td><td>11/5 (Thu)</td></tr>`;
+const HC_DASH = () => `<div class="hc-who">Qinghe Foods Co., Ltd. · Corporate Planning (business account qinghe-plan) · Organizer: <b>Yi-En Chou</b> · <a href="#" id="hc-out">Sign out</a></div>
+<div class="hc-tabs">${HC_TABS.map(([k, t]) => `<button data-hc="${k}" class="${web.hcTab === k ? "on" : ""}">${t}</button>`).join("")}</div>` + ({
+  o: () => `<p style="margin:14px 20px 10px;color:#666;font-size:13px">Orders from the last 60 days</p><div class="wt-w"><table class="wt"><tr><th>Ordered</th><th>Items</th><th>Amount</th><th>Deliver to</th><th>Notes</th><th></th></tr>${HC_ORDERS.map(o => `<tr><td>${o[0]}</td><td>${o[1]}</td><td>$${o[2]}</td><td>${o[3]}</td><td>${o[4]}</td><td>${/Group order/.test(o[1]) ? `<button class="hc-again" data-again="${o[1]}|${o[2]}">Order again</button>` : ""}</td></tr>`).join("")}</table></div>`,
+  r: () => `<p style="margin:14px 20px 10px;color:#666;font-size:13px">Scheduled orders are placed automatically at the set time and billed monthly to the business account.</p><div class="wt-w"><table class="wt"><tr><th>Delivery time</th><th>Items</th><th>Deliver to</th><th>Created by</th><th>Status</th><th>Next delivery</th></tr>${HC_RSV}</table></div>`,
+  g: () => `<form class="hc-box" id="hc-g"><label>Current organizer<input value="Yi-En Chou" disabled></label><label>New organizer's name<input id="hc-g-n" autocomplete="off"></label><div class="hc-err" id="hc-g-err"></div><button class="hc-go">Request transfer</button></form>`,
+  n: () => `<form class="hc-box" id="hc-n" style="max-width:420px"><b>Confirm order</b><label>Items<input value="${web.again[0]} (same as 10/1 order)" disabled></label>
+<label>Delivery date<select id="hc-d"><option value="">Select</option>${["11/3 (Tue)","11/4 (Wed)","11/5 (Thu)","11/6 (Fri)"].map(d => `<option>${d}</option>`).join("")}</select></label>
+<label>Delivery time<select id="hc-t"><option value="">Select</option>${["14:00","14:30","15:00","15:30","16:00"].map(d => `<option>${d}</option>`).join("")}</select></label>
+<label>Deliver to<input id="hc-l" value="12F pantry" autocomplete="off"></label><div style="font-size:13px;color:#666">Amount $${Math.round(web.again[1] * .9)} (partner 10% off) · monthly billing</div><div class="hc-err" id="hc-n-err"></div><button class="hc-go">Place order</button></form>`,
+  ok: () => `<div class="hc-box" style="max-width:520px"><b style="font-size:17px;color:#3f5a3a">✓ Order placed</b><div>Order no. ${web.last.no}</div><div>${web.again[0]} · delivered ${web.last.d} ${web.last.t} to ${web.last.l}</div><div style="color:#666;font-size:13px">A confirmation has been sent to the account's linked mailbox, plan@qinghe-foods.com.tw.</div></div>
+<p style="margin:0 20px 8px;font-size:13px;color:#666">This account also has the following scheduled orders:</p><div class="wt-w"><table class="wt"><tr><th>Delivery time</th><th>Items</th><th>Deliver to</th><th>Created by</th><th>Status</th><th>Next delivery</th></tr>${HC_RSV}</table></div>`,
+}[web.hcTab])();
+function openWeb(site){
+  web.site = site; const w = WEB[site];
+  webPg.innerHTML = w.draw(); document.title = w.title; scrollTo(0, 0);
+}
+// URLs #court, #hecha, #hecha/biz; pages use the hash so the browser back button works
+function route(){ const [site, pg] = location.hash.slice(1).split("/"); if (!WEB[site]) return; if (site === "hecha") web.hcPg = HC_PATH[pg] ? pg : "home"; if (site === "portal") web.ptPg = PT_PATH[pg] ? pg : "home"; openWeb(site); }
+addEventListener("hashchange", route);
+webPg.addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target;
+  if (f.id === "ct-f"){
+    const c = document.getElementById("ct-c").value, y = document.getElementById("ct-y").value.trim(), w = document.getElementById("ct-w").value, n = document.getElementById("ct-n").value.trim().replace(/^0+/, "");
+    const r = document.getElementById("ct-r");
+    if (!c) return r.innerHTML = `<p class="ct-msg">Please select a court.</p>`;
+    if (c === "tp" && y === "115" && w === "su" && n === "812")
+      return r.innerHTML = `<p style="margin:0 20px 10px">Taiwan Taipei District Court · Case No. 115-Su-812 · Payment for goods</p><div class="wt-w"><table class="wt"><tr><th>Hearing date</th><th>Time</th><th>Courtroom</th><th>Type</th><th>Est. duration</th></tr>${COURT_HEAR.map(h => `<tr>${h.map(x => `<td>${x}</td>`).join("")}</tr>`).join("")}</table></div>`;
+    return r.innerHTML = `<p class="ct-msg">No records found. Please check the court, year, case type and case number.</p>`;
+  }
+  if (f.id === "pt-q"){ web.ptQ = document.getElementById("pt-in").value; return openWeb("portal"); }
+  if (f.id === "hc-lg"){
+    const u = document.getElementById("hc-u").value.trim().toLowerCase(), pw = document.getElementById("hc-p").value.trim();
+    if (u === "qinghe-plan" && pw === "hecha3109"){ web.hcIn = true; web.hcTab = "o"; return openWeb("hecha"); }
+    return document.getElementById("hc-err").textContent = "Incorrect account or password. Please try again.";
+  }
+  if (f.id === "hc-mem") return document.getElementById("hc-m-err").textContent = /^09\d{8}$/.test(document.getElementById("hc-m").value.trim()) ? "Incorrect mobile number or password." : "Please enter a 10-digit mobile number.";
+  if (f.id === "hc-n"){
+    const d = document.getElementById("hc-d").value, t = document.getElementById("hc-t").value, l = document.getElementById("hc-l").value.trim();
+    if (!d || !t || !l) return document.getElementById("hc-n-err").textContent = "Please choose a delivery date and time and enter a location.";
+    web.last = {d, t, l, no:"HC1105-0" + (312 + (web.n = (web.n || 0) + 1))}; HC_ORDERS.unshift(["11/2 (Mon) " + new Date().toTimeString().slice(0, 5), web.again[0], Math.round(web.again[1] * .9), l, `Delivery ${d} ${t}`]);
+    // notify the game tab (storage event on same-origin localStorage)
+    try { localStorage.setItem("qinghe-hc-order", JSON.stringify({...web.last, at:Date.now()})); } catch (_) {}
+    web.hcTab = "ok"; return openWeb("hecha");
+  }
+  if (f.id === "hc-g"){
+    const n = document.getElementById("hc-g-n").value.trim();
+    document.getElementById("hc-g-err").textContent = !n ? "Please enter the new organizer's name." : "Transfers must be verified by SMS from the current organizer, whose mobile number has been disconnected. Please contact customer service.";
+  }
+});
+webPg.addEventListener("click", e => {
+  const pg = e.target.closest("[data-hcp]"); if (pg){ location.hash = "hecha/" + pg.dataset.hcp; return; }
+  const pp = e.target.closest("[data-ptp]"); if (pp){ location.hash = "portal/" + pp.dataset.ptp; return; }
+  const pa = e.target.closest("[data-pta]"); if (pa){ const v = pa.dataset.pta;
+    if (v === "1"){ web.ptAuth = 1; return openWeb("portal"); }
+    if (v === "other") return document.getElementById("ms-err").textContent = "This app only accepts Qinghe Foods domain accounts.";
+    try { localStorage.setItem("qinghe-portal-in", "1"); } catch (_) {} web.ptAuth = 0; return openWeb("portal"); }
+  const pk = e.target.closest("[data-pk]"); if (pk){ web.ptOpen = web.ptOpen === +pk.dataset.pk ? -1 : +pk.dataset.pk; return openWeb("portal"); }
+  const a = e.target.closest("[data-again]"); if (a){ const [n, p] = a.dataset.again.split("|"); web.again = [n, +p]; web.hcTab = "n"; return openWeb("hecha"); }
+  const t = e.target.closest("[data-hc]"); if (t){ web.hcTab = t.dataset.hc; return openWeb("hecha"); }
+  if (e.target.closest("#pt-out")){ e.preventDefault(); try { localStorage.removeItem("qinghe-portal-in"); } catch (_) {} return openWeb("portal"); }
+  if (e.target.closest("#hc-out")){ e.preventDefault(); web.hcIn = false; openWeb("hecha"); }
+});
+route();
+</script>
+</body>
+</html>
