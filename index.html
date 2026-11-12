@@ -606,13 +606,9 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 .cmpn textarea{width:100%;min-height:260px;border:0;outline:0;font:inherit;padding:12px 0;resize:vertical}
 @media (max-width:700px){.cmpn{padding:12px 16px 32px}}
 
-/* 試玩跳關（在設定裡） */
+/* 設定：帳戶分頁 */
 .set-n span[data-pg]{cursor:pointer}
-.jump{display:flex;flex-direction:column;gap:6px;max-width:360px}
-.jump button{text-align:left;border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:14px}
-.jump button:hover{background:var(--hover)}
 .relog{margin-top:18px;color:var(--brand);font-weight:600}
-.jump button.on{border-color:var(--brand);color:var(--brand);font-weight:600}
 @media (max-width:700px){.set-n{display:flex!important;flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.set-n span{white-space:nowrap}.set-g{grid-template-rows:auto 1fr}}
 
 /* 大頭照（外部人士與系統帳號維持縮寫） */
@@ -846,9 +842,9 @@ table.sheet{border-collapse:collapse;font-size:13px;margin:0 16px 16px;min-width
 <div class="dlg" id="set"><div class="set-b">
   <div class="set-h"><b>設定</b><button id="set-x" aria-label="關閉">✕</button></div>
   <div class="set-g">
-    <nav class="set-n"><span>帳戶</span><span>一般</span><span class="on" data-pg="mail">郵件</span><span>行事曆</span><span>人員</span><span data-pg="trial">試玩跳關</span></nav>
+    <nav class="set-n"><span data-pg="trial">帳戶</span><span>一般</span><span class="on" data-pg="mail">郵件</span><span>行事曆</span><span>人員</span></nav>
     <nav class="set-n2" id="pg-mail2"><span>版面配置</span><span>撰寫和回覆</span><span>附件</span><span class="on" data-sub="rules">規則</span><span>整理</span><span>垃圾郵件</span><span data-sub="auto">自動回覆</span></nav>
-    <div class="set-c" id="pg-trial" hidden><h3>試玩跳關</h3><p class="set-d">直接跳到某一題的開頭，前面的題目會自動當作過關。正式上線前會拿掉。</p><div class="jump" id="jump"></div><button class="relog" id="relog">重新登入（換姓名、稱謂、信箱）</button></div>
+    <div class="set-c" id="pg-trial" hidden><h3>帳戶</h3><p class="set-d">切換登入的姓名、稱謂與信箱帳號。</p><button class="relog" id="relog">重新登入（換姓名、稱謂、信箱）</button></div>
     <div class="set-c" id="pg-mail">
       <h3 id="sub-h">規則</h3>
       <label class="set-mb">信箱 <select id="set-mb"><option value="me">王小明</option></select></label>
@@ -2404,14 +2400,11 @@ if (startQ > 1){
   skipping = false;
   openFold("inbox"); show(MAILS[0].id); document.body.classList.remove("reading");
 }
-const jump = document.getElementById("jump");
 document.getElementById("relog").onclick = () => { try { localStorage.removeItem("qinghe-player"); } catch (e) {} location.search = ""; };
-jump.innerHTML = Q_NAMES.map((n, i) => `<button data-q="${i + 1}" class="${i + 1 === startQ ? "on" : ""}">第 ${i + 1} 題：${n}${i + 1 === startQ ? "（目前）" : ""}</button>`).join("");
 document.querySelector(".set-n").addEventListener("click", e => { const t = e.target.closest("[data-pg]"); if (!t) return;
   document.querySelectorAll(".set-n span").forEach(x => x.classList.toggle("on", x === t));
   const trial = t.dataset.pg === "trial";
   document.getElementById("pg-trial").hidden = !trial; document.getElementById("pg-mail").hidden = trial; document.getElementById("pg-mail2").style.display = trial ? "none" : ""; });
-jump.addEventListener("click", e => { const b = e.target.closest("button[data-q]"); if (b) location.search = "?q=" + b.dataset.q; });
 
 </script>
 </body>
